@@ -9,7 +9,7 @@ class DataBase:
         Output - none
         Create a new database to the user with 1 table of contact_list
         """
-        con = sqlite3.connect('my_data')
+        con = sqlite3.connect('my_data.db')
         con.execute(''' CREATE TABLE IF NOT EXISTS contact_list(
         NICK_NAME PRIMARY KEY TEXT NOT NULL,
         FIRST_NAME TEXT NOT NULL,
@@ -165,5 +165,3 @@ class DataBase:
         con.commit()
         con.close()
 
-    def delete_database(self):
-        
