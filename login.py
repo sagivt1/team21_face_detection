@@ -12,11 +12,13 @@ from singup import Ui_MainWindow
 
 
 class Ui_Dialog(object):
-    def connectCheck(self):
-        self.singupWindow=QtGui.QUi_MainWindow()
+
+    def singUpBegin(self):
+        self.singupWindow = QtGui.QMainWindow()
         self.ui=Ui_MainWindow()
         self.setupUi(self.singupWindow)
         self.singupWindow.show()
+
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(541, 450)
@@ -52,6 +54,7 @@ class Ui_Dialog(object):
         self.singup_botton = QtWidgets.QPushButton(Dialog)
         self.singup_botton.setGeometry(QtCore.QRect(160, 320, 93, 28))
         self.singup_botton.setObjectName("singup_botton")
+
         self.username_box = QtWidgets.QTextBrowser(Dialog)
         self.username_box.setGeometry(QtCore.QRect(130, 204, 191, 31))
         self.username_box.setFrameShape(QtWidgets.QFrame.Box)
@@ -60,7 +63,6 @@ class Ui_Dialog(object):
         self.connect_botton = QtWidgets.QPushButton(Dialog)
         self.connect_botton.setGeometry(QtCore.QRect(290, 320, 93, 28))
         self.connect_botton.setObjectName("connect_botton")
-        self.connect_botton.clicked.connect(self.connectCheck)
         self.CU = QtWidgets.QLabel(Dialog)
         self.CU.setGeometry(QtCore.QRect(210, 70, 131, 101))
         font = QtGui.QFont()
