@@ -1,6 +1,5 @@
 import sqlite3
 
-
 class DataBase:
     def __init__(self):
         """
@@ -115,6 +114,28 @@ class DataBase:
             con.commit()
             con.close()
             return True
+
+    def update_last_name(self, nick, last_name):
+        """
+        Input - nick name and new first name of the type string
+        Output - True or False is success
+        Update a specific contact first name
+        """
+        con = sqlite3.connect('my_data')
+        data = con.execute(''' SELECT NICK_NAME,FIRST_NAME,LAST_NAME FROM contact_list WHERE NICK_NAME = :NICK_NAME
+                           ''', {'NICK_NAME': nick})
+        check = data.fetchone()
+        if not check:
+            con.close()
+            return False
+        else:
+            con.execute(''' UPDATE contact_list SET FIRST_NAME = :LAST_NAME WHERE NICK_NAME = :NICK-NAME
+               ''', {'LAST_NAME': last_name, 'NICK_NAME': nick})
+            con.commit()
+            con.close()
+            return True
+
+        
 
 
 
