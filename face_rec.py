@@ -85,6 +85,7 @@ def classify_face(im):
         if cv2.waitKey(1) & 0xFF == ord('q'):
             return face_names
             
+print(classify_face("test.jpg"))
 
 
 
