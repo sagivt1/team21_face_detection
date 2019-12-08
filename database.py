@@ -1,4 +1,6 @@
 import sqlite3
+from datetime import date
+
 
 class DataBase:
     def __init__(self):
@@ -39,15 +41,15 @@ class DataBase:
         con.close()
         return data
 
-    def get_contact(self,nick):
+    def get_contact(self, nick):
         """
         Input - contact nick name of the type string
         Output - return none if not found
         Return a specific contact
         """
         con = sqlite3.connect('my_data')
-        data =  con.execute(''' SELECT NICK_NAME,FIRST_NAME,LAST_NAME FROM contact_list WHERE NICK_NAME = :NICK_NAME
-        ''',{'NICK_NAME':nick})
+        data = con.execute(''' SELECT NICK_NAME,FIRST_NAME,LAST_NAME FROM contact_list WHERE NICK_NAME = :NICK_NAME
+        ''', {'NICK_NAME': nick})
         check = data.fetchone()
         con.close()
         if not check:
@@ -55,7 +57,7 @@ class DataBase:
         else:
             return data
 
-    def remove_contact(self,nick):
+    def remove_contact(self, nick):
         """
         Input - nick name of the type string
         Output - True or False is success
@@ -75,7 +77,7 @@ class DataBase:
             con.close()
             return True
 
-    def update_nick_name(self,nick,new_nick):
+    def update_nick_name(self, nick, new_nick):
         """
         Input - nick name and new nick name of the type string
         Output - True or False is success
@@ -90,12 +92,12 @@ class DataBase:
             return False
         else:
             con.execute(''' UPDATE contact_list SET NICK_NAME = :NICK_NAME_NEW WHERE NICK_NAME = :NICK-NAME
-            ''',{'NICK_NAME_NEW':new_nick,'NICK_NAME':nick})
+            ''', {'NICK_NAME_NEW': new_nick, 'NICK_NAME': nick})
             con.commit()
             con.close()
             return True
 
-    def update_first_name(self,nick,first_name):
+    def update_first_name(self, nick, first_name):
         """
         Input - nick name and new first name of the type string
         Output - True or False is success
@@ -110,7 +112,7 @@ class DataBase:
             return False
         else:
             con.execute(''' UPDATE contact_list SET FIRST_NAME = :FIRST_NAME WHERE NICK_NAME = :NICK-NAME
-            ''',{'NICK_NAME_NEW':first_name,'NICK_NAME':nick})
+            ''', {'NICK_NAME_NEW': first_name, 'NICK_NAME': nick})
             con.commit()
             con.close()
             return True
@@ -135,7 +137,33 @@ class DataBase:
             con.close()
             return True
 
+    def create_day_date_table(self):
+        """
+        Input - none
+        Output - none
+        create a new table of the date for face detection
+        """
+        con = sqlite3.connect('my_data')
+        today = date.today()
+        con.execute(''' CREATE TABLE IF NOT EXISTS :table_name 
+        TIME TEXT PRIMARY KEY NOT NULL
+        NICK_NAME TEXT NOT NULL
+        ''', {'table_name': today.strftime("%m/%d/%y")})
+        con.close()
+
+    def insert_detection(self, nick_name):
+        """
+        Input - nick name of the detection by the type of string
+        Output - none
+        insert new detection
+        """
+        con = sqlite3.connect('my_data')
+        today = date.today()
+        con.execute(''' INSERT INTO :table_name(TIME,NICK_NAME)
+         VALUES(:table_name,:NICK_NAME)
+         ''', {'table_name': today.strftime("%m/%d/%y"),'NICK_NAME':nick_name})
+        con.commit()
+        con.close()
+
+    def delete_database(self):
         
-
-
-
