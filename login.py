@@ -8,9 +8,15 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from singup import Ui_MainWindow
 
 
 class Ui_Dialog(object):
+    def connectCheck(self):
+        self.singupWindow=QtGui.QUi_MainWindow()
+        self.ui=Ui_MainWindow()
+        self.setupUi(self.singupWindow)
+        self.singupWindow.show()
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(541, 450)
@@ -54,6 +60,7 @@ class Ui_Dialog(object):
         self.connect_botton = QtWidgets.QPushButton(Dialog)
         self.connect_botton.setGeometry(QtCore.QRect(290, 320, 93, 28))
         self.connect_botton.setObjectName("connect_botton")
+        self.connect_botton.clicked.connect(self.connectCheck)
         self.CU = QtWidgets.QLabel(Dialog)
         self.CU.setGeometry(QtCore.QRect(210, 70, 131, 101))
         font = QtGui.QFont()
@@ -69,7 +76,7 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        Dialog.setWindowTitle(_translate("Dialog", "Login Form"))
         self.userpassword_label.setText(_translate("Dialog", "סיסמא"))
         self.username_label.setText(_translate("Dialog", "שם משתמש"))
         self.singup_botton.setText(_translate("Dialog", "הירשם"))
