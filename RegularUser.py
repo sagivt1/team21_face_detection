@@ -1,14 +1,11 @@
-import Person
+from Person import Person
 import database
 
 
 class RegularUser(Person):
     def __init__(self, f_name, l_name, ID, user, passWord):
-        self.f_name = f_name
-        self.passWord = passWord
-        self.user = user
-        self.ID = ID
-        self.l_name = l_name
+        Person.__init__(self, f_name, l_name, ID, user, passWord)
+
         self.data = database.DataBase()
 
     def my_contacts(self):  # todo: list of my contacts
@@ -68,11 +65,11 @@ class RegularUser(Person):
         pass
 
     def edit_my_first_name(self, new_name):
-        self.f_name = new_name
+         self.f_name= new_name
 
     def edit_my_last_name(self, new_name):
         self.l_name = new_name
 
     def edit_my_password(self, new_pass):
-        self.passWord = new_pass
+        self.passWord= new_pass
         return new_pass
