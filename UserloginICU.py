@@ -14,6 +14,9 @@ class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(462, 309)
+        Dialog.setStyleSheet("QDialog{\n"
+"background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(186, 226, 255, 255), stop:1 rgba(255, 255, 255, 255))\n"
+"}")
         self.pushButton = QtWidgets.QPushButton(Dialog)
         self.pushButton.setGeometry(QtCore.QRect(150, 50, 151, 61))
         self.pushButton.setObjectName("pushButton")
@@ -21,7 +24,7 @@ class Ui_Dialog(object):
         self.pushButton_2.setGeometry(QtCore.QRect(150, 120, 151, 61))
         self.pushButton_2.setObjectName("pushButton_2")
         self.pushButton_3 = QtWidgets.QPushButton(Dialog)
-        self.pushButton_3.setGeometry(QtCore.QRect(150, 190, 151, 61))
+        self.pushButton_3.setGeometry(QtCore.QRect(150, 200, 151, 51))
         self.pushButton_3.setObjectName("pushButton_3")
 
         self.retranslateUi(Dialog)

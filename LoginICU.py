@@ -9,31 +9,23 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from SingupICU import Ui_Dialog
-import sqlite3
 
 class Ui_MainWindow(object):
 
-    def Buttom_singup(self):
-        self.SingupWindow = QtWidgets.QDialog()
-        self.ui=Ui_Dialog()
-        self.ui.setupUi(self.SingupWindow)
-        self.SingupWindow.show()
-
-    def Buttom_login(self):
-        username= self.username_line.text()
-        password=self.userpassword_line.text()
-
-        connection=sqlite3.connect("DataBase.db")
-        restult=connection.execute("Select * from users where username = ? and password = ?",(username,password))
-        if(len(result.fetchall())>0):
-            print("User Found")
-        else:
-            print("User Not Found")
+    def ButtonSingin(self):
+        Dialog = QtWidgets.QDialog()
+        ui = Ui_Dialog()
+        ui.setupUi(Dialog)
+        Dialog.show()
+        Dialog.exec_()
 
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(630, 422)
+        MainWindow.setStyleSheet("QMainWindow {\n"
+"background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(186, 226, 255, 255), stop:1 rgba(255, 255, 255, 255))\n"
+"}")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.userpassword_line = QtWidgets.QLineEdit(self.centralwidget)
@@ -60,15 +52,17 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.username_label.setFont(font)
         self.username_label.setObjectName("username_label")
+
+
         self.login_button = QtWidgets.QPushButton(self.centralwidget)
         self.login_button.setGeometry(QtCore.QRect(350, 310, 93, 28))
         self.login_button.setObjectName("login_button")
-        self.login_button.clicked.connect(self.Buttom_login)
+
 
         self.singup_button = QtWidgets.QPushButton(self.centralwidget)
         self.singup_button.setGeometry(QtCore.QRect(190, 310, 93, 28))
         self.singup_button.setObjectName("singup_button")
-        self.singup_button.clicked.connect(self.Buttom_singup)
+        self.singup_button.clicked.connect(self.ButtonSingin)
 
 
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
@@ -81,7 +75,8 @@ class Ui_MainWindow(object):
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
         self.wrongmessage_label_2 = QtWidgets.QLabel(self.centralwidget)
-        self.wrongmessage_label_2.setGeometry(QtCore.QRect(140, 260, 291, 20))
+        self.wrongmessage_label_2.setEnabled(False)
+        self.wrongmessage_label_2.setGeometry(QtCore.QRect(150, 250, 291, 20))
         font = QtGui.QFont()
         font.setFamily("Aharoni")
         font.setPointSize(12)

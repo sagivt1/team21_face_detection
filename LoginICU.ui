@@ -14,7 +14,9 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">back_ground:rgb(255, 237, 241)</string>
+   <string notr="true">QMainWindow {
+background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(186, 226, 255, 255), stop:1 rgba(255, 255, 255, 255))
+}</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLineEdit" name="userpassword_line">
@@ -127,10 +129,13 @@
     </property>
    </widget>
    <widget class="QLabel" name="wrongmessage_label_2">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>260</y>
+      <x>150</x>
+      <y>250</y>
       <width>291</width>
       <height>20</height>
      </rect>

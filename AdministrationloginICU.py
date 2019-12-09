@@ -14,6 +14,9 @@ class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(462, 306)
+        Dialog.setStyleSheet("QDialog{\n"
+"background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(186, 226, 255, 255), stop:1 rgba(255, 255, 255, 255))\n"
+"}")
         self.pushButton_2 = QtWidgets.QPushButton(Dialog)
         self.pushButton_2.setGeometry(QtCore.QRect(160, 90, 151, 61))
         self.pushButton_2.setText("")
