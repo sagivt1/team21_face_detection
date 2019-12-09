@@ -161,7 +161,6 @@ class DataBase:
         today = date.today()
         con.execute(''' INSERT INTO :table_name(TIME,NICK_NAME)
          VALUES(:table_name,:NICK_NAME)
-         ''', {'table_name': today.strftime("%m/%d/%y"),'NICK_NAME':nick_name})
+         ''', {'table_name': today.strftime("%m/%d/%y"), 'NICK_NAME': nick_name})
         con.commit()
         con.close()
-
