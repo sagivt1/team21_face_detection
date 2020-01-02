@@ -5,11 +5,10 @@ import database
 class TestDataBase(unittest.TestCase):
 
     def test_connect(self):
-        data = database.DataBase('first','last','id','user','password')
-        flag = data.connect('user','password')
+        data = database.DataBase('first', 'last', 'id', 'user', 'password')
+        flag = data.connect('user', 'password')
         data.delete_database('user')
-        self.assertEqual(flag,True)
-
+        self.assertEqual(flag, True)
 
     # def test_insert_and_get(self):
     #     data = database.DataBase("first", 'last', 'id', 'user', 'password')
@@ -52,4 +51,4 @@ class TestDataBase(unittest.TestCase):
 
 
 if __name__ == '__main__':
-     unittest.main()
+    unittest.main()

@@ -4,9 +4,12 @@ from datetime import date
 
 
 class DataBase:
+    count_of_detection = 0
+    count_of_fails = 0
+
     def __init__(self, first_name, last_name, i_d, user_name, password):
         """
-        Input - none
+        Input - first_name, last_name, i_d, user_name, password
         Output - none
         Create a new database to the user with 1 table of user info
         """
@@ -25,7 +28,11 @@ class DataBase:
         con.close()
 
     def create_contact_list_table(self, user_name):
-
+        """
+        Input - user_name
+        Output - None
+        create new table of contact list
+        """
         db_name = user_name + ".db"
         con = sqlite3.connect(db_name)
         con.execute(''' CREATE TABLE IF NOT EXISTS contact_list(
@@ -35,7 +42,118 @@ class DataBase:
         ) ''')
         con.close()
 
+    def create_detection_table(self, user_name):
+        """
+        Input - user_name
+        Output - None
+        create new table of detection list
+        """
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        con.execute('''CREATE TABLE IF NOT EXISTS detection_list(
+        SERIAL INT PRIMARY KEY
+        DAY INT
+        MONTH INT 
+        YEAR INT
+        NAME TEXT
+        )''')
+        con.close()
+
+    def create_fail_list(self, user_name):
+        """
+        Input - user_name
+        Output - None
+        create a new table of fails
+        """
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        con.execute('''CREATE TABLE IF NOT EXISTS fail_list(
+        SERIAL INT PRIMARY KEY
+        DAY INT
+        MONTH INT
+        YEAR INT
+        FAIL_NAME TEXT
+        FAIL_DESCRIPTION TEXT
+        STATUS INT 
+        )''')
+
+    def add_fail(self, user_name, day, month, year, fail_name, fail_description, status):
+        """
+        Input - user name,date of day,month,year,fail name and description ,status 0 - in progress 1 - done
+        Output - None
+        add new fail to the database
+        """
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        con.execute('''INSERT INTO fail_list(SERIAL,DAY,MONTH,YEAR,FAIL_NAME,FAIL_DESCRIPTION,STATUS)
+                VALUES(?,?,?,?,?,?,?,?,?)''',
+                    (DataBase.count_of_fails, day, month, year, fail_name, fail_description, status))
+        DataBase.count_of_fails += 1
+        con.commit()
+        con.close()
+
+    def get_fails(self, user_name):
+        """
+        Input - user name
+        Output - a list of all the fails
+        get a list of all the fails
+        """
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        data = con.execute('''SELECT * FROM fail_list ORDER BY SERIAL''')
+        check = data.fetchall()
+        con.close()
+        return check
+
+    def update_status(self, user_name, serial, status):
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        data = con.execute(''' SELECT * FROM fail_list WHERE SERIAL = :SERIAL
+                               ''', {'SERIAL': serial})
+        check = data.fetchone()
+        if not check:
+            con.close()
+            return False
+        else:
+            con.execute(''' UPDATE fail_list SET STATUS = :NEW_STATUS WHERE SERIAL = :SERIAL
+            ''', {'NEW_STATUS': status, 'SERIAL': serial})
+            con.commit()
+            con.close()
+            return True
+
+    def get_detection(self, user_name):
+        """
+        Input - user name
+        Output - list of all detection
+        return a list of all the face defection
+        """
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        data = con.execute('''SELECT * FROM detection_list ORDER BY SERIAL''')
+        check = data.fetchall()
+        con.close()
+        return check
+
+    def add_detection(self, user_name, day, month, year, name):
+        """
+        Input - user name, date of day,month,year and detection name
+        Output - None
+        add new detection to database
+        """
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        con.execute('''INSERT INTO detection_list(SERIAL,DAY,MONTH,YEAR,NAME)
+        VALUES(?,?,?,?,?)''', (DataBase.count_of_detection, day, month, year, name))
+        con.commit()
+        con.close()
+        DataBase.count_of_detection += 1
+
     def connect(self, user_name, password):
+        """
+        Input - user_name
+        Output - None
+        check if user name is exists
+        """
         db_name = user_name + ".db"
         con = sqlite3.connect(db_name)
         data = con.execute(''' SELECT USER_NAME,PASSWORD FROM user_info''')
@@ -47,7 +165,7 @@ class DataBase:
 
     def insert_new_contact(self, user_name, first_name, last_name, nick):
         """
-        Input - first name,last name ,nick name all of the type string
+        Input -user_name,first name,last name ,nick name all of the type string
         Output - none
         Insert a new contact to table of contact list
         """
@@ -60,7 +178,7 @@ class DataBase:
 
     def get_all_contacts(self, user_name):
         """
-        Input - none
+        Input - user_name
         Output - contact list information
         Return all the contacts
         """
@@ -73,7 +191,7 @@ class DataBase:
 
     def get_contact(self, user_name, nick):
         """
-        Input - contact nick name of the type string
+        Input - user_name , contact nick name of the type string
         Output - return none if not found
         Return a specific contact
         """
@@ -90,7 +208,7 @@ class DataBase:
 
     def remove_contact(self, user_name, nick):
         """
-        Input - nick name of the type string
+        Input -user_name,nick name of the type string
         Output - True or False is success
         Remove a specific contact
         """
@@ -111,7 +229,7 @@ class DataBase:
 
     def update_nick_name(self, user_name, nick, new_nick):
         """
-        Input - nick name and new nick name of the type string
+        Input - user_name , nick name and new nick name of the type string
         Output - True or False is success
         Update a specific contact nick name
         """
@@ -132,7 +250,7 @@ class DataBase:
 
     def update_first_name(self, user_name, nick, first_name):
         """
-        Input - nick name and new first name of the type string
+        Input - user_name , nick name and new first name of the type string
         Output - True or False is success
         Update a specific contact first name
         """
@@ -153,7 +271,7 @@ class DataBase:
 
     def update_last_name(self, user_name, nick, last_name):
         """
-        Input - nick name and new first name of the type string
+        Input - user_name , nick name and new first name of the type string
         Output - True or False is success
         Update a specific contact first name
         """
@@ -173,33 +291,10 @@ class DataBase:
             return True
 
     def delete_database(self, user_name):
+        """
+        Input - user_name
+        Output - None
+        Delete database file
+        """
         db_name = user_name + ".db"
         os.remove(db_name)
-
-    # def create_day_date_table(self):
-    #     """
-    #     Input - none
-    #     Output - none
-    #     create a new table of the date for face detection
-    #     """
-    #     con = sqlite3.connect('my_data')
-    #     today = date.today()
-    #     con.execute(''' CREATE TABLE IF NOT EXISTS :table_name
-    #     TIME TEXT PRIMARY KEY NOT NULL
-    #     NICK_NAME TEXT NOT NULL
-    #     ''', {'table_name': today.strftime("%m/%d/%y")})
-    #     con.close()
-
-    # def insert_detection(self, nick_name):
-    #     """
-    #     Input - nick name of the detection by the type of string
-    #     Output - none
-    #     insert new detection
-    #     """
-    #     con = sqlite3.connect('my_data')
-    #     today = date.today()
-    #     con.execute(''' INSERT INTO :table_name(TIME,NICK_NAME)
-    #      VALUES(:table_name,:NICK_NAME)
-    #      ''', {'table_name': today.strftime("%m/%d/%y"), 'NICK_NAME': nick_name})
-    #     con.commit()
-    #     con.close()
