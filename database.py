@@ -38,7 +38,9 @@ class DataBase:
         con.execute(''' CREATE TABLE IF NOT EXISTS contact_list(
         NICK_NAME TEXT PRIMARY KEY  NOT NULL,
         FIRST_NAME TEXT NOT NULL,
-        LAST_NAME TEXT NOT NULL
+        LAST_NAME TEXT NOT NULL,
+        IMG TEXT NOT NULL,
+        SOUND TEXT NOT NULL
         ) ''')
         con.close()
 
@@ -51,11 +53,11 @@ class DataBase:
         db_name = user_name + ".db"
         con = sqlite3.connect(db_name)
         con.execute('''CREATE TABLE IF NOT EXISTS detection_list(
-        SERIAL INT PRIMARY KEY
-        DAY INT
-        MONTH INT 
-        YEAR INT
-        NAME TEXT
+        SERIAL INT PRIMARY KEY NOT NULL
+        DAY INT NOT NULL
+        MONTH INT NOT NULL
+        YEAR INT NOT NULL
+        NAME TEXT NOT NULL
         )''')
         con.close()
 
@@ -68,13 +70,13 @@ class DataBase:
         db_name = user_name + ".db"
         con = sqlite3.connect(db_name)
         con.execute('''CREATE TABLE IF NOT EXISTS fail_list(
-        SERIAL INT PRIMARY KEY
-        DAY INT
-        MONTH INT
-        YEAR INT
-        FAIL_NAME TEXT
-        FAIL_DESCRIPTION TEXT
-        STATUS INT 
+        SERIAL INT PRIMARY KEY NOT NULL
+        DAY INT NOT NULL
+        MONTH INT NOT NULL
+        YEAR INT NOT NULL
+        FAIL_NAME TEXT NOT NULL
+        FAIL_DESCRIPTION TEXT NOT NULL
+        STATUS INT NOT NULL
         )''')
 
     def add_fail(self, user_name, day, month, year, fail_name, fail_description, status):
@@ -163,7 +165,7 @@ class DataBase:
         else:
             return False
 
-    def insert_new_contact(self, user_name, first_name, last_name, nick):
+    def insert_new_contact(self, user_name, first_name, last_name, nick, img, sound):
         """
         Input -user_name,first name,last name ,nick name all of the type string
         Output - none
@@ -171,8 +173,8 @@ class DataBase:
         """
         db_name = user_name + ".db"
         con = sqlite3.connect(db_name)
-        con.execute(''' INSERT INTO contact_list(NICK_NAME,FIRST_NAME,LAST_NAME)
-        VALUES(?,?,?)''', (nick, first_name, last_name))
+        con.execute(''' INSERT INTO contact_list(NICK_NAME,FIRST_NAME,LAST_NAME,IMG,SOUND)
+        VALUES(?,?,?,?,?)''', (nick, first_name, last_name, img, sound))
         con.commit()
         con.close()
 
@@ -184,7 +186,8 @@ class DataBase:
         """
         db_name = user_name + ".db"
         con = sqlite3.connect(db_name)
-        data = con.execute(''' SELECT NICK_NAME,FIRST_NAME,LAST_NAME FROM contact_list ORDER BY FIRST_NAME ''')
+        data = con.execute(
+            ''' SELECT NICK_NAME,FIRST_NAME,LAST_NAME,IMG,SOUND FROM contact_list ORDER BY FIRST_NAME ''')
         check = data.fetchall()
         con.close()
         return check
@@ -197,8 +200,8 @@ class DataBase:
         """
         db_name = user_name + ".db"
         con = sqlite3.connect(db_name)
-        data = con.execute(''' SELECT NICK_NAME,FIRST_NAME,LAST_NAME FROM contact_list WHERE NICK_NAME = :NICK_NAME
-        ''', {'NICK_NAME': nick})
+        data = con.execute(''' SELECT NICK_NAME,FIRST_NAME,LAST_NAME,IMG,SOUND FROM contact_list WHERE NICK_NAME = 
+        :NICK_NAME''', {'NICK_NAME': nick})
         check = data.fetchone()
         con.close()
         if not check:
@@ -214,7 +217,7 @@ class DataBase:
         """
         db_name = user_name + ".db"
         con = sqlite3.connect(db_name)
-        data = con.execute(''' SELECT NICK_NAME,FIRST_NAME,LAST_NAME FROM contact_list WHERE NICK_NAME = :NICK_NAME
+        data = con.execute(''' SELECT NICK_NAME,FIRST_NAME,LAST_NAME,IMG,SOUND FROM contact_list WHERE NICK_NAME = :NICK_NAME
                 ''', {'NICK_NAME': nick})
         check = data.fetchone()
         if not check:
@@ -235,7 +238,7 @@ class DataBase:
         """
         db_name = user_name + ".db"
         con = sqlite3.connect(db_name)
-        data = con.execute(''' SELECT NICK_NAME,FIRST_NAME,LAST_NAME FROM contact_list WHERE NICK_NAME = :NICK_NAME
+        data = con.execute(''' SELECT NICK_NAME,FIRST_NAME,LAST_NAME,IMG,SOUND FROM contact_list WHERE NICK_NAME = :NICK_NAME
                         ''', {'NICK_NAME': nick})
         check = data.fetchone()
         if not check:
@@ -256,7 +259,7 @@ class DataBase:
         """
         db_name = user_name + ".db"
         con = sqlite3.connect(db_name)
-        data = con.execute(''' SELECT NICK_NAME,FIRST_NAME,LAST_NAME FROM contact_list WHERE NICK_NAME = :NICK_NAME
+        data = con.execute(''' SELECT NICK_NAME,FIRST_NAME,LAST_NAME,IMG,SOUND FROM contact_list WHERE NICK_NAME = :NICK_NAME
                         ''', {'NICK_NAME': nick})
         check = data.fetchone()
         if not check:
@@ -277,7 +280,7 @@ class DataBase:
         """
         db_name = user_name + ".db"
         con = sqlite3.connect(db_name)
-        data = con.execute(''' SELECT NICK_NAME,FIRST_NAME,LAST_NAME FROM contact_list WHERE NICK_NAME = :NICK_NAME
+        data = con.execute(''' SELECT NICK_NAME,FIRST_NAME,LAST_NAME,IMG,SOUND FROM contact_list WHERE NICK_NAME = :NICK_NAME
                            ''', {'NICK_NAME': nick})
         check = data.fetchone()
         if not check:
@@ -286,6 +289,48 @@ class DataBase:
         else:
             con.execute(''' UPDATE contact_list SET LAST_NAME = :LAST_NAME WHERE NICK_NAME = :NICK_NAME
                ''', {'LAST_NAME': last_name, 'NICK_NAME': nick})
+            con.commit()
+            con.close()
+            return True
+
+    def update_img_file(self, user_name, nick, img):
+        """
+        Input - user name,nick name and new file path to picture
+        Output - True or False is susses
+        update a specific contact img file path
+        """
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        data = con.execute(''' SELECT NICK_NAME,FIRST_NAME,LAST_NAME,IMG,SOUND FROM contact_list WHERE NICK_NAME = :NICK_NAME
+                                   ''', {'NICK_NAME': nick})
+        check = data.fetchone()
+        if not check:
+            con.close()
+            return False
+        else:
+            con.execute(''' UPDATE contact_list SET IMG = :IMG WHERE NICK_NAME = :NICK_NAME
+                       ''', {'IMG': img, 'NICK_NAME': nick})
+            con.commit()
+            con.close()
+            return True
+
+    def update_sound_file(self, user_name, nick, sound):
+        """
+        Input - user name,nick name and new file path to sound
+        Output - True or False is susses
+        update a specific contact sound file path
+        """
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        data = con.execute(''' SELECT NICK_NAME,FIRST_NAME,LAST_NAME,IMG,SOUND FROM contact_list WHERE NICK_NAME = :NICK_NAME
+                                           ''', {'NICK_NAME': nick})
+        check = data.fetchone()
+        if not check:
+            con.close()
+            return False
+        else:
+            con.execute(''' UPDATE contact_list SET SOUND = :SOUND WHERE NICK_NAME = :NICK_NAME
+                               ''', {'SOUND': sound, 'NICK_NAME': nick})
             con.commit()
             con.close()
             return True
