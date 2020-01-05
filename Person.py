@@ -12,7 +12,7 @@ class Person:
         self.user_name = user
         self.password = passWord
 
-    def Register(self):
+    def register(self):
         self.first_name = input("First Name:")
         self.last_name=input("Last Name:")
         self.id = input("enter your ID (9 digits):")
@@ -20,9 +20,9 @@ class Person:
             self.id = input("invalid number! please enter your id:")
         self.user_name = input("Please enter user name:")
         self.password = input("enter a password:")
-        database.DataBase.__init__(self,self.first_name,self.last_name,self.id,self.user_name ,self.password)
+        self.data = database.DataBase(self.first_name,self.last_name,self.id,self.user_name,self.password)
 
-    def Login(self):
+    def login(self):
         self.user_name = input("Please enter user name:")
         self.password = input("enter a password:")
         while not database.DataBase.connect(self.user_name, self.password):
