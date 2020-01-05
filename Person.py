@@ -21,6 +21,7 @@ class Person:
         self.user_name = input("Please enter user name:")
         self.password = input("enter a password:")
         self.data = database.DataBase(self.first_name, self.last_name, self.i_d, self.user_name, self.password)
+        return True
 
     def login(self):
         user_name = input("Please enter user name:")
