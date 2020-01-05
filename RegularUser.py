@@ -6,11 +6,11 @@ class RegularUser(Person):
     def __init__(self, f_name, l_name, ID, user, passWord):
         Person.__init__(self, f_name, l_name, ID, user, passWord)
 
-        """self.data = database.DataBase()"""
+    def Register(self):
+        Person.Register(self)
 
-    def Register(self): self.Register(Person)
-
-    def Login(self): self.Login(Person)
+    def Login(self):
+        Person.Login(self)
 
     def my_contacts(self):
         x = self.database.DataBase.get_all_contacts()
