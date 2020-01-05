@@ -81,13 +81,14 @@ class RegularUser(Person):
         x = self.database.DataBase.insert_new_contact(self,first_name, last_name, nick, img, sound)
         return x
 
-    def show_contact(self,contactnick):  # todo: show a contact details
+    def show_contact(self):  # todo: show a contact details
         """
         Input - none
         Output - show the details of the contact in the list
         show a contact details
         """
-        x = self.database.get_contact(self,contactnick)
+        self.contactnick = input("Nick name of the contact :")
+        x = self.database.get_contact(database.DataBase,self.user_name,contactnick)
         return x
 
     def say_my_contact(self):  # todo: say my contact's name out loud
@@ -102,14 +103,14 @@ class RegularUser(Person):
                 """
         pass
 
-    def edit_my_first_name(self, new_name):
-        self.f_name = new_name
-
-    def edit_my_last_name(self, new_name):
-        self.l_name = new_name
+    def edit_my_first_name(self):
+        self.f_name = input("Enter your new first name :")
 
 
+    def edit_my_last_name(self):
+        self.f_name = input("Enter your new last name :")
 
-    def edit_my_password(self, new_pass):
-        self.passWord = new_pass
-        return new_pass
+
+    def edit_my_password(self):
+        self.passWord = input("Enter your new password :")
+
