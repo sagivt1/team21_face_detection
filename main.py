@@ -1,9 +1,9 @@
-import Person
+import Sound
 import Manager
 import RegularUser
 
-x = RegularUser.RegularUser()
-y = Manager.Manager()
+x = Sound.Sound('Amit')
+x.play_record()
 
 
 
