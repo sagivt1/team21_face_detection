@@ -9,6 +9,6 @@ class Tester(Person):
     def Register(self, code):
         self.code = input("enter tester code:")
         while self.code != 1111:
-            self.code = input("wrong code! please enter tester code:")
+            self.code = input("Wrong code! please enter tester code:")
 
     def Login(self): self.Login(Person)

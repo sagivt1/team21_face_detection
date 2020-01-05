@@ -136,6 +136,25 @@ class DataBase:
         con.close()
         return check
 
+    def get_detection_by_day(self, user_name, day,month,year):
+        """
+        Input - user_name ,date of day,month,year
+        Output - return report of the day that the user chose
+        Return a report of all the face defection in the day
+        """
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        data = con.execute(''' SELECT NICK_NAME,FIRST_NAME,LAST_NAME FROM detection_list WHERE DAY,MONTH,YEAR = 
+        :DAY,MONTH,YEAR''', {'DAY': day,'MONTH':month,'YEAR':year})
+        check = data.fetchone()
+        con.close()
+        if not check:
+            return None
+        else:
+            return check
+
+
+
     def add_detection(self, user_name, day, month, year, name):
         """
         Input - user name, date of day,month,year and detection name
