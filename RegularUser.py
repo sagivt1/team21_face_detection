@@ -3,8 +3,8 @@ import database
 
 
 class RegularUser(Person):
-    def __init__(self, f_name, l_name, ID, user, passWord):
-        Person.__init__(self, f_name, l_name, ID, user, passWord)
+    def __init__(self):
+        Person.__init__(self)
 
     def Register(self):
         Person.Register(self)
@@ -35,7 +35,7 @@ class RegularUser(Person):
 
 
     def weekly_report(self):  # todo: show my meetings this week
-         """
+        """
         Input - none
         Output - report of all the detections in this week
         show a report of all weekly detections
