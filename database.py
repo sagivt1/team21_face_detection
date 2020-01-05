@@ -53,10 +53,10 @@ class DataBase:
         db_name = user_name + ".db"
         con = sqlite3.connect(db_name)
         con.execute('''CREATE TABLE IF NOT EXISTS detection_list(
-        SERIAL INT PRIMARY KEY NOT NULL
-        DAY INT NOT NULL
-        MONTH INT NOT NULL
-        YEAR INT NOT NULL
+        SERIAL INT PRIMARY KEY NOT NULL,
+        DAY INT NOT NULL,
+        MONTH INT NOT NULL,
+        YEAR INT NOT NULL,
         NAME TEXT NOT NULL
         )''')
         con.close()
@@ -70,12 +70,12 @@ class DataBase:
         db_name = user_name + ".db"
         con = sqlite3.connect(db_name)
         con.execute('''CREATE TABLE IF NOT EXISTS fail_list(
-        SERIAL INT PRIMARY KEY NOT NULL
-        DAY INT NOT NULL
-        MONTH INT NOT NULL
-        YEAR INT NOT NULL
-        FAIL_NAME TEXT NOT NULL
-        FAIL_DESCRIPTION TEXT NOT NULL
+        SERIAL INT PRIMARY KEY NOT NULL,
+        DAY INT NOT NULL,
+        MONTH INT NOT NULL,
+        YEAR INT NOT NULL,
+        FAIL_NAME TEXT NOT NULL,
+        FAIL_DESCRIPTION TEXT NOT NULL,
         STATUS INT NOT NULL
         )''')
 
@@ -136,7 +136,7 @@ class DataBase:
         con.close()
         return check
 
-    def get_detection_by_day(self, user_name, day,month,year):
+    def get_detection_by_day(self, user_name, day, month, year):
         """
         Input - user_name ,date of day,month,year
         Output - return report of the day that the user chose
@@ -144,16 +144,14 @@ class DataBase:
         """
         db_name = user_name + ".db"
         con = sqlite3.connect(db_name)
-        data = con.execute(''' SELECT NICK_NAME,FIRST_NAME,LAST_NAME FROM detection_list WHERE DAY,MONTH,YEAR = 
-        :DAY,MONTH,YEAR''', {'DAY': day,'MONTH':month,'YEAR':year})
-        check = data.fetchone()
+        data = con.execute('''SELECT * FROM detection_list WHERE DAY=:DAY AND 
+        MONTH=:MONTH AND YEAR=:YEAR''', {'DAY': day, 'MONTH': month, 'YEAR': year})
+        check = data.fetchall()
         con.close()
         if not check:
             return None
         else:
             return check
-
-
 
     def add_detection(self, user_name, day, month, year, name):
         """
