@@ -12,7 +12,7 @@ class RegularUser(Person):
 
     def Login(self): self.Login(Person)
 
-    def my_contacts(self):  # todo: list of my contacts
+    def my_contacts(self):
         x = self.database.DataBase.get_all_contacts()
         return x
 
@@ -67,7 +67,21 @@ class RegularUser(Person):
         x = self.data.remove_contact(nick)
         return x
 
-    def add_contact(self):  # todo: add a contact to my list
+    def add_contact(self):
+        """
+         Input - none
+         Output - add a new contact to the list
+         add a new contact to the list
+         """
+        print("Please enter all the details of your new contact : ")
+        self.first_name = input("First name :")
+        self.last_name = input(" Last name :")
+        self.nick = input("Nick name :")
+        '''add pic and sound???'''
+        x = self.database.DataBase.insert_new_contact(self,first_name, last_name, nick, img, sound)
+        return x
+
+    def Delete_contact(self):
         """
          Input - none
          Output - add a new contact to the list
@@ -78,10 +92,10 @@ class RegularUser(Person):
         self.last_name = input(" Last name :")
         self.nick = input("Nick name :")
         '''add pic and sound???'''
-        x = self.database.DataBase.insert_new_contact(self,first_name, last_name, nick, img, sound)
+        x = self.database.DataBase.insert_new_contact(self, first_name, last_name, nick, img, sound)
         return x
 
-    def show_contact(self):  # todo: show a contact details
+    def show_contact(self):
         """
         Input - none
         Output - show the details of the contact in the list
@@ -91,17 +105,25 @@ class RegularUser(Person):
         x = self.database.get_contact(database.DataBase,self.user_name,contactnick)
         return x
 
-    def say_my_contact(self):  # todo: say my contact's name out loud
+    def say_my_contact(self):
         """
-                :return:
-                """
-        pass
+        Input - none
+        Output - say the name of the contact out loud
+        say the name of the contact out loud
+        """
+        self.nick = input("Nick name of the contact :")
+        get_sound_contact(database.DataBase,self.user_name,nick)
 
-    def delete_my_account(self):  # todo: delete all user's information and delete his account
+
+
+    def delete_my_account(self):
         """
-                :return:
-                """
-        pass
+        Input - none
+        Output - confirmation message
+        delete the account of the user
+        """
+        delete_database(database.DataBase,self.user_name)
+
 
     def edit_my_first_name(self):
         self.f_name = input("Enter your new first name :")
