@@ -4,13 +4,14 @@ import database
 
 class Person:
 
-    def __init__(self, f_name, l_name, ID, user, passWord):
+    def __init__(self, f_name = None, l_name = None, ID = None, user = None, password = None):
 
+        self.data = database.DataBase(self.first_name,self.last_name,self.id,self.user_name,self.password)
         self.first_name = f_name
         self.last_name = l_name
         self.id = ID
         self.user_name = user
-        self.password = passWord
+        self.password = password
 
     def register(self):
         self.first_name = input("First Name:")
@@ -20,7 +21,6 @@ class Person:
             self.id = input("invalid number! please enter your id:")
         self.user_name = input("Please enter user name:")
         self.password = input("enter a password:")
-        self.data = database.DataBase(self.first_name,self.last_name,self.id,self.user_name,self.password)
 
     def login(self):
         self.user_name = input("Please enter user name:")
