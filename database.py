@@ -19,7 +19,7 @@ class DataBase:
         FIRST_NAME TEXT NOT NULL,
         LAST_NAME TEXT NOT NULL,
         ID TEXT NOT NULL,
-        USER_NAME TEXT NOT NULL,
+        USER_NAME TEXT PRIMARY KEY NOT NULL,
         PASSWORD TEXT NOT NULL 
         ) ''', )
         con.execute(''' INSERT INTO user_info(FIRST_NAME,LAST_NAME,ID,USER_NAME,PASSWORD)
@@ -174,9 +174,12 @@ class DataBase:
         check if user name is exists
         """
         db_name = user_name + ".db"
+        if not os.path.isfile(db_name):
+            return False
         con = sqlite3.connect(db_name)
         data = con.execute(''' SELECT USER_NAME,PASSWORD FROM user_info''')
         check = data.fetchone()
+
         if check[0] == user_name and check[1] == password:
             return True
         else:

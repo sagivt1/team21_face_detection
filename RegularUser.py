@@ -3,8 +3,8 @@ import database
 
 
 class RegularUser(Person):
-    def __init__(self, f_name, l_name, ID, user, passWord):
-        Person.__init__(self, f_name, l_name, ID, user, passWord)
+    def __init__(self):
+        Person.__init__(self)
 
     def Register(self):
         Person.Register(self)
@@ -22,6 +22,7 @@ class RegularUser(Person):
         Output - report of all the detections in this day
         show a report of all daily detections
         """
+<<<<<<< HEAD
 
         #print("Please enter the day to show the report")
         #self.day = input("Day:")
@@ -37,6 +38,22 @@ class RegularUser(Person):
 
     def weekly_report(self):  #todo: show my meetings this week
          """
+=======
+        print("Please enter the day to show the report")
+        self.day = input("Day:")
+        self.month = input(" Month:")
+        self.year = input("Year:")
+        while ((day<1 or day>31) or (month<1 or month>12) or year<1):
+            print("One or more of the details are invalid,please enter a valid day ")
+            self.day = input("Day:")
+            self.month = input(" Month:")
+            self.year = input("Year:")
+        get_detection_by_day(day,month,year)
+
+
+    def weekly_report(self):  # todo: show my meetings this week
+        """
+>>>>>>> 9701c3405849d81119231a23dd5d8e44dd00bb13
         Input - none
         Output - report of all the detections in this week
         show a report of all weekly detections

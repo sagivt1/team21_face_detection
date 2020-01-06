@@ -4,29 +4,31 @@ import database
 
 class Person:
 
-    def __init__(self, f_name, l_name, ID, user, passWord):
+    def __init__(self):
 
-        self.first_name = f_name
-        self.last_name = l_name
-        self.id = ID
-        self.user_name = user
-        self.password = passWord
+        self.data = None
+        self.first_name = None
+        self.last_name = None
+        self.i_d = None
+        self.user_name = None
+        self.password = None
 
     def register(self):
         self.first_name = input("First Name:")
-        self.last_name=input("Last Name:")
-        self.id = input("enter your ID (9 digits):")
-        while len(self.id) != 9:
-            self.id = input("invalid number! please enter your id:")
+        self.last_name = input("Last Name:")
+        self.i_d = input("enter your ID (9 digits):")
+        while len(self.i_d) != 9:
+            self.i_d = input("invalid number! please enter your id:")
         self.user_name = input("Please enter user name:")
         self.password = input("enter a password:")
-        self.data = database.DataBase(self.first_name,self.last_name,self.id,self.user_name,self.password)
+        self.data = database.DataBase(self.first_name, self.last_name, self.i_d, self.user_name, self.password)
+        return True
 
     def login(self):
-        self.user_name = input("Please enter user name:")
-        self.password = input("enter a password:")
-        while not database.DataBase.connect(self.user_name, self.password):
+        user_name = input("Please enter user name:")
+        password = input("enter a password:")
+        if not database.DataBase.connect(self.data,user_name,password):
             print("WRONG USERNAME OR PASSWORD! PLEASE TRY AGAIN")
-            self.user_name = input("Please enter user name:")
-            self.password = input("enter a password:")
+            return False
 
+        return True

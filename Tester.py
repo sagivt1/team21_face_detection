@@ -13,8 +13,4 @@ class Tester(Person):
             self.data.create_contact_list_table(self.user_name)
             self.data.create_fail_list(self.user_name)
 
-
-
-
-
     def Login(self): self.Login(Person)
