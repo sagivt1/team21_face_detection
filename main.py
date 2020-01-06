@@ -8,5 +8,5 @@ print(x.last_name)
 print(x.id)
 print(x.password)
 print(x.user_name)
-
+x.add_contact()
 y = Manager.Manager('E', 'W', 'EE2E2', '2324', '1424','0000')
