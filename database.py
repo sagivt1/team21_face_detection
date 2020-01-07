@@ -39,8 +39,8 @@ class DataBase:
         NICK_NAME TEXT PRIMARY KEY  NOT NULL,
         FIRST_NAME TEXT NOT NULL,
         LAST_NAME TEXT NOT NULL,
-        IMG TEXT NOT NULL,
-        SOUND TEXT NOT NULL
+        IMG TEXT ,
+        SOUND TEXT 
         ) ''')
         con.close()
 

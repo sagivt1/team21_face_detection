@@ -1,129 +1,131 @@
 from Person import Person
 import database
-import face_recognition as fr
+# import face_recognition as fr
 import os
-import cv2
-import face_recognition
+# import cv2
+# import face_recognition
 import numpy as np
 from time import sleep
-from cv2 import *
+# from cv2 import *
 import time
 import os.path
 import shutil
 
 encoded = {}
 
-enter_name = input("entre the name of the person:")
+
 class RegularUser(Person):
     def __init__(self):
-        Person.__init__(self)
+        super(RegularUser, self).__init__()
 
-    def Register(self):
-        Person.Register(self)
+    def register(self):
+        Person.register(self)
+        self.data.create_contact_list_table(self.user_name)
+        self.data.create_detection_table(self.user_name)
 
-    def Login(self):
+    def login(self):
         Person.Login(self)
 
     def my_contacts(self):
         x = self.database.DataBase.get_all_contacts()
         return x
 
-    def move_photo(self):
-        global encoded
-        i = 0
-        source = r"C:\Users\or machlouf\PycharmProjects\new_project"
-        destination = r"C:\Users\or machlouf\PycharmProjects\new_project\faces"
-        if not os.path.exists(destination):
-            os.makedirs(destination)
-        for f in os.listdir(source):
-            if f.endswith(enter_name + ".jpg"):
-                shutil.move(os.path.join(source, f), destination)
-                encoded[f.split(".")[i]] = fr.face_encodings(fr.load_image_file("faces/" + f))[i]
+    # def move_photo(self):
+    #     global encoded
+    #     i = 0
+    #     source = r"C:\Users\or machlouf\PycharmProjects\new_project"
+    #     destination = r"C:\Users\or machlouf\PycharmProjects\new_project\faces"
+    #     if not os.path.exists(destination):
+    #         os.makedirs(destination)
+    #     for f in os.listdir(source):
+    #         if f.endswith(enter_name + ".jpg"):
+    #             shutil.move(os.path.join(source, f), destination)
+    #             encoded[f.split(".")[i]] = fr.face_encodings(fr.load_image_file("Faces/" + f))[i]
 
-    def take_a_photo(self):
-        camera_port = 0
-        camera = cv2.VideoCapture(camera_port)
-        time.sleep(0.1)  # If you don't wait, the image will be dark
-        return_value, create = camera.read()
-        # enter_name = input("entre the name of the person:")
-        cv2.imwrite(enter_name + ".jpg", create)
-        del (camera)  # so that others can use the camera as soon as possible
+    # def take_a_photo(self):
+    #     camera_port = 0
+    #     camera = cv2.VideoCapture(camera_port)
+    #     time.sleep(0.1)  # If you don't wait, the image will be dark
+    #     return_value, create = camera.read()
+    #     # enter_name = input("entre the name of the person:")
+    #     cv2.imwrite(enter_name + ".jpg", create)
+    #     del (camera)  # so that others can use the camera as soon as possible
 
-    def get_encoded_faces():
-        """
-        looks through the faces folder and encodes all
-        the faces
+    # def get_encoded_faces():
+    #     """
+    #     looks through the faces folder and encodes all
+    #     the faces
+    #
+    #     :return: dict of (name, image encoded)
+    #     """
+    #     encoded = {}
+    #     for (dirpath, dnames, fnames) in os.walk("./faces"):
+    #         for f in fnames:
+    #             i = 0
+    #             if f.endswith(".jpg") or f.endswith(".png"):
+    #                 print(i)
+    #                 face = fr.load_image_file("faces/" + f)
+    #                 encoding = fr.face_encodings(face)[i]
+    #                 encoded[f.split(".")[i]] = encoding
+    #     return encoded
 
-        :return: dict of (name, image encoded)
-        """
-        encoded = {}
-        for (dirpath, dnames, fnames) in os.walk("./faces"):
-            for f in fnames:
-                i = 0
-                if f.endswith(".jpg") or f.endswith(".png"):
-                    print(i)
-                    face = fr.load_image_file("faces/" + f)
-                    encoding = fr.face_encodings(face)[i]
-                    encoded[f.split(".")[i]] = encoding
-        return encoded
+    # def unknown_image_encoded(img):
+    #     """
+    #     encode a face given the file name
+    #     """
+    #     face = fr.load_image_file("faces/" + img)
+    #     encoding = fr.face_encodings(face)[0]
+    #
+    #     return encoding
 
-    def unknown_image_encoded(img):
-        """
-        encode a face given the file name
-        """
-        face = fr.load_image_file("faces/" + img)
-        encoding = fr.face_encodings(face)[0]
-
-        return encoding
-
-    def classify_face(im):
-        """
-        will find all of the faces in a given image and label
-        them if it knows what they are
-
-        :param im: str of file path
-        :return: list of face names
-        """
-        faces = get_encoded_faces()
-        faces_encoded = list(faces.values())
-        known_face_names = list(faces.keys())
-
-        img = cv2.imread(im, 1)
-        img = cv2.resize(img, (0, 0), fx=0.5, fy=0.5)
-        # img = img[:,:,::-1]
-
-        face_locations = face_recognition.face_locations(img)
-        unknown_face_encodings = face_recognition.face_encodings(img, face_locations)
-
-        face_names = []
-        for face_encoding in unknown_face_encodings:
-            # See if the face is a match for the known face(s)
-            matches = face_recognition.compare_faces(faces_encoded, face_encoding)
-            name = "Unknown"
-
-            # use the known face with the smallest distance to the new face
-            face_distances = face_recognition.face_distance(faces_encoded, face_encoding)
-            best_match_index = np.argmin(face_distances)
-            if matches[best_match_index]:
-                name = known_face_names[best_match_index]
-
-            face_names.append(name)
-
-            for (top, right, bottom, left), name in zip(face_locations, face_names):
-                # Draw a box around the face
-                cv2.rectangle(img, (left - 20, top - 20), (right + 20, bottom + 20), (255, 0, 0), 2)
-
-                # Draw a label with a name below the face
-                cv2.rectangle(img, (left - 20, bottom - 15), (right + 20, bottom + 20), (255, 0, 0), cv2.FILLED)
-                font = cv2.FONT_HERSHEY_DUPLEX
-                cv2.putText(img, name, (left - 20, bottom + 15), font, 1.0, (255, 255, 255), 2)
-
-        # Display the resulting image
-        while True:
-
-            cv2.imshow('Video', img)
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                return face_names
+    # def classify_face(im):
+    #     """
+    #     will find all of the faces in a given image and label
+    #     them if it knows what they are
+    #
+    #     :param im: str of file path
+    #     :return: list of face names
+    #     """
+    #     faces = get_encoded_faces()
+    #     faces_encoded = list(faces.values())
+    #     known_face_names = list(faces.keys())
+    #
+    #     img = cv2.imread(im, 1)
+    #     img = cv2.resize(img, (0, 0), fx=0.5, fy=0.5)
+    #     # img = img[:,:,::-1]
+    #
+    #     face_locations = face_recognition.face_locations(img)
+    #     unknown_face_encodings = face_recognition.face_encodings(img, face_locations)
+    #
+    #     face_names = []
+    #     for face_encoding in unknown_face_encodings:
+    #         # See if the face is a match for the known face(s)
+    #         matches = face_recognition.compare_faces(faces_encoded, face_encoding)
+    #         name = "Unknown"
+    #
+    #         # use the known face with the smallest distance to the new face
+    #         face_distances = face_recognition.face_distance(faces_encoded, face_encoding)
+    #         best_match_index = np.argmin(face_distances)
+    #         if matches[best_match_index]:
+    #             name = known_face_names[best_match_index]
+    #
+    #         face_names.append(name)
+    #
+    #         for (top, right, bottom, left), name in zip(face_locations, face_names):
+    #             # Draw a box around the face
+    #             cv2.rectangle(img, (left - 20, top - 20), (right + 20, bottom + 20), (255, 0, 0), 2)
+    #
+    #             # Draw a label with a name below the face
+    #             cv2.rectangle(img, (left - 20, bottom - 15), (right + 20, bottom + 20), (255, 0, 0), cv2.FILLED)
+    #             font = cv2.FONT_HERSHEY_DUPLEX
+    #             cv2.putText(img, name, (left - 20, bottom + 15), font, 1.0, (255, 255, 255), 2)
+    #
+    #     # Display the resulting image
+    #     while True:
+    #
+    #         cv2.imshow('Video', img)
+    #         if cv2.waitKey(1) & 0xFF == ord('q'):
+    #             return face_names
 
     def daily_report(self):  # todo: show my meetings this day
         """
@@ -131,23 +133,20 @@ class RegularUser(Person):
         Output - report of all the detections in this day
         show a report of all daily detections
         """
-<<<<<<< HEAD
+        # print("Please enter the day to show the report")
+        # self.day = input("Day:")
+        # self.month = input(" Month:")
+        # self.year = input("Year:")
+        # while ((day<1 or day>31) or (month<1 or month>12) or year<1):
+        #  print("One or more of the details are invalid,please enter a valid day ")
+        #  self.day = input("Day:")
+        #  self.month = input(" Month:")
+        # self.year = input("Year:")
+        # get_detection_by_day(day,month,year)
 
-        #print("Please enter the day to show the report")
-        #self.day = input("Day:")
-        #self.month = input(" Month:")
-        #self.year = input("Year:")
-        #while ((day<1 or day>31) or (month<1 or month>12) or year<1):
-          #  print("One or more of the details are invalid,please enter a valid day ")
-          #  self.day = input("Day:")
-          #  self.month = input(" Month:")
-           # self.year = input("Year:")
-        #get_detection_by_day(day,month,year)
+    def weekly_report(self):  # todo: show my meetings this week
+        """
 
-
-    def weekly_report(self):  #todo: show my meetings this week
-         """
-=======
         print("Please enter the day to show the report")
         self.day = input("Day:")
         self.month = input(" Month:")
@@ -158,27 +157,25 @@ class RegularUser(Person):
             self.month = input(" Month:")
             self.year = input("Year:")
         get_detection_by_day(day,month,year)
-
+            """
 
     def weekly_report(self):  # todo: show my meetings this week
         """
->>>>>>> 9701c3405849d81119231a23dd5d8e44dd00bb13
         Input - none
         Output - report of all the detections in this week
         show a report of all weekly detections
         """
 
-       # print("Please enter the week to show the report")
-        #self.day = input("Day:")
-        #self.month = input(" Month:")
-        #self.year = input("Year:")
-       # while ((day<1 or day>31) or (month<1 or month>12) or year<1):
-        #    print("One or more of the details are invalid,please enter a valid day ")
-        #    self.day = input("Day:")
-        #    self.month = input(" Month:")
-        #    self.year = input("Year:")
-        #get_detection_by_day(day,month,year)
-
+    # print("Please enter the week to show the report")
+    # self.day = input("Day:")
+    # self.month = input(" Month:")
+    # self.year = input("Year:")
+    # while ((day<1 or day>31) or (month<1 or month>12) or year<1):
+    #    print("One or more of the details are invalid,please enter a valid day ")
+    #    self.day = input("Day:")
+    #    self.month = input(" Month:")
+    #    self.year = input("Year:")
+    # get_detection_by_day(day,month,year)
 
     def monthly_report(self):  # todo: show my meetings this month
         """
@@ -188,8 +185,7 @@ class RegularUser(Person):
 
     def create_contacts(self):  # todo: create my list contacts
 
-        x=database.DataBase.create_contact_list_table(self.user_name)
-
+        x = database.DataBase.create_contact_list_table(self.user_name)
 
     def remove_contact(self):  # todo: remove a contact from my list
         """
@@ -198,12 +194,11 @@ class RegularUser(Person):
         delete a contact from the list
         """
         nick = input("Enter the nick name of the contact you want to remove :")
-        x =  database.DataBase.remove_contact(self.user_name,nick)
+        x = database.DataBase.remove_contact(self.user_name, nick)
         if x:
             print("The contact was delete ")
         else:
             print("The contact does not exist ")
-
 
     def add_contact(self):
         """
@@ -219,8 +214,7 @@ class RegularUser(Person):
         ##img = database.DataBase.update_img_file(first_name, nick, image)
         ##sound = input("sound:")
 
-        ##database.DataBase.insert_new_contact(self.user_name, first_name, last_name, nick,img,sound)
-
+        self.data.insert_new_contact(self.user_name, first_name, last_name, nick, None, None)
 
     def show_contact(self):
         """
@@ -229,7 +223,7 @@ class RegularUser(Person):
         show a contact details
         """
         contactnick = input("Nick name of the contact :")
-        x = database.DataBase.get_contact(self.user_name,contactnick)
+        x = database.DataBase.get_contact(self.user_name, contactnick)
         if x:
             return x
         else:
@@ -242,9 +236,7 @@ class RegularUser(Person):
         say the name of the contact out loud
         """
         nick = input("Nick name of the contact :")
-        database.DataBase.get_sound_contact(self.user_name,nick)
-
-
+        database.DataBase.get_sound_contact(self.user_name, nick)
 
     def delete_my_account(self):
         """
@@ -254,18 +246,11 @@ class RegularUser(Person):
         """
         database.DataBase.delete_my_account(self.user_name)
 
-
     def edit_my_first_name(self):
         self.f_name = input("Enter your new first name :")
-
 
     def edit_my_last_name(self):
         self.f_name = input("Enter your new last name :")
 
-
     def edit_my_password(self):
         self.passWord = input("Enter your new password :")
-        
-        
-    
-        
