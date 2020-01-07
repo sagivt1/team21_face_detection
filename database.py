@@ -250,7 +250,7 @@ class DataBase:
             con.close()
             return True
 
-    def update_nick_name(self, user_name, nick, new_nick):
+    def update_contact_nick_name(self, user_name, nick, new_nick):
         """
         Input - user_name , nick name and new nick name of the type string
         Output - True or False is success
@@ -271,7 +271,7 @@ class DataBase:
             con.close()
             return True
 
-    def update_first_name(self, user_name, nick, first_name):
+    def update_contact_first_name(self, user_name, nick, first_name):
         """
         Input - user_name , nick name and new first name of the type string
         Output - True or False is success
@@ -292,7 +292,7 @@ class DataBase:
             con.close()
             return True
 
-    def update_last_name(self, user_name, nick, last_name):
+    def update_contact_last_name(self, user_name, nick, last_name):
         """
         Input - user_name , nick name and new first name of the type string
         Output - True or False is success
@@ -313,7 +313,7 @@ class DataBase:
             con.close()
             return True
 
-    def update_img_file(self, user_name, nick, img):
+    def update_contact_img_file(self, user_name, nick, img):
         """
         Input - user name,nick name and new file path to picture
         Output - True or False is susses
@@ -334,7 +334,7 @@ class DataBase:
             con.close()
             return True
 
-    def update_sound_file(self, user_name, nick, sound):
+    def update_contact_sound_file(self, user_name, nick, sound):
         """
         Input - user name,nick name and new file path to sound
         Output - True or False is susses
@@ -354,6 +354,35 @@ class DataBase:
             con.commit()
             con.close()
             return True
+
+    def update_first_name(self,user_name,new_name):
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        data = con.execute(''' SELECT * FROM user_info ''')
+        check = data.fetchone()
+        if not check:
+            con.close()
+            return False
+        con.execute('''UPDATE user_info SET FIRST_NAME=:FIRST_NAME
+                            ''',{'FIRST_NAME':new_name})
+        con.commit()
+        con.close()
+        return True
+
+    def update_last_name(self,user_name,new_last):
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        data = con.execute(''' SELECT * FROM user_info ''')
+        check = data.fetchone()
+        if not check:
+            con.close()
+            return False
+        con.execute('''UPDATE user_info SET LAST_NAME=:LAST_NAME
+                            ''',{'LAST_NAME':new_last})
+        con.commit()
+        con.close()
+        return True
+
 
     def delete_database(self, user_name):
         """

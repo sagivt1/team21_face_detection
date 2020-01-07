@@ -1,5 +1,6 @@
 from Person import Person
 import database
+import Sound
 # import face_recognition as fr
 import os
 # import cv2
@@ -17,17 +18,11 @@ encoded = {}
 class RegularUser(Person):
     def __init__(self):
         super(RegularUser, self).__init__()
-
-    def register(self):
-        Person.register(self)
         self.data.create_contact_list_table(self.user_name)
         self.data.create_detection_table(self.user_name)
 
-    def login(self):
-        Person.Login(self)
-
     def my_contacts(self):
-        x = self.database.DataBase.get_all_contacts()
+        x = self.data.get_all_contacts(self.user_name)
         return x
 
     # def move_photo(self):
@@ -210,11 +205,8 @@ class RegularUser(Person):
         first_name = input("First name :")
         last_name = input("Last name :")
         nick = input("Nick name :")
-        ##check how to put a pic and sound
-        ##img = database.DataBase.update_img_file(first_name, nick, image)
-        ##sound = input("sound:")
-
-        self.data.insert_new_contact(self.user_name, first_name, last_name, nick, None, None)
+        sound = Sound.Sound(nick)
+        self.data.insert_new_contact(self.user_name, first_name, last_name, nick, None, sound.file_path)
 
     def show_contact(self):
         """
@@ -222,21 +214,12 @@ class RegularUser(Person):
         Output - message or show the details of the contact in the list
         show a contact details
         """
-        contactnick = input("Nick name of the contact :")
-        x = database.DataBase.get_contact(self.user_name, contactnick)
+        contact = input("Nick name of the contact :")
+        x = self.data.get_contact(self.user_name,contact)
         if x:
             return x
         else:
             print("The contact does not exist ")
-
-    def say_my_contact(self):
-        """
-        Input - none
-        Output - say the name of the contact out loud
-        say the name of the contact out loud
-        """
-        nick = input("Nick name of the contact :")
-        database.DataBase.get_sound_contact(self.user_name, nick)
 
     def delete_my_account(self):
         """
@@ -247,10 +230,26 @@ class RegularUser(Person):
         database.DataBase.delete_my_account(self.user_name)
 
     def edit_my_first_name(self):
-        self.f_name = input("Enter your new first name :")
+        """
+        Input - None
+        Output - None
+        update user first name
+        """
+        self.first_name = input("Enter your new first name :")
+        if self.data.update_first_name(self.user_name,self.first_name):
+            print("First name updated")
+        else:
+            print("First name not updated")
+
 
     def edit_my_last_name(self):
-        self.f_name = input("Enter your new last name :")
+        self.last_name = input("Enter your new last name :")
+        if self.data.update_last_name(self.user_name,self.last_name):
+            print("Last name updated")
+        else:
+            print("Last name not updated")
+
+
 
     def edit_my_password(self):
         self.passWord = input("Enter your new password :")

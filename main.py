@@ -4,8 +4,9 @@ import RegularUser
 
 
 x = RegularUser.RegularUser()
-x.register()
-x.add_contact()
+x.edit_my_first_name()
+x.edit_my_last_name()
+
 
 
 
