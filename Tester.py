@@ -11,6 +11,7 @@ from time import sleep
 import time
 import os.path
 import shutil
+from datetime import date
 
 
 class Tester(Person):
@@ -23,7 +24,7 @@ class Tester(Person):
         Output - none
         create tables for Tester user
         """
-        self.data.create_user_info_table(self.user_name)
+        self.data.create_user_info_table(self.first_name, self.last_name, self.i_d, self.user_name, self.password)
         self.data.create_detection_table(self.user_name)
         self.data.create_contact_list_table(self.user_name)
         self.data.create_fail_list(self.user_name)
@@ -127,8 +128,18 @@ class Tester(Person):
         Output - none
         Add new fail to database
         """
+        today = date.today()
+        fail_name = input("Give a short describe of the fail : ")
+        fail_description = input("Full details : ")
+        self.data.add_fail(self.user_name, today.day, today.month, today.year, fail_name, fail_description, 0)
 
-
+    def update_fail_status(self):  # todo: update the status by choice the serial number of the fail
+        """
+        Input - none
+        Output - none
+        Update a fail status
+        """
+        None
 
     # def move_photo(self):
     #     global encoded

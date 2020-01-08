@@ -11,6 +11,7 @@ from time import sleep
 import time
 import os.path
 import shutil
+from datetime import date
 
 
 class RegularUser(Person):
