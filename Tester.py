@@ -1,4 +1,5 @@
 from Person import Person
+import Sound
 import database
 # import face_recognition as fr
 import os
@@ -11,24 +12,123 @@ import time
 import os.path
 import shutil
 
-encoded = {}
-
-enter_name = input("entre the name of the person:")
-
 
 class Tester(Person):
-    def __init__(self, f_name, l_name, ID, user, passWord):
-        Person.__init__(self, f_name, l_name, ID, user, passWord)
+    def __init__(self, first_name, last_name, i_d, user_name, password):
+        super(Tester, self).__init__(first_name, last_name, i_d, user_name, password)
 
-    def Register(self, code):
-        if code == '1111':
-            Person.register()
-            self.data.create_detection_table(self.user_name)
-            self.data.create_contact_list_table(self.user_name)
-            self.data.create_fail_list(self.user_name)
+    def create_database(self):
+        """
+        Input - none
+        Output - none
+        create tables for Tester user
+        """
+        self.data.create_user_info_table(self.user_name)
+        self.data.create_detection_table(self.user_name)
+        self.data.create_contact_list_table(self.user_name)
+        self.data.create_fail_list(self.user_name)
+        self.data.create_var_table(self.user_name)
 
-    def Login(self):
-        self.Login(Person)
+    def my_contacts(self):
+        """
+        Input - None
+        Output - list of contacts
+        return all my contacts
+        """
+        x = self.data.get_all_contacts(self.user_name)
+        for i in x:
+            print(i)
+
+    def add_contact(self):
+        """
+         Input - none
+         Output - none
+         add a new contact to the list
+         """
+        print("Please enter all the details of your new contact : ")
+        first_name = input("First name :")
+        last_name = input("Last name :")
+        nick = input("Nick name :")
+        sound = Sound.Sound(nick)
+        self.data.insert_new_contact(self.user_name, first_name, last_name, nick, None, sound.file_path)
+
+    def remove_contact(self):
+        """
+        Input - None
+        Output - None
+        delete a contact from the contact list
+        """
+        nick = input("Enter the nick name of the contact you want to remove :")
+        if self.data.remove_contact(self.user_name, nick):
+            print("Contact deleted")
+        else:
+            print("Contact does not exists")
+
+    def show_contact(self):
+        """
+        Input - none
+        Output - message or show the details of the contact in the list
+        show a contact details
+        """
+        contact = input("Nick name of the contact :")
+        x = self.data.get_contact(self.user_name, contact)
+        if x:
+            return x
+        else:
+            print("The contact does not exist ")
+
+    def delete_my_account(self):
+        """
+        Input - none
+        Output - confirmation message
+        delete the account of the user
+        """
+        self.data.delete_database(self.user_name)
+
+    def edit_my_first_name(self):
+        """
+        Input - None
+        Output - None
+        update user first name
+        """
+        self.first_name = input("Enter your new first name :")
+        if self.data.update_first_name(self.user_name, self.first_name):
+            print("First name updated")
+        else:
+            print("First name not updated")
+
+    def edit_my_last_name(self):
+        """
+        Input - None
+        Output - None
+        update user last name
+        """
+        self.last_name = input("Enter your new last name :")
+        if self.data.update_last_name(self.user_name, self.last_name):
+            print("Last name updated")
+        else:
+            print("Last name not updated")
+
+    def edit_my_password(self):
+        """
+        Input - None
+        Output - None
+        update user password
+        """
+        self.password = input("Enter your new password :")
+        if self.data.update_password(self.user_name, self.password):
+            print("Password updated")
+        else:
+            print("Password not updated")
+
+    def add_fail(self):
+        """
+        Input - none
+        Output - none
+        Add new fail to database
+        """
+
+
 
     # def move_photo(self):
     #     global encoded

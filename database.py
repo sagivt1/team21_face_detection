@@ -4,10 +4,8 @@ from datetime import date
 
 
 class DataBase:
-    count_of_detection = 0
-    count_of_fails = 0
 
-    def __init__(self,user_name):
+    def __init__(self, user_name):
         """
         Input - none
         Output - none
@@ -17,7 +15,80 @@ class DataBase:
         con = sqlite3.connect(db_name)
         con.close()
 
-    def create_user_info_table(self,first_name, last_name, i_d, user_name, password):
+    def create_var_table(self, user_name):
+        """
+        Input - user_name
+        Output - none
+        create a table that contain count_of_detection and count_of_fails
+        """
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        con.execute(''' CREATE TABLE IF NOT EXISTS var(
+                    COUNT_OF_DETECTION INT,
+                    COUNT_OF_FAILS INT
+                       ) ''', )
+        con.execute(''' INSERT INTO var(COUNT_OF_DETECTION,COUNT_OF_FAILS)
+                VALUES(?,?)''', (0, 0))
+        con.commit()
+        con.close()
+
+    def get_count_of_fails(self, user_name):
+        """
+        Input - user_name
+        Output - none
+        return the count fails
+        """
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        data = con.execute('''SELECT * FROM val ''')
+        check = data.fetchall()
+        con.close()
+        return check[1]
+
+    def get_count_of_detection(self, user_name):
+        """
+        Input - user_name
+        Output - none
+        return the count detection
+        """
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        data = con.execute('''SELECT * FROM val ''')
+        check = data.fetchall()
+        con.close()
+        return check[0]
+
+    def count_one_more_fail(self, user_name):
+        """
+        Input - noe
+        Output - none
+        add one more fail to the counter
+        """
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        data = con.execute('''SELECT * FROM val ''')
+        check = data.fetchall()
+        con.execute('''INSERT INTO var(COUNT_OF_DETECTION,COUNT_OF_FAILS)
+                        VALUES(?,?)''', (check[0], check[1] + 1))
+        con.commit()
+        con.close()
+
+    def count_one_more_detection(self, user_name):
+        """
+        Input - noe
+        Output - none
+        add one more detection to the counter
+        """
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        data = con.execute('''SELECT * FROM val ''')
+        check = data.fetchall()
+        con.execute('''INSERT INTO var(COUNT_OF_DETECTION,COUNT_OF_FAILS)
+                        VALUES(?,?)''', (check[0] + 1, check[1]))
+        con.commit()
+        con.close()
+
+    def create_user_info_table(self, first_name, last_name, i_d, user_name, password):
         """
         Input - first_name, last_name, i_d, user_name, password
         Output - none
@@ -36,7 +107,6 @@ class DataBase:
                  VALUES(?,?,?,?,?)''', (first_name, last_name, i_d, user_name, password))
         con.commit()
         con.close()
-
 
     def create_contact_list_table(self, user_name):
         """
@@ -97,12 +167,12 @@ class DataBase:
         Output - None
         add new fail to the database
         """
+        self.count_one_more_fail(user_name)
         db_name = user_name + ".db"
         con = sqlite3.connect(db_name)
         con.execute('''INSERT INTO fail_list(SERIAL,DAY,MONTH,YEAR,FAIL_NAME,FAIL_DESCRIPTION,STATUS)
                 VALUES(?,?,?,?,?,?,?,?,?)''',
-                    (DataBase.count_of_fails, day, month, year, fail_name, fail_description, status))
-        DataBase.count_of_fails += 1
+                    (self.get_count_of_fails(), day, month, year, fail_name, fail_description, status))
         con.commit()
         con.close()
 
@@ -171,13 +241,13 @@ class DataBase:
         Output - None
         add new detection to database
         """
+        self.count_one_more_detection(user_name)
         db_name = user_name + ".db"
         con = sqlite3.connect(db_name)
         con.execute('''INSERT INTO detection_list(SERIAL,DAY,MONTH,YEAR,NAME)
-        VALUES(?,?,?,?,?)''', (DataBase.count_of_detection, day, month, year, name))
+        VALUES(?,?,?,?,?)''', (self.get_count_of_detection(), day, month, year, name))
         con.commit()
         con.close()
-        DataBase.count_of_detection += 1
 
     def connect(self, user_name, password):
         """

@@ -12,8 +12,6 @@ import time
 import os.path
 import shutil
 
-encoded = {}
-
 
 class RegularUser(Person):
     def __init__(self, first_name, last_name, i_d, user_name, password):
@@ -23,11 +21,12 @@ class RegularUser(Person):
         """
         Input - none
         Output - none
-        create tables for RegularUser
+        create tables for Regular user
         """
         self.data.create_user_info_table(self.first_name, self.last_name, self.i_d, self.user_name, self.password)
         self.data.create_contact_list_table(self.user_name)
         self.data.create_detection_table(self.user_name)
+        self.data.create_var_table(self.user_name)
 
     def my_contacts(self):
         """
