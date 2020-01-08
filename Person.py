@@ -26,7 +26,7 @@ class Person:
     def login(self):
         user_name = input("Please enter user name:")
         password = input("enter a password:")
-        if not database.DataBase.connect(self.data,user_name,password):
+        if not database.DataBase.connect(self.data, user_name, password):
             print("WRONG USERNAME OR PASSWORD! PLEASE TRY AGAIN")
             return False
 
