@@ -16,14 +16,28 @@ encoded = {}
 
 
 class RegularUser(Person):
-    def __init__(self):
-        super(RegularUser, self).__init__()
+    def __init__(self, first_name, last_name, i_d, user_name, password):
+        super(RegularUser, self).__init__(first_name, last_name, i_d, user_name, password)
+
+    def create_database(self):
+        """
+        Input - none
+        Output - none
+        create tables for RegularUser
+        """
+        self.data.create_user_info_table(self.first_name, self.last_name, self.i_d, self.user_name, self.password)
         self.data.create_contact_list_table(self.user_name)
         self.data.create_detection_table(self.user_name)
 
     def my_contacts(self):
+        """
+        Input - None
+        Output - list of contacts
+        return all my contacts
+        """
         x = self.data.get_all_contacts(self.user_name)
-        return x
+        for i in x:
+            print(i)
 
     # def move_photo(self):
     #     global encoded
@@ -122,26 +136,19 @@ class RegularUser(Person):
     #         if cv2.waitKey(1) & 0xFF == ord('q'):
     #             return face_names
 
-    def daily_report(self):  # todo: show my meetings this day
+    def daily_report(self):  # todo:report of daily
         """
-        Input - none
-        Output - report of all the detections in this day
+        Input - None
+        Output - None
         show a report of all daily detections
         """
-        # print("Please enter the day to show the report")
-        # self.day = input("Day:")
-        # self.month = input(" Month:")
-        # self.year = input("Year:")
-        # while ((day<1 or day>31) or (month<1 or month>12) or year<1):
-        #  print("One or more of the details are invalid,please enter a valid day ")
-        #  self.day = input("Day:")
-        #  self.month = input(" Month:")
-        # self.year = input("Year:")
-        # get_detection_by_day(day,month,year)
+        # print("Enter date you want to get a report")
+        # day = int(input("Day - "))
+        # month = int(input('Month - '))
+        # month = int(input('Year - '))
 
     def weekly_report(self):  # todo: show my meetings this week
         """
-
         print("Please enter the day to show the report")
         self.day = input("Day:")
         self.month = input(" Month:")
@@ -178,22 +185,17 @@ class RegularUser(Person):
          """
         pass
 
-    def create_contacts(self):  # todo: create my list contacts
-
-        x = database.DataBase.create_contact_list_table(self.user_name)
-
-    def remove_contact(self):  # todo: remove a contact from my list
+    def remove_contact(self):
         """
-        Input - none
-        Output - confirmation message
-        delete a contact from the list
+        Input - None
+        Output - None
+        delete a contact from the contact list
         """
         nick = input("Enter the nick name of the contact you want to remove :")
-        x = database.DataBase.remove_contact(self.user_name, nick)
-        if x:
-            print("The contact was delete ")
+        if self.data.remove_contact(self.user_name, nick):
+            print("Contact deleted")
         else:
-            print("The contact does not exist ")
+            print("Contact does not exists")
 
     def add_contact(self):
         """
@@ -215,7 +217,7 @@ class RegularUser(Person):
         show a contact details
         """
         contact = input("Nick name of the contact :")
-        x = self.data.get_contact(self.user_name,contact)
+        x = self.data.get_contact(self.user_name, contact)
         if x:
             return x
         else:
@@ -227,7 +229,7 @@ class RegularUser(Person):
         Output - confirmation message
         delete the account of the user
         """
-        database.DataBase.delete_my_account(self.user_name)
+        self.data.delete_database(self.user_name)
 
     def edit_my_first_name(self):
         """
@@ -236,20 +238,31 @@ class RegularUser(Person):
         update user first name
         """
         self.first_name = input("Enter your new first name :")
-        if self.data.update_first_name(self.user_name,self.first_name):
+        if self.data.update_first_name(self.user_name, self.first_name):
             print("First name updated")
         else:
             print("First name not updated")
 
-
     def edit_my_last_name(self):
+        """
+        Input - None
+        Output - None
+        update user last name
+        """
         self.last_name = input("Enter your new last name :")
-        if self.data.update_last_name(self.user_name,self.last_name):
+        if self.data.update_last_name(self.user_name, self.last_name):
             print("Last name updated")
         else:
             print("Last name not updated")
 
-
-
     def edit_my_password(self):
-        self.passWord = input("Enter your new password :")
+        """
+        Input - None
+        Output - None
+        update user password
+        """
+        self.password = input("Enter your new password :")
+        if self.data.update_password(self.user_name, self.password):
+            print("Password updated")
+        else:
+            print("Password not updated")

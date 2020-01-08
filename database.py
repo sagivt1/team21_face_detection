@@ -7,7 +7,17 @@ class DataBase:
     count_of_detection = 0
     count_of_fails = 0
 
-    def __init__(self, first_name, last_name, i_d, user_name, password):
+    def __init__(self,user_name):
+        """
+        Input - none
+        Output - none
+        Create a new database to the user with no tables
+        """
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        con.close()
+
+    def create_user_info_table(self,first_name, last_name, i_d, user_name, password):
         """
         Input - first_name, last_name, i_d, user_name, password
         Output - none
@@ -16,16 +26,17 @@ class DataBase:
         db_name = user_name + ".db"
         con = sqlite3.connect(db_name)
         con.execute(''' CREATE TABLE IF NOT EXISTS user_info(
-        FIRST_NAME TEXT NOT NULL,
-        LAST_NAME TEXT NOT NULL,
-        ID TEXT NOT NULL,
-        USER_NAME TEXT PRIMARY KEY NOT NULL,
-        PASSWORD TEXT NOT NULL 
-        ) ''', )
+                FIRST_NAME TEXT NOT NULL,
+                LAST_NAME TEXT NOT NULL,
+                ID TEXT NOT NULL,
+                USER_NAME TEXT PRIMARY KEY NOT NULL,
+                PASSWORD TEXT NOT NULL 
+                ) ''', )
         con.execute(''' INSERT INTO user_info(FIRST_NAME,LAST_NAME,ID,USER_NAME,PASSWORD)
-         VALUES(?,?,?,?,?)''', (first_name, last_name, i_d, user_name, password))
+                 VALUES(?,?,?,?,?)''', (first_name, last_name, i_d, user_name, password))
         con.commit()
         con.close()
+
 
     def create_contact_list_table(self, user_name):
         """
@@ -78,6 +89,7 @@ class DataBase:
         FAIL_DESCRIPTION TEXT NOT NULL,
         STATUS INT NOT NULL
         )''')
+        con.close()
 
     def add_fail(self, user_name, day, month, year, fail_name, fail_description, status):
         """
@@ -179,7 +191,7 @@ class DataBase:
         con = sqlite3.connect(db_name)
         data = con.execute(''' SELECT USER_NAME,PASSWORD FROM user_info''')
         check = data.fetchone()
-
+        con.close()
         if check[0] == user_name and check[1] == password:
             return True
         else:
@@ -355,7 +367,7 @@ class DataBase:
             con.close()
             return True
 
-    def update_first_name(self,user_name,new_name):
+    def update_first_name(self, user_name, new_name):
         db_name = user_name + ".db"
         con = sqlite3.connect(db_name)
         data = con.execute(''' SELECT * FROM user_info ''')
@@ -364,12 +376,12 @@ class DataBase:
             con.close()
             return False
         con.execute('''UPDATE user_info SET FIRST_NAME=:FIRST_NAME
-                            ''',{'FIRST_NAME':new_name})
+                            ''', {'FIRST_NAME': new_name})
         con.commit()
         con.close()
         return True
 
-    def update_last_name(self,user_name,new_last):
+    def update_last_name(self, user_name, new_last):
         db_name = user_name + ".db"
         con = sqlite3.connect(db_name)
         data = con.execute(''' SELECT * FROM user_info ''')
@@ -378,11 +390,24 @@ class DataBase:
             con.close()
             return False
         con.execute('''UPDATE user_info SET LAST_NAME=:LAST_NAME
-                            ''',{'LAST_NAME':new_last})
+                            ''', {'LAST_NAME': new_last})
         con.commit()
         con.close()
         return True
 
+    def update_password(self, user_name, new_pass):
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        data = con.execute(''' SELECT * FROM user_info ''')
+        check = data.fetchone()
+        if not check:
+            con.close()
+            return False
+        con.execute('''UPDATE user_info SET PASSWORD=:PASSWORD
+                               ''', {'PASSWORD': new_pass})
+        con.commit()
+        con.close()
+        return True
 
     def delete_database(self, user_name):
         """
