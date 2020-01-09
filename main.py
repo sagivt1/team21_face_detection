@@ -1,6 +1,7 @@
 import Sound
 import Manager
 import RegularUser
+<<<<<<< HEAD
 import Tester
 
 #x = RegularUser.RegularUser()
@@ -26,6 +27,15 @@ print(k.user_name)
 
 #x = Sound.Sound('Amit')
 #x.play_record()
+=======
+import database
+import Tester
+
+x = Tester.Tester('s','t','123456789','st','123456')
+x.add_fail()
+
+
+>>>>>>> 0eb88c9d601b89c39e1ec3baf074bd72b59fb0d5
 
 
 

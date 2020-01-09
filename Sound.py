@@ -3,9 +3,15 @@ from scipy.io.wavfile import write
 from playsound import playsound
 
 
+def play_record(file_path):
+    print("Playing")
+    playsound(file_path)
+    sounddevice.wait()
+
+
 class Sound:
 
-    def __init__(self, contac_name):
+    def __init__(self, contact_name):
         fs = 44100
         second = 3
         x = input("To start recording press Y - ")
@@ -29,10 +35,5 @@ class Sound:
             sounddevice.play(record_voice, fs)
             sounddevice.wait()
             y = input("To save the file enter yes \nTo try again press any button\n")
-        self.file_path = "Sound/" + contac_name + ".wav"
+        self.file_path = "Sound/" + contact_name + ".wav"
         write(self.file_path, fs, record_voice)
-
-    def play_record(self):
-        print("Playing")
-        playsound(self.file_path)
-        sounddevice.wait()
