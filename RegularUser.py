@@ -1,16 +1,19 @@
 from Person import Person
-import database
+from database import DataBase
 
 
 class RegularUser(Person):
     def __init__(self):
         Person.__init__(self)
 
+
     def Register(self):
+        # צריך לוודא שלא קיים עוד משתמש במערכת
         Person.Register(self)
 
-    def Login(self):
-        Person.Login(self)
+
+    def login(self):
+        Person.login(self)
 
     def my_contacts(self):
         x = self.database.DataBase.get_all_contacts()
@@ -22,7 +25,6 @@ class RegularUser(Person):
         Output - report of all the detections in this day
         show a report of all daily detections
         """
-<<<<<<< HEAD
 
         #print("Please enter the day to show the report")
         #self.day = input("Day:")
@@ -38,7 +40,7 @@ class RegularUser(Person):
 
     def weekly_report(self):  #todo: show my meetings this week
          """
-=======
+
         print("Please enter the day to show the report")
         self.day = input("Day:")
         self.month = input(" Month:")
@@ -49,11 +51,10 @@ class RegularUser(Person):
             self.month = input(" Month:")
             self.year = input("Year:")
         get_detection_by_day(day,month,year)
-
+"""
 
     def weekly_report(self):  # todo: show my meetings this week
         """
->>>>>>> 9701c3405849d81119231a23dd5d8e44dd00bb13
         Input - none
         Output - report of all the detections in this week
         show a report of all weekly detections
@@ -78,7 +79,11 @@ class RegularUser(Person):
         pass
 
     def create_contacts(self):  # todo: create my list contacts
-
+        """
+        Input - none
+        Output - confirmation message
+        delete a contact from the list
+        """
         x=database.DataBase.create_contact_list_table(self.user_name)
 
 
@@ -89,7 +94,7 @@ class RegularUser(Person):
         delete a contact from the list
         """
         nick = input("Enter the nick name of the contact you want to remove :")
-        x =  database.DataBase.remove_contact(self.user_name,nick)
+        x =database.DataBase.remove_contact(self.user_name,nick)
         if x:
             print("The contact was delete ")
         else:
@@ -109,9 +114,10 @@ class RegularUser(Person):
         ##check how to put a pic and sound
         ##img = database.DataBase.update_img_file(first_name, nick, image)
         ##sound = input("sound:")
-
-        ##database.DataBase.insert_new_contact(self.user_name, first_name, last_name, nick,img,sound)
-
+        img=""
+        sound=""
+        self.data.insert_new_contact(self.user_name,first_name,last_name,nick)
+#,None,None
 
     def show_contact(self):
         """
@@ -134,7 +140,6 @@ class RegularUser(Person):
         """
         nick = input("Nick name of the contact :")
         database.DataBase.get_sound_contact(self.user_name,nick)
-
 
 
     def delete_my_account(self):

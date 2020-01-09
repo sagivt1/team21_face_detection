@@ -7,9 +7,10 @@ class Manager(Person):
         self.code = None
 
     def Register(self, code):
+
         self.code = input("enter manager code:")
         while self.code != 0000:
             self.code = input("wrong code! please enter manager code:")
 
 
-    def Login(self): self.Login(Person)
+    def Login(self): Person.login(self)

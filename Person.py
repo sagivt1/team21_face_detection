@@ -1,5 +1,4 @@
-import database
-
+from database import DataBase
 
 
 class Person:
@@ -21,14 +20,15 @@ class Person:
             self.i_d = input("invalid number! please enter your id:")
         self.user_name = input("Please enter user name:")
         self.password = input("enter a password:")
-        self.data = database.DataBase(self.first_name, self.last_name, self.i_d, self.user_name, self.password)
+        self.data = DataBase(self.first_name,self.user_name,self.i_d,self.user_name,self.password)
         return True
 
     def login(self):
         user_name = input("Please enter user name:")
         password = input("enter a password:")
-        if not database.DataBase.connect(self.data,user_name,password):
+        if not DataBase.connect(self.data, user_name, password):
             print("WRONG USERNAME OR PASSWORD! PLEASE TRY AGAIN")
             return False
 
         return True
+#לא מבקש פרטים שוב ,מדפיס מלא NONE
