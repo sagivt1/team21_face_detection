@@ -397,7 +397,7 @@ def move_photo(self):
       self.last_name = input("Enter your new last name :")
       if self.data.update_last_name(self.user_name, self.last_name):
          print("Last name updated")
-     else:
+      else:
          print("Last name not updated")
 
     def edit_my_password(self):
@@ -407,4 +407,4 @@ def move_photo(self):
         else:
             print("Password not updated")
 
-   
+
