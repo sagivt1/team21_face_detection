@@ -4,10 +4,91 @@ from datetime import date
 
 
 class DataBase:
-    count_of_detection = 0
-    count_of_fails = 0
 
-    def __init__(self, first_name, last_name, i_d, user_name, password):
+    def __init__(self, user_name):
+        """
+        Input - none
+        Output - none
+        Create a new database to the user with no tables
+        """
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        con.close()
+
+    def create_var_table(self, user_name):
+        """
+        Input - user_name
+        Output - none
+        create a table that contain count_of_detection and count_of_fails
+        """
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        con.execute(''' CREATE TABLE IF NOT EXISTS var(
+                    COUNT_OF_DETECTION INT,
+                    COUNT_OF_FAILS INT
+                       ) ''', )
+        con.execute(''' INSERT INTO var(COUNT_OF_DETECTION,COUNT_OF_FAILS)
+                VALUES(?,?)''', (0, 0))
+        con.commit()
+        con.close()
+
+    def get_count_of_fails(self, user_name):
+        """
+        Input - user_name
+        Output - none
+        return the count fails
+        """
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        data = con.execute('''SELECT * FROM var ''')
+        check = data.fetchall()
+        con.close()
+        return check[0][1]
+
+    def get_count_of_detection(self, user_name):
+        """
+        Input - user_name
+        Output - none
+        return the count detection
+        """
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        data = con.execute('''SELECT * FROM var ''')
+        check = data.fetchall()
+        con.close()
+        return check[0][0]
+
+    def count_one_more_fail(self, user_name):
+        """
+        Input - noe
+        Output - none
+        add one more fail to the counter
+        """
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        data = con.execute('''SELECT * FROM var ''')
+        check = data.fetchall()
+        con.execute('''UPDATE var SET COUNT_OF_FAILS =:COUNT_OF_FAILS
+                        ''', {'COUNT_OF_FAILS':check[0][1]+1})
+        con.commit()
+        con.close()
+
+    def count_one_more_detection(self, user_name):
+        """
+        Input - noe
+        Output - none
+        add one more detection to the counter
+        """
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        data = con.execute('''SELECT * FROM var ''')
+        check = data.fetchall()
+        con.execute('''UPDATE var COUNT_OF_DETECTION=:COUNT_OF_DETECTION
+                        ''',{'COUNT_OF_DETECTION':check[0][0]+1})
+        con.commit()
+        con.close()
+
+    def create_user_info_table(self, first_name, last_name, i_d, user_name, password):
         """
         Input - first_name, last_name, i_d, user_name, password
         Output - none
@@ -16,14 +97,14 @@ class DataBase:
         db_name = user_name + ".db"
         con = sqlite3.connect(db_name)
         con.execute(''' CREATE TABLE IF NOT EXISTS user_info(
-        FIRST_NAME TEXT NOT NULL,
-        LAST_NAME TEXT NOT NULL,
-        ID TEXT NOT NULL,
-        USER_NAME TEXT PRIMARY KEY NOT NULL,
-        PASSWORD TEXT NOT NULL 
-        ) ''', )
+                FIRST_NAME TEXT NOT NULL,
+                LAST_NAME TEXT NOT NULL,
+                ID TEXT NOT NULL,
+                USER_NAME TEXT PRIMARY KEY NOT NULL,
+                PASSWORD TEXT NOT NULL 
+                ) ''', )
         con.execute(''' INSERT INTO user_info(FIRST_NAME,LAST_NAME,ID,USER_NAME,PASSWORD)
-         VALUES(?,?,?,?,?)''', (first_name, last_name, i_d, user_name, password))
+                 VALUES(?,?,?,?,?)''', (first_name, last_name, i_d, user_name, password))
         con.commit()
         con.close()
 
@@ -39,8 +120,8 @@ class DataBase:
         NICK_NAME TEXT PRIMARY KEY  NOT NULL,
         FIRST_NAME TEXT NOT NULL,
         LAST_NAME TEXT NOT NULL,
-        IMG TEXT NOT NULL,
-        SOUND TEXT NOT NULL
+        IMG TEXT ,
+        SOUND TEXT 
         ) ''')
         con.close()
 
@@ -78,6 +159,7 @@ class DataBase:
         FAIL_DESCRIPTION TEXT NOT NULL,
         STATUS INT NOT NULL
         )''')
+        con.close()
 
     def add_fail(self, user_name, day, month, year, fail_name, fail_description, status):
         """
@@ -85,12 +167,12 @@ class DataBase:
         Output - None
         add new fail to the database
         """
+        self.count_one_more_fail(user_name)
         db_name = user_name + ".db"
         con = sqlite3.connect(db_name)
         con.execute('''INSERT INTO fail_list(SERIAL,DAY,MONTH,YEAR,FAIL_NAME,FAIL_DESCRIPTION,STATUS)
-                VALUES(?,?,?,?,?,?,?,?,?)''',
-                    (DataBase.count_of_fails, day, month, year, fail_name, fail_description, status))
-        DataBase.count_of_fails += 1
+                VALUES(?,?,?,?,?,?,?)''',
+                    (self.get_count_of_fails(user_name), day, month, year, fail_name, fail_description, status))
         con.commit()
         con.close()
 
@@ -159,13 +241,13 @@ class DataBase:
         Output - None
         add new detection to database
         """
+        self.count_one_more_detection(user_name)
         db_name = user_name + ".db"
         con = sqlite3.connect(db_name)
         con.execute('''INSERT INTO detection_list(SERIAL,DAY,MONTH,YEAR,NAME)
-        VALUES(?,?,?,?,?)''', (DataBase.count_of_detection, day, month, year, name))
+        VALUES(?,?,?,?,?)''', (self.get_count_of_detection(), day, month, year, name))
         con.commit()
         con.close()
-        DataBase.count_of_detection += 1
 
     def connect(self, user_name, password):
         """
@@ -179,7 +261,7 @@ class DataBase:
         con = sqlite3.connect(db_name)
         data = con.execute(''' SELECT USER_NAME,PASSWORD FROM user_info''')
         check = data.fetchone()
-
+        con.close()
         if check[0] == user_name and check[1] == password:
             return True
         else:
@@ -193,8 +275,8 @@ class DataBase:
         """
         db_name = user_name + ".db"
         con = sqlite3.connect(db_name)
-        con.execute(''' INSERT INTO contact_list(NICK_NAME,FIRST_NAME,LAST_NAME,IMG,SOUND)
-        VALUES(?,?,?,?,?)''', (nick, first_name, last_name, img, sound))
+        con.execute(''' INSERT INTO contact_list(NICK_NAME,FIRST_NAME,LAST_NAME)
+        VALUES(?,?,?)''', (nick, first_name, last_name))
         con.commit()
         con.close()
 
@@ -250,7 +332,7 @@ class DataBase:
             con.close()
             return True
 
-    def update_nick_name(self, user_name, nick, new_nick):
+    def update_contact_nick_name(self, user_name, nick, new_nick):
         """
         Input - user_name , nick name and new nick name of the type string
         Output - True or False is success
@@ -271,7 +353,7 @@ class DataBase:
             con.close()
             return True
 
-    def update_first_name(self, user_name, nick, first_name):
+    def update_contact_first_name(self, user_name, nick, first_name):
         """
         Input - user_name , nick name and new first name of the type string
         Output - True or False is success
@@ -292,7 +374,7 @@ class DataBase:
             con.close()
             return True
 
-    def update_last_name(self, user_name, nick, last_name):
+    def update_contact_last_name(self, user_name, nick, last_name):
         """
         Input - user_name , nick name and new first name of the type string
         Output - True or False is success
@@ -313,7 +395,7 @@ class DataBase:
             con.close()
             return True
 
-    def update_img_file(self, user_name, nick, img):
+    def update_contact_img_file(self, user_name, nick, img):
         """
         Input - user name,nick name and new file path to picture
         Output - True or False is susses
@@ -334,7 +416,7 @@ class DataBase:
             con.close()
             return True
 
-    def update_sound_file(self, user_name, nick, sound):
+    def update_contact_sound_file(self, user_name, nick, sound):
         """
         Input - user name,nick name and new file path to sound
         Output - True or False is susses
@@ -354,6 +436,48 @@ class DataBase:
             con.commit()
             con.close()
             return True
+
+    def update_first_name(self, user_name, new_name):
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        data = con.execute(''' SELECT * FROM user_info ''')
+        check = data.fetchone()
+        if not check:
+            con.close()
+            return False
+        con.execute('''UPDATE user_info SET FIRST_NAME=:FIRST_NAME
+                            ''', {'FIRST_NAME': new_name})
+        con.commit()
+        con.close()
+        return True
+
+    def update_last_name(self, user_name, new_last):
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        data = con.execute(''' SELECT * FROM user_info ''')
+        check = data.fetchone()
+        if not check:
+            con.close()
+            return False
+        con.execute('''UPDATE user_info SET LAST_NAME=:LAST_NAME
+                            ''', {'LAST_NAME': new_last})
+        con.commit()
+        con.close()
+        return True
+
+    def update_password(self, user_name, new_pass):
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        data = con.execute(''' SELECT * FROM user_info ''')
+        check = data.fetchone()
+        if not check:
+            con.close()
+            return False
+        con.execute('''UPDATE user_info SET PASSWORD=:PASSWORD
+                               ''', {'PASSWORD': new_pass})
+        con.commit()
+        con.close()
+        return True
 
     def delete_database(self, user_name):
         """

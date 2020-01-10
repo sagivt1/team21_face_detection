@@ -2,21 +2,7 @@ import Sound
 import Manager
 import RegularUser
 
-#<<<<<<< HEAD
-x = RegularUser.Register('a', 'b', '2344', 'abc', '1234')
 
-
-#print(x.first_name)
-#print(x.last_name)
-#print(x.id)
-#print(x.password)
-#print(x.user_name)
-#x.add_contact()
-x.take_a_photo()
-#y = Manager.Manager('E', 'W', 'EE2E2', '2324', '1424','0000')
-#=======
-#x = Sound.Sound('Amit')
-#x.play_record()
 
 """
 # -*- coding: utf-8 -*-
