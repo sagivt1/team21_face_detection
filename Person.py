@@ -1,5 +1,4 @@
-import database
-
+from database import DataBase
 
 class Person:
 
@@ -12,3 +11,33 @@ class Person:
         self.data = database.DataBase(self.user_name)
 
 
+<<<<<<< HEAD
+    def register(self):
+        self.first_name = input("First Name:")
+        self.last_name = input("Last Name:")
+        self.i_d = input("enter your ID (9 digits):")
+        while len(self.i_d) != 9:
+            self.i_d = input("invalid number! please enter your id:")
+        self.user_name = input("Please enter user name:")
+        self.password = input("enter a password:")
+        self.data = DataBase(self.first_name,self.user_name,self.i_d,self.user_name,self.password)
+        return True
+
+    def login(self):
+        user_name = input("Please enter user name:")
+        password = input("enter a password:")
+<<<<<<< HEAD
+        if not DataBase.connect(self.data, user_name, password):
+=======
+        if not database.DataBase.connect(self.data, user_name, password):
+>>>>>>> 0eb88c9d601b89c39e1ec3baf074bd72b59fb0d5
+            print("WRONG USERNAME OR PASSWORD! PLEASE TRY AGAIN")
+            return False
+
+        return True
+<<<<<<< HEAD
+#לא מבקש פרטים שוב ,מדפיס מלא NONE
+=======
+=======
+>>>>>>> ed694b208f22e1830f25266a8aac78fe6bf01ce7
+>>>>>>> 0eb88c9d601b89c39e1ec3baf074bd72b59fb0d5

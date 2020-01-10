@@ -1,4 +1,59 @@
+from datetime import date
+
 from Person import Person
+<<<<<<< HEAD
+from database import DataBase
+
+
+class Tester(Person):
+    def __init__(self):
+        Person.__init__(self)
+        self.code = None
+
+    def Register(self):
+
+        code = input("Enter the tester code :")
+        while code != '1111':
+            code = input("invalid number! Enter the tester code :")
+        Person.register(self)
+        self.data.create_detection_table(self.user_name)
+        self.data.create_contact_list_table(self.user_name)
+        self.data.create_fail_list(self.user_name)
+
+    def Login(self):
+        Person.login(self)
+
+    def report_of_problems(self): # todo: create a file with problems
+        """
+                 :return:
+                 """
+        pass
+
+
+    def report_of_urgent_problems(self):  # todo: create a file with urgent problems
+        """
+         :return:
+        """
+        pass
+
+    def daily_report(self):  # todo: show my meetings this day
+        """
+         :return:
+         """
+        pass
+
+    def weekly_report(self):  # todo: show my meetings this week
+        """
+        :return:
+        """
+        pass
+
+    def Reset_User(self):
+        """
+               :return:
+               """
+        pass
+=======
 import Sound
 import database
 # import face_recognition as fr
@@ -13,8 +68,58 @@ import os.path
 import shutil
 from datetime import date
 
+<<<<<<< HEAD
+class Tester(Person):
+    encoded = {}
+=======
 
 class Tester(Person):
+<<<<<<< HEAD
+>>>>>>> 807d52d50cda39a162ca2cb51a1efe0e80b621e2
+    def __init__(self, f_name, l_name, ID, user, passWord):
+        Person.__init__(self)
+        self.code = None
+
+    def Register(self, code):
+        if code == '1111':
+            Person.register(self)
+            self.data.create_detection_table(self.user_name)
+            self.data.create_contact_list_table(self.user_name)
+            self.data.create_fail_list(self.user_name)
+
+    def Login(self): Person.login(self)
+
+<<<<<<< HEAD
+    def move_photo(self):
+        nonlocal encoded
+        i = 0
+        source = r"C:\Users\or machlouf\PycharmProjects\new_project"
+        destination = r"C:\Users\or machlouf\PycharmProjects\new_project\faces"
+        if not os.path.exists(destination):
+            os.makedirs(destination)
+        for f in os.listdir(source):
+            if f.endswith(enter_name + ".jpg"):
+                shutil.move(os.path.join(source, f), destination)
+                encoded[f.split(".")[i]] = fr.face_encodings(fr.load_image_file("faces/" + f))[i]
+
+    def take_a_photo(self):
+        enter_name = input("entre the name of the person:")
+        camera_port = 0
+        camera = cv2.VideoCapture(camera_port)
+        time.sleep(0.1)  # If you don't wait, the image will be dark
+        return_value, create = camera.read()
+        # enter_name = input("entre the name of the person:")
+        cv2.imwrite(enter_name + ".jpg", create)
+        del (camera)  # so that others can use the camera as soon as possible
+=======
+    def ReportFail(self):
+        print("enter the fail details: \n")
+        fail_name = input("fail name:\n")
+        fail_description = input("fail description:\n")
+        status = input("fail status: \n")
+        database.DataBase.add_fail(self.data, self.user_name, date.day, date.month, date.year, fail_name,
+                                   fail_description, status)
+=======
     def __init__(self, first_name, last_name, i_d, user_name, password):
         super(Tester, self).__init__(first_name, last_name, i_d, user_name, password)
 
@@ -29,6 +134,7 @@ class Tester(Person):
         self.data.create_contact_list_table(self.user_name)
         self.data.create_fail_list(self.user_name)
         self.data.create_var_table(self.user_name)
+>>>>>>> 807d52d50cda39a162ca2cb51a1efe0e80b621e2
 
     def my_contacts(self):
         """
@@ -237,3 +343,5 @@ class Tester(Person):
     #         cv2.imshow('Video', img)
     #         if cv2.waitKey(1) & 0xFF == ord('q'):
     #             return face_names
+>>>>>>> ed694b208f22e1830f25266a8aac78fe6bf01ce7
+>>>>>>> 0eb88c9d601b89c39e1ec3baf074bd72b59fb0d5
