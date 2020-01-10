@@ -5,7 +5,7 @@ import Tester
 
 
 def Switcher(x, user):
-    if x == 1:
+  if x == 1:
         RegularUser.RegularUser.Register(user)
     elif x == 2:
         x.code = input("enter tester code:")
@@ -45,9 +45,7 @@ class Manager(Person):
     def DeleteTester(self, test):
         DataBase.delete_database(test.data, test.user_name)
 
-<<<<<<< HEAD
     def Login(self): Person.login(self)
-=======
+
     def DeleteManager(self, manager):
         DataBase.delete_database(manager.data, manager.user_name)
->>>>>>> 0eb88c9d601b89c39e1ec3baf074bd72b59fb0d5

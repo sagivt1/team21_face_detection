@@ -1,9 +1,18 @@
-from datetime import date
-
 from Person import Person
-<<<<<<< HEAD
 from database import DataBase
-
+import Sound
+import database
+# import face_recognition as fr
+import os
+# import cv2
+# import face_recognition
+import numpy as np
+from time import sleep
+# from cv2 import *
+import time
+import os.path
+import shutil
+from datetime import date
 
 class Tester(Person):
     def __init__(self):
@@ -53,29 +62,13 @@ class Tester(Person):
                :return:
                """
         pass
-=======
-import Sound
-import database
-# import face_recognition as fr
-import os
-# import cv2
-# import face_recognition
-import numpy as np
-from time import sleep
-# from cv2 import *
-import time
-import os.path
-import shutil
-from datetime import date
 
-<<<<<<< HEAD
+
 class Tester(Person):
     encoded = {}
-=======
 
 class Tester(Person):
-<<<<<<< HEAD
->>>>>>> 807d52d50cda39a162ca2cb51a1efe0e80b621e2
+
     def __init__(self, f_name, l_name, ID, user, passWord):
         Person.__init__(self)
         self.code = None
@@ -89,7 +82,6 @@ class Tester(Person):
 
     def Login(self): Person.login(self)
 
-<<<<<<< HEAD
     def move_photo(self):
         nonlocal encoded
         i = 0
@@ -111,7 +103,7 @@ class Tester(Person):
         # enter_name = input("entre the name of the person:")
         cv2.imwrite(enter_name + ".jpg", create)
         del (camera)  # so that others can use the camera as soon as possible
-=======
+
     def ReportFail(self):
         print("enter the fail details: \n")
         fail_name = input("fail name:\n")
@@ -119,7 +111,7 @@ class Tester(Person):
         status = input("fail status: \n")
         database.DataBase.add_fail(self.data, self.user_name, date.day, date.month, date.year, fail_name,
                                    fail_description, status)
-=======
+
     def __init__(self, first_name, last_name, i_d, user_name, password):
         super(Tester, self).__init__(first_name, last_name, i_d, user_name, password)
 
@@ -134,7 +126,6 @@ class Tester(Person):
         self.data.create_contact_list_table(self.user_name)
         self.data.create_fail_list(self.user_name)
         self.data.create_var_table(self.user_name)
->>>>>>> 807d52d50cda39a162ca2cb51a1efe0e80b621e2
 
     def my_contacts(self):
         """
@@ -187,8 +178,8 @@ class Tester(Person):
     def delete_my_account(self):
         """
         Input - none
-        Output - confirmation message
-        delete the account of the user
+        Output -  none
+        delete the account of the tester
         """
         self.data.delete_database(self.user_name)
 
@@ -196,7 +187,7 @@ class Tester(Person):
         """
         Input - None
         Output - None
-        update user first name
+        update tester first name
         """
         self.first_name = input("Enter your new first name :")
         if self.data.update_first_name(self.user_name, self.first_name):
@@ -208,7 +199,7 @@ class Tester(Person):
         """
         Input - None
         Output - None
-        update user last name
+        update tester last name
         """
         self.last_name = input("Enter your new last name :")
         if self.data.update_last_name(self.user_name, self.last_name):
@@ -343,5 +334,4 @@ class Tester(Person):
     #         cv2.imshow('Video', img)
     #         if cv2.waitKey(1) & 0xFF == ord('q'):
     #             return face_names
->>>>>>> ed694b208f22e1830f25266a8aac78fe6bf01ce7
->>>>>>> 0eb88c9d601b89c39e1ec3baf074bd72b59fb0d5
+

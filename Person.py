@@ -10,8 +10,6 @@ class Person:
         self.password = password
         self.data = database.DataBase(self.user_name)
 
-
-<<<<<<< HEAD
     def register(self):
         self.first_name = input("First Name:")
         self.last_name = input("Last Name:")
@@ -26,18 +24,9 @@ class Person:
     def login(self):
         user_name = input("Please enter user name:")
         password = input("enter a password:")
-<<<<<<< HEAD
         if not DataBase.connect(self.data, user_name, password):
-=======
-        if not database.DataBase.connect(self.data, user_name, password):
->>>>>>> 0eb88c9d601b89c39e1ec3baf074bd72b59fb0d5
             print("WRONG USERNAME OR PASSWORD! PLEASE TRY AGAIN")
             return False
 
         return True
-<<<<<<< HEAD
 #לא מבקש פרטים שוב ,מדפיס מלא NONE
-=======
-=======
->>>>>>> ed694b208f22e1830f25266a8aac78fe6bf01ce7
->>>>>>> 0eb88c9d601b89c39e1ec3baf074bd72b59fb0d5

@@ -1,11 +1,7 @@
 from datetime import date
 
 from Person import Person
-<<<<<<< HEAD
 from database import DataBase
-=======
-<<<<<<< HEAD
-=======
 import database
 import Sound
 # import face_recognition as fr
@@ -19,44 +15,33 @@ import time
 import os.path
 import shutil
 from datetime import date
->>>>>>> ed694b208f22e1830f25266a8aac78fe6bf01ce7
->>>>>>> 0eb88c9d601b89c39e1ec3baf074bd72b59fb0d5
+
 
 
 class RegularUser(Person):
-<<<<<<< HEAD
+
     encoded = {}
 
     def __init__(self):
         Person.__init__(self)
-=======
+
     def __init__(self, first_name, last_name, i_d, user_name, password):
         super(RegularUser, self).__init__(first_name, last_name, i_d, user_name, password)
 
-<<<<<<< HEAD
->>>>>>> 807d52d50cda39a162ca2cb51a1efe0e80b621e2
-
     def Register(self):
         # צריך לוודא שלא קיים עוד משתמש במערכת
-        Person.Register(self)
-
-
-    def login(self):
-=======
-<<<<<<< HEAD
-    def Register(self):
         Person.register(self)
 
     def Login(self):
->>>>>>> 0eb88c9d601b89c39e1ec3baf074bd72b59fb0d5
         Person.login(self)
 
     def my_contacts(self):
-        x = self.data.get_all_contacts()
-        return x
-<<<<<<< HEAD
+        x = self.data.get_all_contacts(self.user_name)
+        for i in x:
+            print(i)
 
-    def move_photo(self):
+
+def move_photo(self):
         nonlocal encoded
         i = 0
         source = r"C:\Users\or machlouf\PycharmProjects\new_project"
@@ -97,10 +82,8 @@ class RegularUser(Person):
         return encoded
 
     def unknown_image_encoded(img):
-=======
-=======
+
     def create_database(self):
->>>>>>> 807d52d50cda39a162ca2cb51a1efe0e80b621e2
         """
         Input - none
         Output - none
@@ -117,7 +100,6 @@ class RegularUser(Person):
         Output - list of contacts
         return all my contacts
         """
-<<<<<<< HEAD
         faces = im.get_encoded_faces()
         faces_encoded = list(faces.values())
         known_face_names = list(faces.keys())
@@ -160,7 +142,6 @@ class RegularUser(Person):
                 return face_names
 
     def daily_report(self):  # todo: show my meetings this day
-=======
         x = self.data.get_all_contacts(self.user_name)
         for i in x:
             print(i)
@@ -176,7 +157,7 @@ class RegularUser(Person):
     #         if f.endswith(enter_name + ".jpg"):
     #             shutil.move(os.path.join(source, f), destination)
     #             encoded[f.split(".")[i]] = fr.face_encodings(fr.load_image_file("Faces/" + f))[i]
->>>>>>> ed694b208f22e1830f25266a8aac78fe6bf01ce7
+
 
     # def take_a_photo(self):
     #     camera_port = 0
@@ -264,13 +245,12 @@ class RegularUser(Person):
     #             return face_names
 
     def daily_report(self):  # todo:report of daily
->>>>>>> 807d52d50cda39a162ca2cb51a1efe0e80b621e2
         """
         Input - None
         Output - None
         show a report of all daily detections
         """
-<<<<<<< HEAD
+
 
         #print("Please enter the day to show the report")
         #self.day = input("Day:")
@@ -286,9 +266,6 @@ class RegularUser(Person):
 
     def weekly_report(self):  #todo: show my meetings this week
          """
-
-=======
-<<<<<<< HEAD
         print("Please enter the details of the report")
         day = input("Day:")
         month = input(" Month:")
@@ -299,31 +276,12 @@ class RegularUser(Person):
             month = input(" Month:")
             year = input("Year:")
         self.data.get_detection_by_day(self.data, self.user_name, day, month, year)
-=======
+
         # print("Enter date you want to get a report")
         # day = int(input("Day - "))
         # month = int(input('Month - '))
         # month = int(input('Year - '))
-
-    def weekly_report(self):  # todo: show my meetings this week
         """
->>>>>>> 0eb88c9d601b89c39e1ec3baf074bd72b59fb0d5
-        print("Please enter the day to show the report")
-        self.day = input("Day:")
-        self.month = input(" Month:")
-        self.year = input("Year:")
-        while ((day<1 or day>31) or (month<1 or month>12) or year<1):
-            print("One or more of the details are invalid,please enter a valid day ")
-            self.day = input("Day:")
-            self.month = input(" Month:")
-            self.year = input("Year:")
-        get_detection_by_day(day,month,year)
-<<<<<<< HEAD
-"""
-=======
-            """
->>>>>>> ed694b208f22e1830f25266a8aac78fe6bf01ce7
->>>>>>> 0eb88c9d601b89c39e1ec3baf074bd72b59fb0d5
 
     def weekly_report(self):  # todo: show my meetings this week
         """
@@ -331,8 +289,7 @@ class RegularUser(Person):
         Output - report of all the detections in this week
         show a report of all weekly detections
         """
-
-<<<<<<< HEAD
+        '''
         print("Please enter the week to show the report")
         day = input("Day:")
         month = input(" Month:")
@@ -343,18 +300,7 @@ class RegularUser(Person):
             month = input(" Month:")
             year = input("Year:")
         self.data.get_detection_by_week(self.data, day, month, year)
-=======
-    # print("Please enter the week to show the report")
-    # self.day = input("Day:")
-    # self.month = input(" Month:")
-    # self.year = input("Year:")
-    # while ((day<1 or day>31) or (month<1 or month>12) or year<1):
-    #    print("One or more of the details are invalid,please enter a valid day ")
-    #    self.day = input("Day:")
-    #    self.month = input(" Month:")
-    #    self.year = input("Year:")
-    # get_detection_by_day(day,month,year)
->>>>>>> ed694b208f22e1830f25266a8aac78fe6bf01ce7
+        '''
 
     def monthly_report(self):  # todo: show my meetings this month
         """
@@ -362,45 +308,21 @@ class RegularUser(Person):
          """
         pass
 
-<<<<<<< HEAD
-    def create_contacts(self):  # todo: create my list contacts
-<<<<<<< HEAD
+    def create_contacts(self):
         """
         Input - none
-        Output - confirmation message
-        delete a contact from the list
+        Output - none
+        create a database for the contact list
         """
-        x=database.DataBase.create_contact_list_table(self.user_name)
+        database.DataBase.create_contact_list_table(self.user_name)
 
 
-    def remove_contact(self):  # todo: remove a contact from my list
-=======
-        x = self.data.create_contact_list_table()
-        return x
-
-    def remove_contact(self, nick):  # todo: remove a contact from my list
-        x = self.data.remove_contact(nick)
-        return x
-=======
-    def remove_contact(self):
->>>>>>> 0eb88c9d601b89c39e1ec3baf074bd72b59fb0d5
-        """
-        Input - None
-        Output - None
-        delete a contact from the contact list
-        """
+    def remove_contact(self, nick):
         nick = input("Enter the nick name of the contact you want to remove :")
-<<<<<<< HEAD
-        x =database.DataBase.remove_contact(self.user_name,nick)
-        if x:
-            print("The contact was delete ")
-=======
         if self.data.remove_contact(self.user_name, nick):
             print("Contact deleted")
->>>>>>> 0eb88c9d601b89c39e1ec3baf074bd72b59fb0d5
         else:
             print("Contact does not exists")
->>>>>>> ed694b208f22e1830f25266a8aac78fe6bf01ce7
 
     def add_contact(self):
         """
@@ -410,21 +332,11 @@ class RegularUser(Person):
          """
         print("Please enter all the details of your new contact : ")
         first_name = input("First name :")
-<<<<<<< HEAD
-        last_name = input(" Last name :")
+        last_name = input("Last name :")
         nick = input("Nick name :")
-<<<<<<< HEAD
-        ##check how to put a pic and sound
-        ##img = database.DataBase.update_img_file(first_name, nick, image)
-        ##sound = input("sound:")
-        img=""
-        sound=""
-        self.data.insert_new_contact(self.user_name,first_name,last_name,nick)
-#,None,None
-=======
-        '''add pic and sound???'''
-        x = self.data.insert_new_contact(self, first_name, last_name, nick, img, sound)
-        return x
+        sound = Sound.Sound(nick)
+        self.data.insert_new_contact(self.user_name, first_name, last_name, nick, None, sound.file_path)
+
 
     def Delete_contact(self):
         """
@@ -432,20 +344,12 @@ class RegularUser(Person):
          Output - add a new contact to the list
          add a new contact
          """
-        print("Please enter all the details of your new contact : ")
-        first_name = input("First name :")
-        last_name = input(" Last name :")
-        nick = input("Nick name :")
-        '''add pic and sound???'''
-        x = self.data.insert_new_contact(self, first_name, last_name, nick, img, sound)
-        return x
-=======
-        last_name = input("Last name :")
-        nick = input("Nick name :")
-        sound = Sound.Sound(nick)
-        self.data.insert_new_contact(self.user_name, first_name, last_name, nick, None, sound.file_path)
->>>>>>> ed694b208f22e1830f25266a8aac78fe6bf01ce7
->>>>>>> 0eb88c9d601b89c39e1ec3baf074bd72b59fb0d5
+        nick = input("Enter the nick name of the contact you want to remove :")
+        if self.data.remove_contact(self.user_name, nick):
+            print("Contact deleted")
+        else:
+            print("Contact does not exists")
+
 
     def show_contact(self):
         """
@@ -453,10 +357,12 @@ class RegularUser(Person):
         Output - message or show the details of the contact in the list
         show a contact details
         """
-<<<<<<< HEAD
-        contactNick = input("Nick name of the contact :")
-        x = self.data.get_contact(self, self.user_name, contactNick)
-        return x
+        contact = input("Nick name of the contact :")
+        x = self.data.get_contact(self.user_name, contact)
+        if x:
+            return x
+        else:
+            print("The contact does not exist ")
 
     def say_my_contact(self):
         """
@@ -465,74 +371,40 @@ class RegularUser(Person):
         say the name of the contact out loud
         """
         nick = input("Nick name of the contact :")
-<<<<<<< HEAD
-        database.DataBase.get_sound_contact(self.user_name,nick)
-
-=======
-        self.data.get_sound_contact(self, self.user_name, nick)
-=======
-        contact = input("Nick name of the contact :")
-        x = self.data.get_contact(self.user_name, contact)
+        x=database.DataBase.get_sound_contact(self.user_name,nick)
         if x:
             return x
         else:
             print("The contact does not exist ")
->>>>>>> ed694b208f22e1830f25266a8aac78fe6bf01ce7
->>>>>>> 0eb88c9d601b89c39e1ec3baf074bd72b59fb0d5
 
     def delete_my_account(self):
         """
         Input - none
-        Output - confirmation message
+        Output - none
         delete the account of the user
         """
-<<<<<<< HEAD
-        self.data.delete_database(self, self.user_name)
-
-    def edit_my_first_name(self):
-        self.first_name = input("Enter your new first name :")
-
-    def edit_my_last_name(self):
-        self.last_name = input("Enter your new last name :")
-
-    def edit_my_password(self):
-        self.password = input("Enter your new password :")
-=======
         self.data.delete_database(self.user_name)
 
     def edit_my_first_name(self):
-        """
-        Input - None
-        Output - None
-        update user first name
-        """
         self.first_name = input("Enter your new first name :")
         if self.data.update_first_name(self.user_name, self.first_name):
             print("First name updated")
         else:
             print("First name not updated")
 
+
     def edit_my_last_name(self):
-        """
-        Input - None
-        Output - None
-        update user last name
-        """
-        self.last_name = input("Enter your new last name :")
-        if self.data.update_last_name(self.user_name, self.last_name):
-            print("Last name updated")
-        else:
-            print("Last name not updated")
+      self.last_name = input("Enter your new last name :")
+      if self.data.update_last_name(self.user_name, self.last_name):
+         print("Last name updated")
+     else:
+         print("Last name not updated")
 
     def edit_my_password(self):
-        """
-        Input - None
-        Output - None
-        update user password
-        """
         self.password = input("Enter your new password :")
         if self.data.update_password(self.user_name, self.password):
             print("Password updated")
         else:
             print("Password not updated")
->>>>>>> ed694b208f22e1830f25266a8aac78fe6bf01ce7
+
+   
