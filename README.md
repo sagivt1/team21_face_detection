@@ -1,1 +1,1 @@
-# team21_face_detection
+# Team21 face detection project
