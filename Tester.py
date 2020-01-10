@@ -11,10 +11,8 @@ import time
 import os.path
 import shutil
 
-encoded = {}
-
-enter_name = input("entre the name of the person:")
 class Tester(Person):
+    encoded = {}
     def __init__(self, f_name, l_name, ID, user, passWord):
         Person.__init__(self, f_name, l_name, ID, user, passWord)
 
@@ -28,7 +26,7 @@ class Tester(Person):
     def Login(self): self.Login(Person)
 
     def move_photo(self):
-        global encoded
+        nonlocal encoded
         i = 0
         source = r"C:\Users\or machlouf\PycharmProjects\new_project"
         destination = r"C:\Users\or machlouf\PycharmProjects\new_project\faces"
@@ -40,6 +38,7 @@ class Tester(Person):
                 encoded[f.split(".")[i]] = fr.face_encodings(fr.load_image_file("faces/" + f))[i]
 
     def take_a_photo(self):
+        enter_name = input("entre the name of the person:")
         camera_port = 0
         camera = cv2.VideoCapture(camera_port)
         time.sleep(0.1)  # If you don't wait, the image will be dark

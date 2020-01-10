@@ -11,10 +11,10 @@ import time
 import os.path
 import shutil
 
-encoded = {}
 
-enter_name = input("entre the name of the person:")
 class RegularUser(Person):
+    encoded = {}
+
     def __init__(self):
         Person.__init__(self)
 
@@ -29,7 +29,7 @@ class RegularUser(Person):
         return x
 
     def move_photo(self):
-        global encoded
+        nonlocal encoded
         i = 0
         source = r"C:\Users\or machlouf\PycharmProjects\new_project"
         destination = r"C:\Users\or machlouf\PycharmProjects\new_project\faces"
@@ -41,6 +41,7 @@ class RegularUser(Person):
                 encoded[f.split(".")[i]] = fr.face_encodings(fr.load_image_file("faces/" + f))[i]
 
     def take_a_photo(self):
+        enter_name = input("entre the name of the person:")
         camera_port = 0
         camera = cv2.VideoCapture(camera_port)
         time.sleep(0.1)  # If you don't wait, the image will be dark
@@ -84,7 +85,7 @@ class RegularUser(Person):
         :param im: str of file path
         :return: list of face names
         """
-        faces = get_encoded_faces()
+        faces = im.get_encoded_faces()
         faces_encoded = list(faces.values())
         known_face_names = list(faces.keys())
 
