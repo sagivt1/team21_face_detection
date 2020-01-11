@@ -15,20 +15,10 @@ def Switcher(x, user):
         Manager.Register(user, user.code)
     return user
 
-
 class Manager(Person):
     def __init__(self):
         Person.__init__(self)
         self.code = None
-
-    def Register(self, code):
-
-        self.code = input("enter manager code:")
-        while self.code != 0000:
-            self.code = input("wrong code! please enter manager code:")
-
-    def Login(self):
-        Person.login(self)
 
     def GivePermission(self, x=None):
         # input- self
@@ -45,7 +35,6 @@ class Manager(Person):
     def DeleteTester(self, test):
         DataBase.delete_database(test.data, test.user_name)
 
-    def Login(self): Person.login(self)
 
     def DeleteManager(self, manager):
         DataBase.delete_database(manager.data, manager.user_name)

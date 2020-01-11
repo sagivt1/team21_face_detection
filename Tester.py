@@ -1,5 +1,4 @@
 from Person import Person
-from database import DataBase
 import Sound
 import database
 # import face_recognition as fr
@@ -16,21 +15,23 @@ from datetime import date
 
 
 class Tester(Person):
-    def __init__(self):
-        Person.__init__(self)
-        self.code = None
+    encoded = {}
 
-    def Register(self):
-        code = input("Enter the tester code :")
-        while code != '1111':
-            code = input("invalid number! Enter the tester code :")
-        Person.register(self)
+    def __init__(self, first_name, last_name, i_d, user_name, password):
+        super(Tester, self).__init__(first_name, last_name, i_d, user_name, password)
+
+    def create_database(self):
+        """
+        Input - none
+        Output - none
+        create tables for Tester user
+        """
+        self.data.create_user_info_table(self.first_name, self.last_name, self.i_d, self.user_name, self.password)
         self.data.create_detection_table(self.user_name)
         self.data.create_contact_list_table(self.user_name)
         self.data.create_fail_list(self.user_name)
+        self.data.create_var_table(self.user_name)
 
-    def Login(self):
-        Person.login(self)
 
     def report_of_problems(self):  # todo: create a file with problems
         """
@@ -61,72 +62,6 @@ class Tester(Person):
                :return:
                """
         pass
-
-
-class Tester(Person):
-    encoded = {}
-
-
-class Tester(Person):
-
-    def __init__(self, f_name, l_name, ID, user, passWord):
-        Person.__init__(self)
-        self.code = None
-
-    def Register(self, code):
-        if code == '1111':
-            Person.register(self)
-            self.data.create_detection_table(self.user_name)
-            self.data.create_contact_list_table(self.user_name)
-            self.data.create_fail_list(self.user_name)
-
-    def Login(self):
-        Person.login(self)
-
-    def move_photo(self):
-        nonlocal encoded
-        i = 0
-        source = r"C:\Users\or machlouf\PycharmProjects\new_project"
-        destination = r"C:\Users\or machlouf\PycharmProjects\new_project\faces"
-        if not os.path.exists(destination):
-            os.makedirs(destination)
-        for f in os.listdir(source):
-            if f.endswith(enter_name + ".jpg"):
-                shutil.move(os.path.join(source, f), destination)
-                encoded[f.split(".")[i]] = fr.face_encodings(fr.load_image_file("faces/" + f))[i]
-
-    def take_a_photo(self):
-        enter_name = input("entre the name of the person:")
-        camera_port = 0
-        camera = cv2.VideoCapture(camera_port)
-        time.sleep(0.1)  # If you don't wait, the image will be dark
-        return_value, create = camera.read()
-        # enter_name = input("entre the name of the person:")
-        cv2.imwrite(enter_name + ".jpg", create)
-        del (camera)  # so that others can use the camera as soon as possible
-
-    def ReportFail(self):
-        print("enter the fail details: \n")
-        fail_name = input("fail name:\n")
-        fail_description = input("fail description:\n")
-        status = input("fail status: \n")
-        database.DataBase.add_fail(self.data, self.user_name, date.day, date.month, date.year, fail_name,
-                                   fail_description, status)
-
-    def __init__(self, first_name, last_name, i_d, user_name, password):
-        super(Tester, self).__init__(first_name, last_name, i_d, user_name, password)
-
-    def create_database(self):
-        """
-        Input - none
-        Output - none
-        create tables for Tester user
-        """
-        self.data.create_user_info_table(self.first_name, self.last_name, self.i_d, self.user_name, self.password)
-        self.data.create_detection_table(self.user_name)
-        self.data.create_contact_list_table(self.user_name)
-        self.data.create_fail_list(self.user_name)
-        self.data.create_var_table(self.user_name)
 
     def my_contacts(self):
         """
@@ -179,8 +114,8 @@ class Tester(Person):
     def delete_my_account(self):
         """
         Input - none
-        Output -  none
-        delete the account of the tester
+        Output - confirmation message
+        delete the account of the user
         """
         self.data.delete_database(self.user_name)
 
@@ -188,7 +123,7 @@ class Tester(Person):
         """
         Input - None
         Output - None
-        update tester first name
+        update user first name
         """
         self.first_name = input("Enter your new first name :")
         if self.data.update_first_name(self.user_name, self.first_name):
@@ -200,7 +135,7 @@ class Tester(Person):
         """
         Input - None
         Output - None
-        update tester last name
+        update user last name
         """
         self.last_name = input("Enter your new last name :")
         if self.data.update_last_name(self.user_name, self.last_name):
@@ -238,6 +173,7 @@ class Tester(Person):
         Update a fail status
         """
         None
+
 
     # def move_photo(self):
     #     global encoded
