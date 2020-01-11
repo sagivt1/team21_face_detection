@@ -1,9 +1,6 @@
 import Sound
 import Manager
 import RegularUser
-
-
-
 """
 # -*- coding: utf-8 -*-
 

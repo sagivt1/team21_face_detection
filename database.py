@@ -120,8 +120,8 @@ class DataBase:
         NICK_NAME TEXT PRIMARY KEY  NOT NULL,
         FIRST_NAME TEXT NOT NULL,
         LAST_NAME TEXT NOT NULL,
-        IMG TEXT ,
-        SOUND TEXT 
+        IMG TEXT NOT NULL ,
+        SOUND TEXT NOT NULL 
         ) ''')
         con.close()
 
@@ -278,8 +278,8 @@ class DataBase:
         """
         db_name = user_name + ".db"
         con = sqlite3.connect(db_name)
-        con.execute(''' INSERT INTO contact_list(NICK_NAME,FIRST_NAME,LAST_NAME)
-        VALUES(?,?,?)''', (nick, first_name, last_name))
+        con.execute(''' INSERT INTO contact_list(NICK_NAME,FIRST_NAME,LAST_NAME,IMG,SOUND)
+        VALUES(?,?,?,?,?)''', (nick, first_name, last_name,img, sound))
         con.commit()
         con.close()
 

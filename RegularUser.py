@@ -100,7 +100,8 @@ class RegularUser(Person):
         last_name = input("Last name :")
         nick = input("Nick name :")
         sound = Sound.Sound(nick)
-        self.data.insert_new_contact(self.user_name, first_name, last_name, nick, None, sound.file_path)
+        path = self.take_a_photo(nick)
+        self.data.insert_new_contact(self.user_name, first_name, last_name, nick, path, sound.file_path)
 
     def show_contact(self):
         """
@@ -159,28 +160,23 @@ class RegularUser(Person):
         else:
             print("Password not updated")
 
-    # def move_photo(self):
-    #     global encoded
-    #     i = 0
-    #     source = r"C:\Users\or machlouf\PycharmProjects\new_project"
-    #     destination = r"C:\Users\or machlouf\PycharmProjects\new_project\faces"
-    #     if not os.path.exists(destination):
-    #         os.makedirs(destination)
-    #     for f in os.listdir(source):
-    #         if f.endswith(enter_name + ".jpg"):
-    #             shutil.move(os.path.join(source, f), destination)
-    #             encoded[f.split(".")[i]] = fr.face_encodings(fr.load_image_file("Faces/" + f))[i]
-
-    def take_a_photo(self):
+    def take_a_photo(self, contact_name):
         camera_port = 0
-        camera = cv2.VideoCapture(camera_port)
+        x = input("When ready to take a picture press Y - ")
+        while x.upper() != 'Y':
+            x = input("When ready to take a picture press Y - ")
+        print("SMILE")
+        camera = cv2.VideoCapture(camera_port, cv2.CAP_DSHOW)
         time.sleep(0.1)  # If you don't wait, the image will be dark
         return_value, create = camera.read()
-        # enter_name = input("entre the name of the person:")
-        cv2.imwrite(enter_name + ".jpg", create)
-        del (camera)  # so that others can use the camera as soon as possible
+        path = "Faces/" + contact_name + ".jpg"
+        cv2.imwrite(path, create)
+        camera.release()
+        cv2.destroyAllWindows()
+        del camera  # so that others can use the camera as soon as possible
+        return path
 
-    def get_encoded_faces():
+    def get_encoded_faces(self):
         """
         looks through the faces folder and encodes all
         the faces
@@ -188,26 +184,26 @@ class RegularUser(Person):
         :return: dict of (name, image encoded)
         """
         encoded = {}
-        for (dirpath, dnames, fnames) in os.walk("./faces"):
+        for (dirpath, dnames, fnames) in os.walk("./Faces"):
             for f in fnames:
                 i = 0
                 if f.endswith(".jpg") or f.endswith(".png"):
                     print(i)
-                    face = fr.load_image_file("faces/" + f)
+                    face = fr.load_image_file("Faces/" + f)
                     encoding = fr.face_encodings(face)[i]
                     encoded[f.split(".")[i]] = encoding
         return encoded
 
-    def unknown_image_encoded(img):
+    def unknown_image_encoded(self, img):
         """
         encode a face given the file name
         """
-        face = fr.load_image_file("faces/" + img)
+        face = fr.load_image_file("Faces/" + img)
         encoding = fr.face_encodings(face)[0]
 
         return encoding
 
-    def classify_face(im):
+    def classify_face(self, im):
         """
         will find all of the faces in a given image and label
         them if it knows what they are
@@ -215,12 +211,12 @@ class RegularUser(Person):
         :param im: str of file path
         :return: list of face names
         """
-        faces = get_encoded_faces()
+        faces = self.get_encoded_faces()
         faces_encoded = list(faces.values())
         known_face_names = list(faces.keys())
 
         img = cv2.imread(im, 1)
-        img = cv2.resize(img, (0, 0), fx=0.5, fy=0.5)
+        img = cv2.resize(im, (0, 0), fx=0.5, fy=0.5)
         # img = img[:,:,::-1]
 
         face_locations = face_recognition.face_locations(img)
@@ -255,3 +251,4 @@ class RegularUser(Person):
             cv2.imshow('Video', img)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 return face_names
+
