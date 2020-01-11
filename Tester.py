@@ -14,13 +14,13 @@ import os.path
 import shutil
 from datetime import date
 
+
 class Tester(Person):
     def __init__(self):
         Person.__init__(self)
         self.code = None
 
     def Register(self):
-
         code = input("Enter the tester code :")
         while code != '1111':
             code = input("invalid number! Enter the tester code :")
@@ -32,12 +32,11 @@ class Tester(Person):
     def Login(self):
         Person.login(self)
 
-    def report_of_problems(self): # todo: create a file with problems
+    def report_of_problems(self):  # todo: create a file with problems
         """
                  :return:
                  """
         pass
-
 
     def report_of_urgent_problems(self):  # todo: create a file with urgent problems
         """
@@ -67,6 +66,7 @@ class Tester(Person):
 class Tester(Person):
     encoded = {}
 
+
 class Tester(Person):
 
     def __init__(self, f_name, l_name, ID, user, passWord):
@@ -80,7 +80,8 @@ class Tester(Person):
             self.data.create_contact_list_table(self.user_name)
             self.data.create_fail_list(self.user_name)
 
-    def Login(self): Person.login(self)
+    def Login(self):
+        Person.login(self)
 
     def move_photo(self):
         nonlocal encoded
@@ -334,4 +335,3 @@ class Tester(Person):
     #         cv2.imshow('Video', img)
     #         if cv2.waitKey(1) & 0xFF == ord('q'):
     #             return face_names
-

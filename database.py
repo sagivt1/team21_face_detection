@@ -216,7 +216,10 @@ class DataBase:
         data = con.execute('''SELECT * FROM detection_list ORDER BY SERIAL''')
         check = data.fetchall()
         con.close()
-        return check
+        if not check:
+            return None
+        else:
+            return check
 
     def get_detection_by_day(self, user_name, day, month, year):
         """
