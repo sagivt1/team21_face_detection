@@ -74,6 +74,11 @@ class RegularUser(Person):
             day = input("Day:")
             month = input(" Month:")
             year = input("Year:")
+        for i in range (0,7):
+            day=day-1
+            if month==1 or month==3 or month==5 or month ==7 or month==8 or month ==10 or month ==12:
+                if day>31
+                    month=##############
         self.data.get_detection_by_week(self.data, day, month, year)
         '''
 
