@@ -47,10 +47,16 @@ class RegularUser(Person):
         Output - None
         show a report of all daily detections
         """
-        # print("Enter date you want to get a report")
-        # day = int(input("Day - "))
-        # month = int(input('Month - '))
-        # month = int(input('Year - '))
+        """print("Enter date you want to get a report")
+        day = int(input("Day - "))
+        month = int(input('Month - '))
+        year = int(input('Year - '))
+        while (day < 1 or day > 31) or (month < 1 or month > 12) or (year < 1 or year > 2020):
+            print("One or more of the details are invalid,please enter a valid day ")
+            day = input("Day:")
+            month = input(" Month:")
+            year = input("Year:")
+        self.data.get_detection_by_day(self.data, day, month, year)"""
 
     def weekly_report(self):  # todo: show my meetings this week
         """
@@ -73,9 +79,22 @@ class RegularUser(Person):
 
     def monthly_report(self):  # todo: show my meetings this month
         """
-         :return:
-         """
-        pass
+                Input - none
+                Output - report of all the detections in this month
+                show a report of all weekly detections
+                """
+        '''
+        print("Please enter the week to show the report")
+        day = input("Day:")
+        month = input(" Month:")
+        year = input("Year:")
+        while (day < 1 or day > 31) or (month < 1 or month > 12) or (year < 1 or year > 2020):
+            print("One or more of the details are invalid,please enter a valid day ")
+            day = input("Day:")
+            month = input(" Month:")
+            year = input("Year:")
+        self.data.get_detection_by_week(self.data, day, month, year)
+        '''
 
     def remove_contact(self):
         """

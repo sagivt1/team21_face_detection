@@ -32,7 +32,6 @@ class Tester(Person):
         self.data.create_fail_list(self.user_name)
         self.data.create_var_table(self.user_name)
 
-
     def report_of_problems(self):  # todo: create a file with problems
         """
                  :return:
@@ -47,15 +46,39 @@ class Tester(Person):
 
     def daily_report(self):  # todo: show my meetings this day
         """
-         :return:
-         """
-        pass
+               Input - None
+               Output - None
+               show a report of all daily detections
+        """
+        """print("Enter date you want to get a report")
+        day = int(input("Day - "))
+        month = int(input('Month - '))
+        year = int(input('Year - '))
+        while (day < 1 or day > 31) or (month < 1 or month > 12) or (year < 1 or year > 2020):
+            print("One or more of the details are invalid,please enter a valid day ")
+            day = input("Day:")
+            month = input(" Month:")
+            year = input("Year:")
+        self.data.get_detection_by_day(self.data, day, month, year)"""
 
     def weekly_report(self):  # todo: show my meetings this week
         """
-        :return:
+        Input - none
+        Output - report of all the detections in this week
+        show a report of all weekly detections
         """
-        pass
+        '''
+        print("Please enter the week to show the report")
+        day = input("Day:")
+        month = input(" Month:")
+        year = input("Year:")
+        while (day < 1 or day > 31) or (month < 1 or month > 12) or (year < 1 or year > 2020):
+            print("One or more of the details are invalid,please enter a valid day ")
+            day = input("Day:")
+            month = input(" Month:")
+            year = input("Year:")
+        self.data.get_detection_by_week(self.data, day, month, year)
+        '''
 
     def Reset_User(self):
         """
@@ -172,8 +195,9 @@ class Tester(Person):
         Output - none
         Update a fail status
         """
-        None
-
+        serial = input("enter fail's serial number: ")
+        update = input("enter updated fail's status:")
+        self.data.update_status(self.user_name, serial, update)
 
     # def move_photo(self):
     #     global encoded
