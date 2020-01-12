@@ -40,13 +40,13 @@ class RegularUser(Person):
         for i in x:
             print(i)
 
-    def daily_report(self):  # todo:report of daily
+    def daily_report(self):
         """
         Input - None
         Output - None
         show a report of all daily detections
         """
-        """print("Enter date you want to get a report")
+        print("Enter date you want to get a report")
         day = int(input("Day - "))
         month = int(input('Month - '))
         year = int(input('Year - '))
@@ -55,7 +55,9 @@ class RegularUser(Person):
             day = input("Day:")
             month = input(" Month:")
             year = input("Year:")
-        self.data.get_detection_by_day(self.data, day, month, year)"""
+        check = self.data.get_detection_by_day(self.user_name, day, month, year)
+        for temp in check:
+            print(f'{temp[0]} {temp[4].title()}')
 
     def weekly_report(self):  # todo: show my meetings this week
         """

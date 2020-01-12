@@ -2,13 +2,8 @@ import Sound
 import Manager
 import RegularUser
 
-
-x = RegularUser.RegularUser('sagiv','talker','204','sagiv','204')
-x.new_detection()
-
-
-
-
+x = RegularUser.RegularUser('sagiv', 'talker', '1', 'sagiv', '204')
+x.daily_report()
 """
 # -*- coding: utf-8 -*-
 
