@@ -15,7 +15,6 @@ from datetime import date
 
 
 class RegularUser(Person):
-    encoded = {}
 
     def __init__(self, first_name, last_name, i_d, user_name, password):
         super(RegularUser, self).__init__(first_name, last_name, i_d, user_name, password)
@@ -124,7 +123,7 @@ class RegularUser(Person):
         last_name = input("Last name :")
         nick = input("Nick name :")
         sound = Sound.Sound(nick)
-        path = self.take_a_photo(nick)
+        path = take_a_photo(nick)
         self.data.insert_new_contact(self.user_name, first_name, last_name, nick, path, sound.file_path)
 
     def show_contact(self):
@@ -184,95 +183,131 @@ class RegularUser(Person):
         else:
             print("Password not updated")
 
-    def take_a_photo(self, contact_name):
-        camera_port = 0
-        x = input("When ready to take a picture press Y - ")
-        while x.upper() != 'Y':
-            x = input("When ready to take a picture press Y - ")
-        print("SMILE")
-        camera = cv2.VideoCapture(camera_port, cv2.CAP_DSHOW)
-        time.sleep(0.1)  # If you don't wait, the image will be dark
-        return_value, create = camera.read()
-        path = "Faces/" + contact_name + ".jpg"
-        cv2.imwrite(path, create)
-        camera.release()
-        cv2.destroyAllWindows()
-        del camera  # so that others can use the camera as soon as possible
-        return path
+    def new_detection(self):
+        take_a_test_photo()
+        name = classify_face("test.jpg")
+        print(name)
+        contact = self.data.get_contact(self.user_name, name)
+        print(contact)
+        Sound.play_record(contact[4])
 
-    def get_encoded_faces(self):
-        """
-        looks through the faces folder and encodes all
-        the faces
 
-        :return: dict of (name, image encoded)
-        """
-        encoded = {}
-        for (dirpath, dnames, fnames) in os.walk("./Faces"):
-            for f in fnames:
-                i = 0
-                if f.endswith(".jpg") or f.endswith(".png"):
-                    print(i)
-                    face = fr.load_image_file("Faces/" + f)
-                    encoding = fr.face_encodings(face)[i]
-                    encoded[f.split(".")[i]] = encoding
-        return encoded
+"""
+Face detection section
+"""
 
-    def unknown_image_encoded(self, img):
-        """
-        encode a face given the file name
-        """
-        face = fr.load_image_file("Faces/" + img)
-        encoding = fr.face_encodings(face)[0]
 
-        return encoding
+def take_a_photo(contact_name):
+    camera_port = 0
+    x = input("To take a picture press Y - ")
+    while x.upper() != 'Y':
+        x = input("To take a picture press Y - ")
+    print('...SMILE...')
+    camera = cv2.VideoCapture(camera_port, cv2.CAP_DSHOW)
+    time.sleep(1)  # If you don't wait, the image will be dark
+    return_value, create = camera.read()
+    path = "Faces/" + contact_name + ".jpg"
+    cv2.imwrite(path, create)
+    camera.release()
+    cv2.destroyAllWindows()
+    del camera  # so that others can use the camera as soon as possible
+    return path
 
-    def classify_face(self, im):
-        """
-        will find all of the faces in a given image and label
-        them if it knows what they are
 
-        :param im: str of file path
-        :return: list of face names
-        """
-        faces = self.get_encoded_faces()
-        faces_encoded = list(faces.values())
-        known_face_names = list(faces.keys())
+def take_a_test_photo():
+    camera_port = 0
+    x = input("To take a picture press Y - ")
+    while x.upper() != 'Y':
+        x = input("To take a picture press Y - ")
+    print('...SMILE...')
+    camera = cv2.VideoCapture(camera_port, cv2.CAP_DSHOW)
+    time.sleep(1)  # If you don't wait, the image will be dark
+    return_value, create = camera.read()
+    path = r"test.jpg"
+    cv2.imwrite(path, create)
+    camera.release()
+    cv2.destroyAllWindows()
+    del camera  # so that others can use the camera as soon as possible
 
-        img = cv2.imread(im, 1)
-        img = cv2.resize(im, (0, 0), fx=0.5, fy=0.5)
-        # img = img[:,:,::-1]
 
-        face_locations = face_recognition.face_locations(img)
-        unknown_face_encodings = face_recognition.face_encodings(img, face_locations)
+# def move_photo():
+#     source = r"C:\Users\or machlouf\Desktop\face_rec"
+#     destination = r"C:\Users\or machlouf\Desktop\face_rec\faces"
+#     if not os.path.exists(destination):
+#         os.makedirs(destination)
+#     for f in os.listdir(source):
+#         if f.endswith(enter_name + ".jpg"):
+#             shutil.move(os.path.join(source, f), destination)
 
-        face_names = []
-        for face_encoding in unknown_face_encodings:
-            # See if the face is a match for the known face(s)
-            matches = face_recognition.compare_faces(faces_encoded, face_encoding)
-            name = "Unknown"
 
-            # use the known face with the smallest distance to the new face
-            face_distances = face_recognition.face_distance(faces_encoded, face_encoding)
-            best_match_index = np.argmin(face_distances)
-            if matches[best_match_index]:
-                name = known_face_names[best_match_index]
+def get_encoded_faces():
+    """
+    looks through the faces folder and encodes all
+    the faces
 
-            face_names.append(name)
+    :return: dict of (name, image encoded)
+    """
+    encoded = {}
 
-            for (top, right, bottom, left), name in zip(face_locations, face_names):
-                # Draw a box around the face
-                cv2.rectangle(img, (left - 20, top - 20), (right + 20, bottom + 20), (255, 0, 0), 2)
+    for dirpath, dnames, fnames in os.walk("./Faces"):
+        for f in fnames:
+            if f.endswith(".jpg") or f.endswith(".png"):
+                face = fr.load_image_file("Faces/" + f)
+                encoding = fr.face_encodings(face)[0]
+                encoded[f.split(".")[0]] = encoding
 
-                # Draw a label with a name below the face
-                cv2.rectangle(img, (left - 20, bottom - 15), (right + 20, bottom + 20), (255, 0, 0), cv2.FILLED)
-                font = cv2.FONT_HERSHEY_DUPLEX
-                cv2.putText(img, name, (left - 20, bottom + 15), font, 1.0, (255, 255, 255), 2)
+    return encoded
 
-        # Display the resulting image
-        while True:
 
-            cv2.imshow('Video', img)
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                return face_names
+def unknown_image_encoded(img):
+    """
+    encode a face given the file name
+    """
+    face = fr.load_image_file("Faces/" + img)
+    encoding = fr.face_encodings(face)[0]
 
+    return encoding
+
+
+def classify_face(im):
+    """
+    will find all of the faces in a given image and label
+    them if it knows what they are
+
+    :param im: str of file path
+    :return: list of face names
+    """
+    faces = get_encoded_faces()
+    faces_encoded = list(faces.values())
+    known_face_names = list(faces.keys())
+
+    img = cv2.imread(im, 1)
+    # img = cv2.resize(img, (0, 0), fx=0.5, fy=0.5)
+    # img = img[:,:,::-1]
+
+    face_locations = face_recognition.face_locations(img)
+    unknown_face_encodings = face_recognition.face_encodings(img, face_locations)
+
+    face_names = []
+    for face_encoding in unknown_face_encodings:
+        # See if the face is a match for the known face(s)
+        matches = face_recognition.compare_faces(faces_encoded, face_encoding)
+        name = "Unknown"
+
+        # use the known face with the smallest distance to the new face
+        face_distances = face_recognition.face_distance(faces_encoded, face_encoding)
+        best_match_index = np.argmin(face_distances)
+        if matches[best_match_index]:
+            name = known_face_names[best_match_index]
+
+        face_names.append(name)
+        for (top, right, bottom, left), name in zip(face_locations, face_names):
+            # Draw a box around the face
+            cv2.rectangle(img, (left - 20, top - 20), (right + 20, bottom + 20), (255, 0, 0), 2)
+
+            # Draw a label with a name below the face
+            cv2.rectangle(img, (left - 20, bottom - 15), (right + 20, bottom + 20), (255, 0, 0), cv2.FILLED)
+            font = cv2.FONT_HERSHEY_DUPLEX
+            cv2.putText(img, name, (left - 20, bottom + 15), font, 1.0, (255, 255, 255), 2)
+
+    return name

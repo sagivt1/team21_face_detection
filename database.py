@@ -69,7 +69,7 @@ class DataBase:
         data = con.execute('''SELECT * FROM var ''')
         check = data.fetchall()
         con.execute('''UPDATE var SET COUNT_OF_FAILS =:COUNT_OF_FAILS
-                        ''', {'COUNT_OF_FAILS':check[0][1]+1})
+                        ''', {'COUNT_OF_FAILS': check[0][1] + 1})
         con.commit()
         con.close()
 
@@ -83,8 +83,8 @@ class DataBase:
         con = sqlite3.connect(db_name)
         data = con.execute('''SELECT * FROM var ''')
         check = data.fetchall()
-        con.execute('''UPDATE var COUNT_OF_DETECTION=:COUNT_OF_DETECTION
-                        ''',{'COUNT_OF_DETECTION':check[0][0]+1})
+        con.execute('''UPDATE var SET COUNT_OF_DETECTION=:COUNT_OF_DETECTION
+                        ''', {'COUNT_OF_DETECTION': check[0][0] + 1})
         con.commit()
         con.close()
 
@@ -248,7 +248,7 @@ class DataBase:
         db_name = user_name + ".db"
         con = sqlite3.connect(db_name)
         con.execute('''INSERT INTO detection_list(SERIAL,DAY,MONTH,YEAR,NAME)
-        VALUES(?,?,?,?,?)''', (self.get_count_of_detection(), day, month, year, name))
+        VALUES(?,?,?,?,?)''', (self.get_count_of_detection('user'), day, month, year, name))
         con.commit()
         con.close()
 
@@ -279,7 +279,7 @@ class DataBase:
         db_name = user_name + ".db"
         con = sqlite3.connect(db_name)
         con.execute(''' INSERT INTO contact_list(NICK_NAME,FIRST_NAME,LAST_NAME,IMG,SOUND)
-        VALUES(?,?,?,?,?)''', (nick, first_name, last_name,img, sound))
+        VALUES(?,?,?,?,?)''', (nick, first_name, last_name, img, sound))
         con.commit()
         con.close()
 

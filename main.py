@@ -1,6 +1,13 @@
 import Sound
 import Manager
 import RegularUser
+
+
+x = RegularUser.RegularUser('sagiv','talker','204','sagiv','204')
+x.new_detection()
+
+
+
 """
 # -*- coding: utf-8 -*-
 
