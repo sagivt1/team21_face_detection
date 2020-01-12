@@ -10,34 +10,37 @@ Before you begin, ensure you have met the following requirements:
     You have a Windows machine. Supported - Windows 10
     You have read Specification Documen
 ~~~~
-Contributing to <project_name>
+#### **Contributing to ICU**
 ~~~~
-To contribute to <project_name>, follow these steps:
+To contribute to ICU, follow these steps:
 
-    Fork this repository.
+    Fork this repository https://github.com/sagivt1/team21_face_detection.git.
     Create a branch: git checkout -b <branch_name>.
     Make your changes and commit them: git commit -m '<commit_message>'
     Push to the original branch: git push origin <project_name>/<location>
     Create the pull request.
 
 Alternatively see the GitHub documentation on creating a pull request.
+https://github.com/sagivt1/team21_face_detection.git
 ~~~~
 
-Contributors
+#### **Contributors**
 
-~~Thanks to the following people who have contributed to this project:
-
-    @scottydocs 📖
-    @cainwatson 🐛
-    @calchuchesta 🐛
-
-You might want to consider using something like the All Contributors specification and its emoji key.~~
-
-Contact
+Thanks to the following people who have contributed to this project:
 ~~~~
-If you want to contact me you can reach me at your_email@address.com.
+   
 ~~~~
-License
+
+#### **Contact**
+
+If you want to contact us you can reach us at this mails: 
+~~~~
+sagiv.talker@gmail.com
+or20427@gmail.com
+malibartal@gmail.com
+marinajata@gmail.com
+~~~~
+#### **License**
 ~~~~
 This project uses the following license: <license_name>.
 ~~~~
