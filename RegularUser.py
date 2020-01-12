@@ -11,7 +11,7 @@ from cv2 import *
 import time
 import os.path
 import shutil
-from datetime import date
+import datetime
 
 
 class RegularUser(Person):
@@ -184,12 +184,20 @@ class RegularUser(Person):
             print("Password not updated")
 
     def new_detection(self):
+        """
+        Input - None
+        Output - None
+        face detection an play the name of the detection
+        """
         take_a_test_photo()
-        name = classify_face("test.jpg")
-        print(name)
-        contact = self.data.get_contact(self.user_name, name)
-        print(contact)
-        Sound.play_record(contact[4])
+        detection_name = classify_face("test.jpg")
+        contact = self.data.get_contact(self.user_name, detection_name)
+        x = datetime.datetime.now()
+        if contact is None:
+            Sound.play_record("Sound/Unknown.wav")
+        else:
+            self.data.add_detection(self.user_name, x.day, x.month, x.year, detection_name)
+            Sound.play_record(contact[4])
 
 
 """

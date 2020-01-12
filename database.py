@@ -248,7 +248,7 @@ class DataBase:
         db_name = user_name + ".db"
         con = sqlite3.connect(db_name)
         con.execute('''INSERT INTO detection_list(SERIAL,DAY,MONTH,YEAR,NAME)
-        VALUES(?,?,?,?,?)''', (self.get_count_of_detection('user'), day, month, year, name))
+        VALUES(?,?,?,?,?)''', (self.get_count_of_detection(user_name), day, month, year, name))
         con.commit()
         con.close()
 
