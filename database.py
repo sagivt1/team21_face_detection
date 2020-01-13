@@ -36,11 +36,28 @@ class DataBase:
         create a backup to the database
         """
         db_name = user_name + ".db"
+        path = add_user_name + ".db"
         con = sqlite3.connect(db_name)
         con.execute(''' INSERT INTO backup(USER_NAME,PATH)
-                       VALUES(?,?)''', (add_user_name, db_name))
+                       VALUES(?,?)''', (add_user_name, path))
         con.commit()
         con.close()
+
+    def get_users(self, user_name):
+        """
+        Input - user name
+        Output - list of all detection
+        return a list of all the face defection
+        """
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        data = con.execute('''SELECT * FROM backup ''')
+        check = data.fetchall()
+        con.close()
+        if not check:
+            return None
+        else:
+            return check
 
     def create_var_table(self, user_name, user_type):
         """
@@ -135,6 +152,22 @@ class DataBase:
                  VALUES(?,?,?,?,?)''', (first_name, last_name, i_d, user_name, password))
         con.commit()
         con.close()
+
+    def get_user_info(self, user_name):
+        """
+        Input - user_name
+        Output - user name information of tuple
+        return tuple of the user name information
+        """
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        data = con.execute('''SELECT * FROM user_info''')
+        check = data.fetchall()
+        con.close()
+        if not check:
+            return None
+        else:
+            return check
 
     def create_contact_list_table(self, user_name):
         """
@@ -506,6 +539,20 @@ class DataBase:
             return False
         con.execute('''UPDATE user_info SET USER_NAME=:USER_NAME
                             ''', {'USER_NAME': new_user})
+        con.commit()
+        con.close()
+        return True
+
+    def update_id(self, user_name, new_id):
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        data = con.execute(''' SELECT * FROM user_info ''')
+        check = data.fetchone()
+        if not check:
+            con.close()
+            return False
+        con.execute('''UPDATE user_info SET I_D=:I_D
+                               ''', {'I_D': new_id})
         con.commit()
         con.close()
         return True

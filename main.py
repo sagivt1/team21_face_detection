@@ -6,7 +6,7 @@ import datetime
 
 x = RegularUser.RegularUser('sagiv', 'talker', '1', 'sagiv', '204')
 y = Manager.Manager('a', 'a', '1', 'a', '123456')
-x.backup()
+y.show_user()
 
 """
 # -*- coding: utf-8 -*-

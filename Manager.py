@@ -33,6 +33,55 @@ class Manager(Person):
         self.data.create_fail_list("manager")
         self.data.create_backup_table("manager")
 
+    def get_backup_user(self):
+        """
+        Input - None
+        Output - None
+        show all the user who made backup
+        """
+        x = self.data.get_users("manager")
+        return x
+
+
+    def show_user(self):
+        """
+        Input - None
+        Output - None
+        show details of specific user
+        """
+        print('Select user name to watch his data')
+        x = self.get_backup_user()
+        i = 1
+        for temp in x:
+            print(f'{i}.{temp[0]}')
+            i += 1
+        user = input()
+        if user not in x[0]:
+            print("User is not exists")
+            return
+        print('Select one of the following option:')
+        print('1.User information\n2.Contact list\n3.Detection')
+        option = int(input())
+        while option not in (1, 2, 3,):
+            print('Invalid Option')
+            print('Select one of the following option:')
+            print('1.User information\n2.Contact list\n3.Detection')
+            option = int(input())
+        if option == 1:
+            check = self.data.get_user_info(user)
+            print(f'First name - {check[0][0]}\nLast name - {check[0][1]}\nID - {check[0][2]}\n'
+                    f'User name - {check[0][3]}\nPassword - {check[0][4]}')
+        if option == 2:
+            check = self.data.get_all_contacts(user)
+            i = 1
+            for temp in check:
+                print(f'{i}.{temp[0].title()} {temp[2].title()} Know as - {temp[1].title()} ')
+                i+=1
+        if option == 3:
+            check = self.data.get_detection(user)
+            for temp in check:
+                print(f'{temp[0]}.{temp[4]} {temp[1]}/{temp[2]}/{temp[3]}')
+
     def GivePermission(self, x=None):
         # input- self
         x = Person.register(x)
