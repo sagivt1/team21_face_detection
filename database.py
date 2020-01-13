@@ -253,6 +253,24 @@ class DataBase:
         con.close()
         return check
 
+    def get_fails_by_day(self, user_name, day, month, year):
+        """
+        Input - user_name ,date of day,month,year
+        Output - return report of the day that the tester chose
+        Return a report of all the fails in the day
+        """
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        data = con.execute('''SELECT * FROM fail_list WHERE DAY=:DAY AND 
+        MONTH=:MONTH AND YEAR=:YEAR''', {'DAY': day, 'MONTH': month, 'YEAR': year})
+        check = data.fetchall()
+        con.close()
+        if not check:
+            return None
+        else:
+            return check
+
+
     def update_status(self, user_name, serial, status):
         db_name = user_name + ".db"
         con = sqlite3.connect(db_name)

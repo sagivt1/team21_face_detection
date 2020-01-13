@@ -11,7 +11,7 @@ from cv2 import *
 import time
 import os.path
 import shutil
-from datetime import date
+import datetime
 
 
 class Tester(Person):
@@ -19,6 +19,7 @@ class Tester(Person):
 
     def __init__(self, first_name, last_name, i_d, user_name, password):
         super(Tester, self).__init__(first_name, last_name, i_d, user_name, password)
+        self.data = database.DataBase(self.user_name)
 
     def create_database(self):
         """
@@ -32,11 +33,13 @@ class Tester(Person):
         self.data.create_fail_list(self.user_name)
         self.data.create_var_table(self.user_name)
 
-    def report_of_problems(self):  # todo: create a file with problems
+    def report_of_problems(self):
         """
-                 :return:
-                 """
-        pass
+
+       """
+        x = self.data.get_fails(self.user_name)
+        for i in x:
+            print (i)
 
     def report_of_urgent_problems(self):  # todo: create a file with urgent problems
         """
@@ -44,13 +47,66 @@ class Tester(Person):
         """
         pass
 
-    def Reset_User(self):
+    def daily_report(self):  # todo: show my meetings this day
         """
-               :return:
-               """
-        pass
+        Input - None
+        Output - None
+        show a report of all daily fails
+       """
+        print("Enter date you want to get a report")
+        day = int(input("Day - "))
+        month = int(input('Month - '))
+        year = int(input('Year - '))
+        while (day < 1 or day > 31) or (month < 1 or month > 12) or (year < 1 or year > 2020):
+            print("One or more of the details are invalid,please enter a valid day ")
+            day = input("Day:")
+            month = input("Month:")
+            year = input("Year:")
+        check = self.data.get_fails_by_day(self.user_name, day, month, year)
+        for temp in check:
+            print(f'{temp[0]} {temp[4].title()}')
 
-    def my_contacts(self):
+    def weekly_report(self):  # todo: show my meetings this week
+        """
+           Input - None
+           Output - None
+           show a report of week when the last day is the one that the tester insert
+        """
+        count = 0
+        print("Please enter the week to show the report")
+        Day = int(input("Day:"))
+        Month = int(input("Month:"))
+        Year = int(input("Year:"))
+        cur_year = datetime.date.today().year
+        while (Day < 1 or Day > 31) or (Month < 1 or Month > 12) or (Year < 1 or Year > cur_year):
+            print("One or more of the details is invalid,please enter a valid date ")
+            Day = input("Day:")
+            Month = input(" Month:")
+            Year = input("Year:")
+        date = datetime.date(Year, Month, Day)
+        for i in range(0, 7):
+            check = self.data.get_fails_by_day(self.user_name, date.day, date.month, date.year)
+            if check is not None:
+                for temp in check:
+                    count += 1
+                    print(f'{temp[1]}/{temp[2]}/{temp[3]} - {temp[4]}')
+            date = date - datetime.timedelta(days=1)
+        if count == 0:
+            print("There was not any fails at this week")
+
+
+def Reset_User(self):
+        """
+        :return:
+         """
+        firstname = self.first_name
+        last_name = input("Last name :")
+        nick = input("Nick name :")
+        self.data.delete_database(self.user_name)
+        x=Tester.Tester()
+
+
+def my_contacts(self):
         """
         Input - None
         Output - list of contacts
@@ -59,8 +115,6 @@ class Tester(Person):
         x = self.data.get_all_contacts(self.user_name)
         for i in x:
             print(i)
-        print()
-        print("end of contact list")
 
     def add_contact(self):
         """
@@ -150,7 +204,7 @@ class Tester(Person):
         Output - none
         Add new fail to database
         """
-        today = datetime.date.today()
+        today = date.today()
         fail_name = input("Give a short describe of the fail : ")
         fail_description = input("Full details : ")
         self.data.add_fail(self.user_name, today.day, today.month, today.year, fail_name, fail_description, 0)
