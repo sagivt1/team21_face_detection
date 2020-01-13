@@ -215,6 +215,18 @@ class RegularUser(Person):
             self.data.add_detection(self.user_name, x.day, x.month, x.year, detection_name)
             Sound.play_record(contact[4])
 
+    def show_detection(self):
+        """
+        Input - None
+        Output - None
+        Show every detection that made
+        """
+        check = self.data.get_detection(self.user_name)
+        if check is not None:
+            for temp in check:
+                print(f'{temp[0]}.{temp[1]}/{temp[2]}/{temp[3]} - {temp[4]}')
+        else:
+            print('No detection has made')
 
 """
 Face detection section

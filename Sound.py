@@ -1,5 +1,5 @@
-#import sounddevice
-#from scipy.io.wavfile import write
+import sounddevice
+from scipy.io.wavfile import write
 from playsound import playsound
 
 

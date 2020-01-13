@@ -1,13 +1,13 @@
 from Person import Person
 import database
 import Sound
-# import face_recognition as fr
+import face_recognition as fr
 import os
-# import cv2
-# import face_recognition
-# import numpy as np
+import cv2
+import face_recognition
+import numpy as np
 from time import sleep
-# from cv2 import *
+from cv2 import *
 import time
 import os.path
 import shutil
