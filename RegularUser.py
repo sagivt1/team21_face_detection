@@ -28,7 +28,7 @@ class RegularUser(Person):
         self.data.create_user_info_table(self.first_name, self.last_name, self.i_d, self.user_name, self.password)
         self.data.create_contact_list_table(self.user_name)
         self.data.create_detection_table(self.user_name)
-        self.data.create_var_table(self.user_name)
+        self.data.create_var_table(self.user_name,RegularUser)
 
     def my_contacts(self):
         """
