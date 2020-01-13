@@ -29,7 +29,7 @@ class DataBase:
                                ) ''', )
         con.close()
 
-    def add_backup(self, user_name, add_user_name, path):
+    def add_backup(self, user_name, add_user_name):
         """
         Input - user_name , add_user_name(the user_name which his data you backup),path to the database
         Output - None
@@ -38,7 +38,7 @@ class DataBase:
         db_name = user_name + ".db"
         con = sqlite3.connect(db_name)
         con.execute(''' INSERT INTO backup(USER_NAME,PATH)
-                       VALUES(?,?)''', (add_user_name, path))
+                       VALUES(?,?)''', (add_user_name, db_name))
         con.commit()
         con.close()
 
@@ -55,7 +55,7 @@ class DataBase:
                     COUNT_OF_FAILS INT,
                     USER_TYPE TEXT
                        ) ''', )
-        con.execute(''' INSERT INTO var(COUNT_OF_DETECTION,COUNT_OF_FAILS)
+        con.execute(''' INSERT INTO var(COUNT_OF_DETECTION,COUNT_OF_FAILS,USER_TYPE)
                 VALUES(?,?,?)''', (0, 0, user_type))
         con.commit()
         con.close()
@@ -492,6 +492,20 @@ class DataBase:
             return False
         con.execute('''UPDATE user_info SET LAST_NAME=:LAST_NAME
                             ''', {'LAST_NAME': new_last})
+        con.commit()
+        con.close()
+        return True
+
+    def update_user_name(self, user_name, new_user):
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        data = con.execute(''' SELECT * FROM user_info ''')
+        check = data.fetchone()
+        if not check:
+            con.close()
+            return False
+        con.execute('''UPDATE user_info SET USER_NAME=:USER_NAME
+                            ''', {'USER_NAME': new_user})
         con.commit()
         con.close()
         return True

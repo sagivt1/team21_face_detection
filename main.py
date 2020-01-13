@@ -4,9 +4,9 @@ import RegularUser
 import Tester
 import datetime
 
-x = RegularUser.RegularUser('sagiv','talker','1','sagiv','204')
-x.show_detection()
-
+x = RegularUser.RegularUser('sagiv', 'talker', '1', 'sagiv', '204')
+y = Manager.Manager('a', 'a', '1', 'a', '123456')
+x.backup()
 
 """
 # -*- coding: utf-8 -*-
@@ -59,4 +59,3 @@ if welcome == "y" or welcome == "Y":
         print("Incorrect username or password.")
         
 """
-

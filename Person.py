@@ -9,4 +9,4 @@ class Person:
         self.i_d = i_d
         self.user_name = user_name
         self.password = password
-        self.data = database.DataBase(self.user_name)
+

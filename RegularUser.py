@@ -18,6 +18,7 @@ class RegularUser(Person):
 
     def __init__(self, first_name, last_name, i_d, user_name, password):
         super(RegularUser, self).__init__(first_name, last_name, i_d, user_name, password)
+        self.data = database.DataBase(self.user_name)
 
     def create_database(self):
         """
@@ -28,7 +29,7 @@ class RegularUser(Person):
         self.data.create_user_info_table(self.first_name, self.last_name, self.i_d, self.user_name, self.password)
         self.data.create_contact_list_table(self.user_name)
         self.data.create_detection_table(self.user_name)
-        self.data.create_var_table(self.user_name,RegularUser)
+        self.data.create_var_table(self.user_name, RegularUser)
 
     def my_contacts(self):
         """
@@ -226,6 +227,9 @@ class RegularUser(Person):
                 print(f'{temp[0]}.{temp[1]}/{temp[2]}/{temp[3]} - {temp[4]}')
         else:
             print('No detection has made')
+
+    def backup(self):
+        self.data.add_backup('manager', self.user_name)
 
 
 """
