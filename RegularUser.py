@@ -115,7 +115,6 @@ class RegularUser(Person):
         if count == 0:
             print("There was not any detection at this week")
 
-
     def remove_contact(self):
         """
         Input - None
@@ -227,6 +226,7 @@ class RegularUser(Person):
                 print(f'{temp[0]}.{temp[1]}/{temp[2]}/{temp[3]} - {temp[4]}')
         else:
             print('No detection has made')
+
 
 """
 Face detection section
