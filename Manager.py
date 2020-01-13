@@ -70,5 +70,5 @@ class Manager(Person):
 
     def add_user(self):
     def active_users_report(self):
-    def view-user_contacts(self):
-    def report_fail_to
+    def view_user_contacts(self):
+    def report_fail_to_programmer(self):
