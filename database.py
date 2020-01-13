@@ -15,20 +15,48 @@ class DataBase:
         con = sqlite3.connect(db_name)
         con.close()
 
-    def create_var_table(self, user_name):
+    def create_backup_table(self, user_name):
+        """
+        Input - User_name
+        Output - None
+        create a table that of user that create a database backups
+        """
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        con.execute(''' CREATE TABLE IF NOT EXISTS backup(
+                            USER_NAME TEXT PRIMARY KEY NOT NULL ,
+                            PATH TEXT NOT NULL
+                               ) ''', )
+        con.close()
+
+    def add_backup(self, user_name, add_user_name, path):
+        """
+        Input - user_name , add_user_name(the user_name which his data you backup),path to the database
+        Output - None
+        create a backup to the database
+        """
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        con.execute(''' INSERT INTO backup(USER_NAME,PATH)
+                       VALUES(?,?)''', (add_user_name, path))
+        con.commit()
+        con.close()
+
+    def create_var_table(self, user_name, user_type):
         """
         Input - user_name
-        Output - none
+        Output - None
         create a table that contain count_of_detection and count_of_fails
         """
         db_name = user_name + ".db"
         con = sqlite3.connect(db_name)
         con.execute(''' CREATE TABLE IF NOT EXISTS var(
                     COUNT_OF_DETECTION INT,
-                    COUNT_OF_FAILS INT
+                    COUNT_OF_FAILS INT,
+                    USER_TYPE TEXT
                        ) ''', )
         con.execute(''' INSERT INTO var(COUNT_OF_DETECTION,COUNT_OF_FAILS)
-                VALUES(?,?)''', (0, 0))
+                VALUES(?,?,?)''', (0, 0, user_type))
         con.commit()
         con.close()
 
