@@ -59,7 +59,13 @@ class RegularUser(Person):
         for temp in check:
             print(f'{temp[0]} {temp[4].title()}')
 
-    def weekly_report(self):  # todo: show my meetings this week
+    def weekly_report(self):
+        """
+            Input - None
+            Output - None
+            show a report of week when the last day is the one that the user insert
+        """
+        count = 0
         print("Please enter the week to show the report")
         Day = int(input("Day:"))
         Month = int(input("Month:"))
@@ -70,34 +76,16 @@ class RegularUser(Person):
             Day = input("Day:")
             Month = input(" Month:")
             Year = input("Year:")
-        i = 7
-        while i >= 0:
-            check = self.data.get_detection_by_day(self.user_name, Day, Month, Year)
-            for temp in check:
-                print(f'{temp[0]} {temp[4].title()}')
-            Day -= 1
-            if Month == 1 or Month == 3 or Month == 5 or Month == 7 or Month == 10:
-                if Day < 1:
-                    Month -= 1
-                    Day -= 1
-                    if Month == 0:
-                        Year -= Year
-                    if Month == 2:
-                        Day = 28
-                    else:
-                        Day = 30
-
-            elif Month == 4 or Month == 6 or Month == 9 or Month == 11 or Month == 12 or Month == 8:
-                if Day < 1:
-                    Month -= 1
-                    if Month == 7:
-                        Day = 31
-                    elif Month == 11:
-                        Day = 30
-                    else:
-                        Day = 31
-            i -= 1
-
+        date = datetime.date(Year, Month, Day)
+        for i in range(0, 7):
+            check = self.data.get_detection_by_day(self.user_name, date.day, date.month, date.year)
+            if check is not None:
+                for temp in check:
+                    count += 1
+                    print(f'{temp[1]}/{temp[2]}/{temp[3]} - {temp[4]}')
+            date = date - datetime.timedelta(days=1)
+        if count == 0:
+            print("There was not any detection at this week")
 
     def monthly_report(self):  # todo: show my meetings this month
         """

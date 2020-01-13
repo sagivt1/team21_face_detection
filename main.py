@@ -2,9 +2,12 @@ import Sound
 import Manager
 import RegularUser
 import Tester
+import datetime
 
-x = RegularUser.RegularUser('sagiv', 'talker', '1', 'sagiv', '204')
+x = RegularUser.RegularUser('sagiv','talker','1','sagiv','204')
 x.weekly_report()
+
+
 """
 # -*- coding: utf-8 -*-
 
