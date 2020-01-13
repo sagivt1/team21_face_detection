@@ -95,26 +95,26 @@ class Tester(Person):
             print("There was not any fails at this week")
 
 
-def Reset_User(self):
-        """
-        :return:
-         """
-        firstname = self.first_name
-        last_name = input("Last name :")
-        nick = input("Nick name :")
-        self.data.delete_database(self.user_name)
-        x=Tester.Tester()
+    def Reset_User(self):
+            """
+            :return:
+            """
+            firstname = self.first_name
+            last_name = input("Last name :")
+            nick = input("Nick name :")
+            self.data.delete_database(self.user_name)
+            x=Tester.Tester()
 
 
-def my_contacts(self):
-        """
-        Input - None
-        Output - list of contacts
-        return all my contacts
-        """
-        x = self.data.get_all_contacts(self.user_name)
-        for i in x:
-            print(i)
+    def my_contacts(self):
+            """
+            Input - None
+            Output - list of contacts
+            return all my contacts
+            """
+            x = self.data.get_all_contacts(self.user_name)
+            for i in x:
+                print(i)
 
     def add_contact(self):
         """

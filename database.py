@@ -43,9 +43,6 @@ class DataBase:
         con.commit()
         con.close()
 
-
-
-
     def get_users(self, user_name):
         """
         Input - user name
@@ -269,7 +266,6 @@ class DataBase:
             return None
         else:
             return check
-
 
     def update_status(self, user_name, serial, status):
         db_name = user_name + ".db"
@@ -600,3 +596,10 @@ class DataBase:
         """
         db_name = user_name + ".db"
         os.remove(db_name)
+        con = sqlite3.connect('manager.db')
+        con.execute('''DELETE FROM backup WHERE USER_NAME=:USER_NAME
+                                       ''', {'USER_NAME': user_name})
+        con.commit()
+        con.close()
+
+
