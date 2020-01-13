@@ -2,6 +2,7 @@ from Person import Person
 import database
 import RegularUser
 import Tester
+import os
 
 
 def Switcher(x, user):
@@ -98,60 +99,56 @@ class Manager(Person):
     def DeleteManager(self, manager):
         manager.data.delete_database(manager.user_name)  # todo: get user's user name from main
 
-    def edit_user_details(self, user):  # todo: get user's user name from main
-        choice = input(
+    def edit_user_details(self):
+        print('Select user name to watch his data')
+        x = self.get_backup_user()
+        i = 1
+        for temp in x:
+            print(f'{i}.{temp[0]}')
+            i += 1
+        user = input()
+        if user not in x[0]:
+            print("User is not exists")
+            return
+        choice = int(input(
             "please select the detail you'd like to edit:\n 1.first name\n 2.last name: \n 3.user name \n 4.ID \n "
-            "5.password\n 9.exit\n")
-        while choice is not 9:
-            choice = input(
-                "please select the detail you'd like to edit:\n 1.first name\n 2.last name: \n 3.user name \n 4.ID \n "
-                "5.password\n 9.exit\n")
-            while choice != 1 or choice != 2 or choice != 3 or choice != 4 or choice != 5 or choice != 9:
-                print("invalid input!")
-                choice = input(
-                    "please select the detail you'd like to edit:\n 1.first name\n 2.last name: \n 3.user name \n "
-                    "4.ID \n 5.password\n 9.exit\n")
-            if choice == 1:
-                user.first_name = input("Enter user's new first name :")
-                if user.data.update_first_name(user.user_name, user.first_name):
-                    print("First name updated")
-                else:
-                    print("First name not updated")
-
-            elif choice == 2:
-                user.last_name = input("Enter user's new last name :")
-                if user.data.update_last_name(user.user_name, user.last_name):
-                    print("Last name updated")
-                else:
-                    print("Last name not updated")
-            elif choice == 3:
-                user.user_name = input("Enter user's new user name :")
-                if user.data.update_user_name(user.user_name, user.user_name):
-                    print("User name updated")
-                else:
-                    print("User name not updated")
-
-            elif choice == 4:
-                user.i_d = input("Enter user's new user name :")
-                if user.data.update_id(user.user_name, user.i_d):
-                    print("id updated")
-                else:
-                    print("id not updated")
-            elif choice == 5:
-                user.password = input("Enter user's new password :")
-                if user.data.update_password(user.user_name, user.password):
-                    print("Password updated")
-                else:
-                    print("Password not updated")
-            elif choice == 9:
-                return user
+            "5.password\n 9.exit\n"))
+        while choice not in (1, 2, 3, 4, 9):
+            choice = int(input(
+                "please select the detail you'd like to edit:\n 1.first name\n 2.last name: \n 3.ID \n 4.password \n "
+                "9.exit\n"))
+        if choice == 1:
+            first_name = input("Enter user's new first name :")
+            if self.data.update_first_name(user, first_name):
+                print("First name updated")
+            else:
+                print("First name not updated")
+        if choice == 2:
+            last_name = input("Enter user's new last name :")
+            if self.data.update_last_name(user, last_name):
+                print("Last name updated")
+            else:
+                print("Last name not updated")
+        if choice == 3:
+            i_d = input("Enter user's new user name :")
+            if self.data.update_id(user, i_d):
+                print("id updated")
+            else:
+                print("id not updated")
+        if choice == 4:
+            password = input("Enter user's new password :")
+            if self.data.update_password(user, password):
+                print("Password updated")
+            else:
+                print("Password not updated")
+        if choice == 9:
+            return
 
     def users_amount_report(self):
         None
 
     def active_users_report(self):
         None
-
 
     def view_user_contacts(self, user):
         """
