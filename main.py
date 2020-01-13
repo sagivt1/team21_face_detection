@@ -1,9 +1,10 @@
 import Sound
 import Manager
 import RegularUser
+import Tester
 
 x = RegularUser.RegularUser('sagiv', 'talker', '1', 'sagiv', '204')
-x.daily_report()
+x.weekly_report()
 """
 # -*- coding: utf-8 -*-
 
@@ -55,3 +56,4 @@ if welcome == "y" or welcome == "Y":
         print("Incorrect username or password.")
         
 """
+

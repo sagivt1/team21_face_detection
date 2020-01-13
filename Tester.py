@@ -1,17 +1,17 @@
 from Person import Person
 import database
 import Sound
-import face_recognition as fr
+# import face_recognition as fr
 import os
-import cv2
-import face_recognition
-import numpy as np
+# import cv2
+# import face_recognition
+# import numpy as np
 from time import sleep
-from cv2 import *
+# from cv2 import *
 import time
 import os.path
 import shutil
-import datetime
+from datetime import date
 
 
 class Tester(Person):
@@ -45,21 +45,22 @@ class Tester(Person):
         pass
 
     def daily_report(self):  # todo: show my meetings this day
-        """
-               Input - None
-               Output - None
-               show a report of all daily detections
-        """
-        """print("Enter date you want to get a report")
+
+        """ Input - None
+           Output - None
+            how a report of all daily detections"""
+        print("Enter date you want to get a report")
         day = int(input("Day - "))
         month = int(input('Month - '))
         year = int(input('Year - '))
         while (day < 1 or day > 31) or (month < 1 or month > 12) or (year < 1 or year > 2020):
-            print("One or more of the details are invalid,please enter a valid day ")
+            print("One or more of the details is invalid,please enter a valid date ")
             day = input("Day:")
             month = input(" Month:")
             year = input("Year:")
-        self.data.get_detection_by_day(self.data, day, month, year)"""
+        check = self.data.get_detection_by_day(self.user_name, day, month, year)
+        for temp in check:
+            print(f'{temp[0]} {temp[4].title()}')
 
     def weekly_report(self):  # todo: show my meetings this week
         """
@@ -67,18 +68,44 @@ class Tester(Person):
         Output - report of all the detections in this week
         show a report of all weekly detections
         """
-        '''
+
         print("Please enter the week to show the report")
-        day = input("Day:")
-        month = input(" Month:")
-        year = input("Year:")
-        while (day < 1 or day > 31) or (month < 1 or month > 12) or (year < 1 or year > 2020):
-            print("One or more of the details are invalid,please enter a valid day ")
-            day = input("Day:")
-            month = input(" Month:")
-            year = input("Year:")
-        self.data.get_detection_by_week(self.data, day, month, year)
-        '''
+        Day = int(input("Day:"))
+        Month = int(input(" Month:"))
+        Year = int(input("Year:"))
+        cur_year = date.today().year
+        while (Day < 1 or Day > 31) or (Month < 1 or Month > 12) or (Year < 1 or Year > cur_year):
+            print("One or more of the details is invalid,please enter a valid date ")
+            Day = input("Day:")
+            Month = input(" Month:")
+            Year = input("Year:")
+        i = 7
+        while i >= 0:
+            check = self.data.get_detection_by_day(self.user_name, day, month, year)
+        for temp in check:
+            print(f'{temp[0]} {temp[4].title()}')
+            Day -= 1
+            if Month == 1 or Month == 3 or Month == 5 or Month == 7 or Month == 10:
+                if Day < 1:
+                    Month -= 1
+                    Day -= 1
+                    if Month == 0:
+                        Year -= Year
+                    if Month == 2:
+                        Day = 28
+                    else:
+                        Day = 30
+
+            elif Month == 4 or Month == 6 or Month == 9 or Month == 11 or Month == 12 or Month == 8:
+                if Day < 1:
+                    Month -= 1
+                    if Month == 7:
+                        Day = 31
+                    elif Month == 11:
+                        Day = 30
+                    else:
+                        Day = 31
+            i -= 1
 
     def Reset_User(self):
         """
@@ -95,6 +122,8 @@ class Tester(Person):
         x = self.data.get_all_contacts(self.user_name)
         for i in x:
             print(i)
+        print()
+        print("end of contact list")
 
     def add_contact(self):
         """
@@ -184,7 +213,7 @@ class Tester(Person):
         Output - none
         Add new fail to database
         """
-        today = date.today()
+        today = datetime.date.today()
         fail_name = input("Give a short describe of the fail : ")
         fail_description = input("Full details : ")
         self.data.add_fail(self.user_name, today.day, today.month, today.year, fail_name, fail_description, 0)
@@ -335,4 +364,3 @@ def classify_face(im):
             cv2.putText(img, name, (left - 20, bottom + 15), font, 1.0, (255, 255, 255), 2)
 
     return name
-

@@ -1,13 +1,13 @@
 from Person import Person
 import database
 import Sound
-import face_recognition as fr
+# import face_recognition as fr
 import os
-import cv2
-import face_recognition
-import numpy as np
+# import cv2
+# import face_recognition
+# import numpy as np
 from time import sleep
-from cv2 import *
+# from cv2 import *
 import time
 import os.path
 import shutil
@@ -42,9 +42,9 @@ class RegularUser(Person):
 
     def daily_report(self):
         """
-        Input - None
-        Output - None
-        show a report of all daily detections
+            Input - None
+            Output - None
+            show a report of all daily detections
         """
         print("Enter date you want to get a report")
         day = int(input("Day - "))
@@ -53,54 +53,95 @@ class RegularUser(Person):
         while (day < 1 or day > 31) or (month < 1 or month > 12) or (year < 1 or year > 2020):
             print("One or more of the details are invalid,please enter a valid day ")
             day = input("Day:")
-            month = input(" Month:")
+            month = input("Month:")
             year = input("Year:")
         check = self.data.get_detection_by_day(self.user_name, day, month, year)
         for temp in check:
             print(f'{temp[0]} {temp[4].title()}')
 
     def weekly_report(self):  # todo: show my meetings this week
-        """
-        Input - none
-        Output - report of all the detections in this week
-        show a report of all weekly detections
-        """
-        '''
         print("Please enter the week to show the report")
-        day = input("Day:")
-        month = input(" Month:")
-        year = input("Year:")
-        while (day < 1 or day > 31) or (month < 1 or month > 12) or (year < 1 or year > 2020):
-            print("One or more of the details are invalid,please enter a valid day ")
-            day = input("Day:")
-            month = input(" Month:")
-            year = input("Year:")
-        for i in range (0,7):
-            day=day-1
-            if month==1 or month==3 or month==5 or month ==7 or month==8 or month ==10 or month ==12:
-                if day>31
-                    month=##############
-        self.data.get_detection_by_week(self.data, day, month, year)
-        '''
+        Day = int(input("Day:"))
+        Month = int(input("Month:"))
+        Year = int(input("Year:"))
+        cur_year = datetime.date.today().year
+        while (Day < 1 or Day > 31) or (Month < 1 or Month > 12) or (Year < 1 or Year > cur_year):
+            print("One or more of the details is invalid,please enter a valid date ")
+            Day = input("Day:")
+            Month = input(" Month:")
+            Year = input("Year:")
+        i = 7
+        while i >= 0:
+            check = self.data.get_detection_by_day(self.user_name, Day, Month, Year)
+            for temp in check:
+                print(f'{temp[0]} {temp[4].title()}')
+            Day -= 1
+            if Month == 1 or Month == 3 or Month == 5 or Month == 7 or Month == 10:
+                if Day < 1:
+                    Month -= 1
+                    Day -= 1
+                    if Month == 0:
+                        Year -= Year
+                    if Month == 2:
+                        Day = 28
+                    else:
+                        Day = 30
+
+            elif Month == 4 or Month == 6 or Month == 9 or Month == 11 or Month == 12 or Month == 8:
+                if Day < 1:
+                    Month -= 1
+                    if Month == 7:
+                        Day = 31
+                    elif Month == 11:
+                        Day = 30
+                    else:
+                        Day = 31
+            i -= 1
+
 
     def monthly_report(self):  # todo: show my meetings this month
         """
-                Input - none
-                Output - report of all the detections in this month
-                show a report of all weekly detections
-                """
+            Input - none
+            Output - report of all the detections in this month
+            show a report of all weekly detections
+        """
         '''
         print("Please enter the week to show the report")
-        day = input("Day:")
-        month = input(" Month:")
-        year = input("Year:")
-        while (day < 1 or day > 31) or (month < 1 or month > 12) or (year < 1 or year > 2020):
-            print("One or more of the details are invalid,please enter a valid day ")
-            day = input("Day:")
-            month = input(" Month:")
-            year = input("Year:")
-        self.data.get_detection_by_week(self.data, day, month, year)
-        '''
+        Day = int(input("Day:"))
+        Month = int(input("Month:"))
+        Year = int(input("Year:"))
+        cur_year = datetime.date.today().year
+        while (Day < 1 or Day > 31) or (Month < 1 or Month > 12) or (Year < 1 or Year > cur_year):
+            print("One or more of the details is invalid,please enter a valid date ")
+            Day = input("Day:")
+            Month = input(" Month:")
+            Year = input("Year:")
+        i=30
+        while i >= 0:
+            self.data.get_detection_by_day(self.data, Day, Month, Year)
+            Day -= 1
+            if Month == 1 or Month == 3 or Month == 5 or Month == 7 or Month == 10:
+                if Day < 1:
+                    Month -= 1
+                    Day -= 1
+                    if Month == 0:
+                        Year -= Year
+                    if Month == 2:
+                        Day = 28
+                    else:
+                        Day = 30
+
+            elif Month == 4 or Month == 6 or Month == 9 or Month == 11 or Month == 12 or Month == 8:
+                if Day < 1:
+                    Month -= 1
+                    if Month == 7:
+                        Day = 31
+                    elif Month == 11:
+                        Day = 30
+                    else:
+                        Day = 31
+            i -= 1
+'''
 
     def remove_contact(self):
         """
@@ -319,5 +360,4 @@ def classify_face(im):
             cv2.rectangle(img, (left - 20, bottom - 15), (right + 20, bottom + 20), (255, 0, 0), cv2.FILLED)
             font = cv2.FONT_HERSHEY_DUPLEX
             cv2.putText(img, name, (left - 20, bottom + 15), font, 1.0, (255, 255, 255), 2)
-
-    return name
+        return name
