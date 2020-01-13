@@ -5,7 +5,7 @@ import Tester
 import datetime
 
 x = RegularUser.RegularUser('sagiv','talker','1','sagiv','204')
-x.weekly_report()
+x.monthly_report()
 
 
 """

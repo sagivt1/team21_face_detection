@@ -1,13 +1,13 @@
 from Person import Person
 import database
 import Sound
-# import face_recognition as fr
+import face_recognition as fr
 import os
-# import cv2
-# import face_recognition
-# import numpy as np
+import cv2
+import face_recognition
+import numpy as np
 from time import sleep
-# from cv2 import *
+from cv2 import *
 import time
 import os.path
 import shutil
@@ -93,8 +93,8 @@ class RegularUser(Person):
             Output - report of all the detections in this month
             show a report of all weekly detections
         """
-        '''
-        print("Please enter the week to show the report")
+        count = 0
+        print("Please enter the Month to show the report")
         Day = int(input("Day:"))
         Month = int(input("Month:"))
         Year = int(input("Year:"))
@@ -104,32 +104,17 @@ class RegularUser(Person):
             Day = input("Day:")
             Month = input(" Month:")
             Year = input("Year:")
-        i=30
-        while i >= 0:
-            self.data.get_detection_by_day(self.data, Day, Month, Year)
-            Day -= 1
-            if Month == 1 or Month == 3 or Month == 5 or Month == 7 or Month == 10:
-                if Day < 1:
-                    Month -= 1
-                    Day -= 1
-                    if Month == 0:
-                        Year -= Year
-                    if Month == 2:
-                        Day = 28
-                    else:
-                        Day = 30
+        date = datetime.date(Year, Month, Day)
+        for i in range(0, 30):
+            check = self.data.get_detection_by_day(self.user_name, date.day, date.month, date.year)
+            if check is not None:
+                for temp in check:
+                    count += 1
+                    print(f'{temp[1]}/{temp[2]}/{temp[3]} - {temp[4]}')
+            date = date - datetime.timedelta(days=1)
+        if count == 0:
+            print("There was not any detection at this week")
 
-            elif Month == 4 or Month == 6 or Month == 9 or Month == 11 or Month == 12 or Month == 8:
-                if Day < 1:
-                    Month -= 1
-                    if Month == 7:
-                        Day = 31
-                    elif Month == 11:
-                        Day = 30
-                    else:
-                        Day = 31
-            i -= 1
-'''
 
     def remove_contact(self):
         """
