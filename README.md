@@ -11,19 +11,21 @@ and testing purposes. See deployment for notes on how to deploy the project on a
 ~~~~
 Before you begin, ensure you have met the following requirements:
 
-    You have installed the latest version of Python 3.
-    You have a Windows machine. Supported - Windows 10
-    You have read Specification Documen
+    1.You have installed the latest version of Python 3.
+    2.You have a Windows machine. Supported - Windows 10
+    3.You have read Specification Documen
 ~~~~
 #### **Usage**
 ~~~
 Make sure you have installed this package:
-Dlib
-CMake
-Sound
-face_recognition
-opencv-python
-numpy
+    1.Dlib
+    2.CMake
+    3.Sound
+    4.sounddevice
+    5.scipy
+    6.face_recognition
+    7.opencv-python
+    8.numpy
 ~~~
 #### **Installing** 
 ~~~
@@ -32,8 +34,8 @@ pip install <package name>
 ~~~
 #### **Built With**
 ~~~
-Pycharm - Ide
-Sqlite - Database
+    1.Pycharm - Ide
+    2.Sqlite - Database
 ~~~
 #### **Contributing to ICU**
 ~~~~
@@ -50,10 +52,10 @@ https://github.com/sagivt1/team21_face_detection.git
 ~~~~
 
 #### **Contributors**
-
-Thanks to the following people who have contributed to this project:
 ~~~~
-   
+Thanks to the following people who have contributed to this project:
+    Hadas Chasidim
+    May Hagbi
 ~~~~
 
 #### **Contact**
