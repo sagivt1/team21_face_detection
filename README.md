@@ -1,44 +1,31 @@
 # Team21 face detection project
-
 ICU is a utility that allows people with vision loss to get know who is the person that they met.
-
-#### **Getting Started**
-~~~
+### **Getting Started**
 These instructions will get you a copy of the project up and running on your local machine for development 
 and testing purposes. See deployment for notes on how to deploy the project on a live system.
-~~~
-#### **Prerequisites**
-Before you begin, ensure you have met the following requirements:
-~~~
-    1.You have installed at least python 35 and pyhton must be 64 version.
-    2.You have a windows machine. supported - Windows 10
-    3.You have read [specification document](https://drive.google.com/open?id=1Lg89Cm96F6jditbScHa45S5lCmvmGzpV).
-    4.you have read the DFD and ERD document.
-~~~
-#### **Usage**
-~~~
+### **Prerequisites**
+Before you begin, ensure you have met the following requirements:<br />
+1.You have installed at least python 35 and pyhton must be 64 version.<br /> 
+2.You have a windows machine. supported - Windows 10.<br />
+3.You have read [specification document](https://drive.google.com/open?id=1Lg89Cm96F6jditbScHa45S5lCmvmGzpV).<br />
+4.you have read the DFD and ERD document.<br />
+### **Usage**
 Make sure you have installed this package:
-    1.Dlib
-    2.CMake
-    3.Sound
-    4.sounddevice
-    5.scipy
-    6.face_recognition
-    7.opencv-python
-    8.numpy
-~~~
-#### **Installing** 
-~~~
-write the following command for each package
-pip install <package name>
-~~~
-#### **Built With**
-~~~
+1.Dlib
+2.CMake
+3.Sound
+4.sounddevice
+5.scipy
+6.face_recognition
+7.opencv-python
+8.numpy
+### **Installing** 
+write the following command for each package<br />
+pip install <package name><br />
+### **Built With**
     1.Pycharm - Ide
     2.Sqlite - Database
-~~~
-#### **Contributing to ICU**
-~~~~
+### **Contributing to ICU**
 To contribute to ICU, follow these steps:
 
     Fork this repository https://github.com/sagivt1/team21_face_detection.git.
@@ -49,26 +36,18 @@ To contribute to ICU, follow these steps:
 
 Alternatively see the GitHub documentation on creating a pull request.
 https://github.com/sagivt1/team21_face_detection.git
-~~~~
 
-#### **Contributors**
-~~~~
+### **Contributors**
 Thanks to the following people who have contributed to this project:
     Hadas Chasidim
     May Hagbi
-~~~~
-
-#### **Contact**
-
+### **Contact**
 If you want to contact us you can reach us at this mails: 
-~~~~
 sagiv.talker@gmail.com
 or20427@gmail.com
 malibartal@gmail.com
 marinajata@gmail.com
-~~~~
-#### **License**
-~~~~
+### **License**
 MIT License
 
 Copyright (c) [2020] [ICU]
