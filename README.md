@@ -23,35 +23,33 @@ Make sure you have installed this package:
 write the following command for each package<br />
 pip install <package name><br />
 ### **Built With**
-    1.Pycharm - Ide
-    2.Sqlite - Database
+1.Pycharm - Ide<br />
+2.Sqlite - Database<br />
 ### **Contributing to ICU**
-To contribute to ICU, follow these steps:
-
-    Fork this repository https://github.com/sagivt1/team21_face_detection.git.
-    Create a branch: git checkout -b <branch_name>.
-    Make your changes and commit them: git commit -m '<commit_message>'
-    Push to the original branch: git push origin <project_name>/<location>
-    Create the pull request.
-
-Alternatively see the GitHub documentation on creating a pull request.
-https://github.com/sagivt1/team21_face_detection.git
-
+To contribute to ICU, follow these steps:<br />
+    ~~~<br />
+    Fork this repository https://github.com/sagivt1/team21_face_detection.git.<br />
+    Create a branch: git checkout -b <branch_name>.<br />
+    Make your changes and commit them: git commit -m '<commit_message>'<br />
+    Push to the original branch: git push origin <project_name>/<location> <br />
+    Create the pull request.<br />
+    ~~~<br />
+Alternatively see the [GitHub documentation](https://github.com/sagivt1/team21_face_detection.git) on creating a pull request .<br />
 ### **Contributors**
-Thanks to the following people who have contributed to this project:
-    Hadas Chasidim
-    May Hagbi
+Thanks to the following people who have contributed to this project:<br />
+Hadas Chasidim<br />
+May Hagbi<br />
 ### **Contact**
-If you want to contact us you can reach us at this mails: 
-sagiv.talker@gmail.com
-or20427@gmail.com
-malibartal@gmail.com
-marinajata@gmail.com
+If you want to contact us you can reach us at this mails: <br />
+sagiv.talker@gmail.com<br />
+or20427@gmail.com<br />
+malibartal@gmail.com<br />
+marinajata@gmail.com<br />
 ### **License**
 MIT License
 
 Copyright (c) [2020] [ICU]
-
+~~~
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -69,6 +67,5 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
 ~~~~
 
