@@ -93,6 +93,7 @@ class Tester(Person):
 
 
     def Reset_User(self):
+<<<<<<< HEAD
         """
         :return:
          """
@@ -117,6 +118,27 @@ class Tester(Person):
         x = self.data.get_all_contacts(self.user_name)
         for i in x:
             print(i)
+=======
+            """
+            :return:
+            """
+            firstname = self.first_name
+            last_name = input("Last name :")
+            nick = input("Nick name :")
+            self.data.delete_database(self.user_name)
+            x=Tester.Tester()
+
+
+    def my_contacts(self):
+            """
+            Input - None
+            Output - list of contacts
+            return all my contacts
+            """
+            x = self.data.get_all_contacts(self.user_name)
+            for i in x:
+                print(i)
+>>>>>>> 77e17511b8b6d48dfbed87f664c5ba70c0b43ba9
 
     def add_contact(self):
         """
