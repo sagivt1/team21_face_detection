@@ -126,3 +126,10 @@ class Manager(Person):
             print(
                 f'First name - {check[0][0]}\nLast name - {check[0][1]}\nID - {check[0][2]}\n'f'User name - {check[0][3]}\n')
         print("total of", len(x), "users", end=" ")
+
+    def report_fail_to_programmer(self):
+        """
+        input- none
+        output-
+
+        """

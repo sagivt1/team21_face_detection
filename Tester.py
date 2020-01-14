@@ -36,7 +36,7 @@ class Tester(Person):
     def report_of_problems(self):
         x = self.data.get_fails(self.user_name)
         for i in x:
-            print (i)
+            print(i)
 
     def report_of_urgent_problems(self):  # todo: create a file with urgent problems
         """
@@ -91,32 +91,32 @@ class Tester(Person):
         if count == 0:
             print("There was not any fails at this week")
 
-
     def Reset_User(self):
         """
-        :return:
+            input- none
+            output- none
+            reset user (tester) database and enter new details to open new tester user
          """
         self.data.delete_database(self.user_name)
         print("Please enter your new user information : ")
         first_name = input("First name :")
         last_name = input("Last name :")
         i_d = input("Id :")
-        while len(i_d!=9):
+        while len(i_d) != 9:
             i_d = input("invalid id ,please enter valid id:")
-        user_name=input("user name :")
+        user_name = input("user name :")
         password = input("password :")
-        self.data = database.DataBase(self.user_name)
-
+        self.__init__(first_name, last_name, i_d, user_name, password)
 
     def my_contacts(self):
-            """
+        """
             Input - None
             Output - list of contacts
             return all my contacts
-            """
-            x = self.data.get_all_contacts(self.user_name)
-            for i in x:
-                print(i)
+        """
+        x = self.data.get_all_contacts(self.user_name)
+        for i in x:
+            print(i)
 
     def add_contact(self):
         """
@@ -163,7 +163,6 @@ class Tester(Person):
         delete the account of the user
         """
         self.data.delete_database(self.user_name)
-
 
     def edit_my_first_name(self):
         """
