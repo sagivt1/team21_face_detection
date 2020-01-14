@@ -19,9 +19,9 @@ Make sure you have installed this package:<br />
 6.face_recognition<br />
 7.opencv-python<br />
 8.numpy<br />
-### **Installing** 
-write the following command for each package<br />
-pip install <package name><br />
+### **Installing**<br />
+Get the latest version of Python from [HERE](https://www.python.org/)<br />.
+write the following command for each package - pip install <package name><br />.
 ### **Built With**
 1.Pycharm - Ide<br />
 2.Sqlite - Database<br />
