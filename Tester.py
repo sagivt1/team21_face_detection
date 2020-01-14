@@ -34,9 +34,6 @@ class Tester(Person):
         self.data.create_var_table(self.user_name)
 
     def report_of_problems(self):
-        """
-
-       """
         x = self.data.get_fails(self.user_name)
         for i in x:
             print (i)
@@ -66,7 +63,7 @@ class Tester(Person):
         for temp in check:
             print(f'{temp[0]} {temp[4].title()}')
 
-    def weekly_report(self):  # todo: show my meetings this week
+    def weekly_report(self):
         """
            Input - None
            Output - None
@@ -95,18 +92,23 @@ class Tester(Person):
             print("There was not any fails at this week")
 
 
-def Reset_User(self):
+    def Reset_User(self):
         """
         :return:
          """
-        firstname = self.first_name
+        self.data.delete_database(self.user_name)
+        print("Please enter your new user information : ")
+        first_name = input("First name :")
         last_name = input("Last name :")
         nick = input("Nick name :")
-        self.data.delete_database(self.user_name)
+
+        #לבדוק איך מתבצע עם המיין#
+
+
         x=Tester.Tester()
 
 
-def my_contacts(self):
+    def my_contacts(self):
         """
         Input - None
         Output - list of contacts
@@ -161,6 +163,7 @@ def my_contacts(self):
         delete the account of the user
         """
         self.data.delete_database(self.user_name)
+
 
     def edit_my_first_name(self):
         """
