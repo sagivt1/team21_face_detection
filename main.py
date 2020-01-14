@@ -6,6 +6,99 @@ import datetime
 import database
 
 
+def reg():
+    manager_code = 2468
+    tester_code = 13579
+    flag3=True
+    flag4 = True
+    while flag4==True:
+        print("Please select one of the following options:")
+        print("1. Create manager account")
+        print("2. Create tester account")
+        print("3. Create regular user account")
+        print("4. to exit")
+        e = int(input())
+        while (e != 1) and (e != 2) and e != 3 and e!=4:
+            print("You entered an incorrect number,Please select one of the following options:")
+            print("1. Create manager account")
+            print("2. Create tester account")
+            print("3. Create regular user account")
+            e = int(input())
+
+        if e == 1:
+            print('enter manager password:')
+            n = int(input())
+            while n != manager_code:
+                while flag3 == True:
+                    print("You entered an incorrect code,Please try again:")
+                    print("enter manager password:")
+                    print("to go back press 2 ")
+                    n = int(input())
+                    if n == 2:
+                        flag3 = False
+            if n == manager_code:
+                print("enter first name:")
+                fname = input()
+                print("enter last name:")
+                lname = input()
+                print("enter ID")
+                id = input()
+                print("enter user name:")
+                us_name = input()
+                print("enter password:")
+                password = int(input())
+                z = Manager.Manager(fname, lname, id, us_name, password)
+                flag4=False
+
+
+        if e == 2:
+            print("enter tester code:")
+            n = int(input())
+            while n != tester_code:
+                while flag3 == True:
+                    print("You entered an incorrect code,Please try again:")
+                    print("enter manager password:")
+                    print("to go back press 2 ")
+                    n = int(input())
+                    if n == 2:
+                        flag3 = False
+            if n==tester_code:
+                print("enter first name:")
+                fname = input()
+                print("enter last name:")
+                lname = input()
+                print("enter ID")
+                id = input()
+                print("enter user name:")
+                us_name = input()
+                print("enter password:")
+                password = int(input())
+                y = Tester.Tester(fname, lname, id, us_name, password)
+                flag4=False
+
+        if e == 3:
+            print("enter first name:")
+            fname = input()
+            print("enter last name:")
+            lname = input()
+            print("enter ID")
+            id = input()
+            print("enter user name:")
+            us_name = input()
+            print("enter password:")
+            password = int(input())
+            x = RegularUser.RegularUser(fname, lname, id, us_name, password)
+            flag4 = False
+
+        if e == 4:
+            flag4 == False
+            main()
+
+
+
+
+
+
 def main():
     print("Welcome,")
     print("Please select one of the following options:")
@@ -20,22 +113,91 @@ def main():
         x = int(input())
 
     if x == 1:
-        print("Please select one of the following options:")
-        print("1. Regular user")
-        print("2. Tester account")
-        print("3. Manager account")
-        y = int(input())
-        while y is not 1 and y is not 2 and y is not 3:
-            print("You entered an incorrect number,Please select one of the following options:")
-            print("1. Regular user")
-            print("2. Tester account")
-            print("3. Manager account")
-            y = int(input())
-        #if y == 1:
+        manager_code = 2468
+        tester_code = 13579
+        flag3 = True
+        flag4 = True
+        while flag4 == True:
+            print("Please select one of the following options:")
+            print("1. Create manager account")
+            print("2. Create tester account")
+            print("3. Create regular user account")
+            print("4. to exit")
+            e = int(input())
+            while (e != 1) and (e != 2) and e != 3 and e != 4:
+                print("You entered an incorrect number,Please select one of the following options:")
+                print("1. Create manager account")
+                print("2. Create tester account")
+                print("3. Create regular user account")
+                e = int(input())
 
-        #if y == 2:
+            if e == 1:
+                print('enter manager password:')
+                n = int(input())
+                while n != manager_code:
+                    while flag3 == True:
+                        print("You entered an incorrect code,Please try again:")
+                        print("enter manager password:")
+                        print("to go back press 2 ")
+                        n = int(input())
+                        if n == 2:
+                            flag3 = False
+                if n == manager_code:
+                    print("enter first name:")
+                    fname = input()
+                    print("enter last name:")
+                    lname = input()
+                    print("enter ID")
+                    id = input()
+                    print("enter user name:")
+                    us_name = input()
+                    print("enter password:")
+                    password = int(input())
+                    z = Manager.Manager(fname, lname, id, us_name, password)
+                    flag4 = False
 
-        #if y == 3:
+            if e == 2:
+                print("enter tester code:")
+                n = int(input())
+                while n != tester_code:
+                    while flag3 == True:
+                        print("You entered an incorrect code,Please try again:")
+                        print("enter manager password:")
+                        print("to go back press 2 ")
+                        n = int(input())
+                        if n == 2:
+                            flag3 = False
+                if n == tester_code:
+                    print("enter first name:")
+                    fname = input()
+                    print("enter last name:")
+                    lname = input()
+                    print("enter ID")
+                    id = input()
+                    print("enter user name:")
+                    us_name = input()
+                    print("enter password:")
+                    password = int(input())
+                    y = Tester.Tester(fname, lname, id, us_name, password)
+                    flag4 = False
+
+            if e == 3:
+                print("enter first name:")
+                fname = input()
+                print("enter last name:")
+                lname = input()
+                print("enter ID")
+                id = input()
+                print("enter user name:")
+                us_name = input()
+                print("enter password:")
+                password = int(input())
+                x = RegularUser.RegularUser(fname, lname, id, us_name, password)
+                flag4 = False
+
+            if e == 4:
+                flag4 == False
+                main()
 
     if x == 2:
         username = input("enter user name:")
@@ -49,7 +211,7 @@ def main():
 ###################################################
 #             regular user  menu                  #
 ###################################################
-            if type(username) == RegularUser.RegularUser.user_name:
+            if get_user_type(username) == "RegularUser":
                 print("You have successfully connected to the system!")
                 flag = True
                 while flag!=False:
@@ -141,7 +303,7 @@ def main():
 ###################################################
 #             manager menu                        #
 ###################################################
-        if type(passwo) == Manager.Manager.password:
+        if get_user_type(username) == "Manager":
                 print("You have successfully connected to the system as Manager!")
                 flag = True
                 while flag != False:
@@ -151,28 +313,24 @@ def main():
                     print("To activate face recognition, press 3.")
                     print("To move to reports, press 4.")
                     print("To show specific user, press 5")
-                    print("To give permissions to another user, press 6.")
-                    print("To delete a regular user of your choice, press 7.")
-                    print("To delete a tester user type, press 8.")
-                    print("To edit user information, press 9.")
-                    print("To view registered users, press 10.")
-                    print("To report a bug to the programmer, press 11.")
-                    print("To exit, press 12.")
+                    print("To delete a regular user of your choice, press 6.")
+                    print("To delete a tester user type, press 7.")
+                    print("To edit user information, press 8.")
+                    print("To report a bug to the programmer, press 9.")
+                    print("To exit, press 10.")
                     z = int(input())
-                    while z != 1 and z != 2 and z != 3 and z != 4 and z != 5 and z != 6 and z != 7 and z != 8 and z != 9 and z != 10 and z != 11 and z != 12:
+                    while z != 1 and z != 2 and z != 3 and z != 4 and z != 5 and z != 6 and z != 7 and z != 8 and z != 9 and z != 10 :
                         print("menu:")
                         print("To add a contact, press 1.")
                         print("To delete a contact, press 2.")
                         print("To activate face recognition, press 3.")
                         print("To move to reports, press 4.")
                         print("To show specific user, press 5")
-                        print("To give permissions to another user, press 6.")
-                        print("To delete a regular user of your choice, press 7.")
-                        print("To delete a tester user type, press 8.")
-                        print("To edit user information, press 9.")
-                        print("To view registered users, press 10.")
-                        print("To report a bug to the programmer, press 11.")
-                        print("To exit, press 11.")
+                        print("To delete a regular user of your choice, press 6.")
+                        print("To delete a tester user type, press 7.")
+                        print("To edit user information, press 8.")
+                        print("To report a bug to the programmer, press 9.")
+                        print("To exit, press 10.")
                         z = int(input())
                     flag1 = True
                     while flag1 != False:
@@ -184,44 +342,33 @@ def main():
                             new_detection()
                         if (z == 4):
                             print("Reports menu:")
-                            print("To view the Daily Identification Report, press 1.")
-                            print("To view a weekly identification report, press 2.")
-                            print("To view the monthly identification report, press 3.")
-                            print("To return to the previous menu, press 4.")
+                            print("To view registered users, press 1.")
+                            print("To return to the previous menu, press 2.")
                             w = int(input())
                             while w != 1 and w != 2 and w != 3:
                                 print("You entered an incorrect number,Please select one of the following options:")
-                                print("To view the Daily Identification Report, press 1.")
-                                print("To view a weekly identification report, press 2.")
-                                print("To view the monthly identification report, press 3.")
-                                print("To return to the previous menu, press 4.")
+                                print("Reports menu:")
+                                print("To view registered users, press 1.")
+                                print("To return to the previous menu, press 2.")
                                 if w == 1:
-                                    daily_report()
+                                    users_amount_report()
                                 if w == 2:
-                                    weekly_report()
-                                if w == 3:
-                                    monthly_report()
-                                if w == 4:
                                     flag1 = False
                         if z==5:
                             show_user()
-                        if z==6:
-                            GivePermission()
-                        if z == 7:
+                        if z == 6:
                             print("Enter a username to delete:")
                             f = input()
                             DeleteRegUser(f)
-                        if z == 8:
+                        if z == 7:
                             print("Enter a username to delete:")
                             f = input()
                             DeleteTester(f)
-                        if z == 9:
+                        if z == 8:
                             edit_user_details()
-                        if z == 10:
-                            users_amount_report()
-                        if z == 11:
+                        if z == 9:
                             Report_fail_to_programmer()
-                        if z == 12:
+                        if z == 10:
                             main()
 
 
@@ -231,7 +378,7 @@ def main():
 ###################################################
 #                 tester menu                     #
 ###################################################
-        if type(passwo) == Tester.Tester.password:
+        if get_user_type(username) == "Tester":
             print("You have successfully connected to the system!")
             flag = True
             while flag != False:
