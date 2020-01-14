@@ -4,7 +4,7 @@ import RegularUser
 import Tester
 import datetime
 import database
-
+from database import DataBase
 
 def reg():
     manager_code = 2468
@@ -154,6 +154,7 @@ def main():
                     print("enter password:")
                     password = int(input())
                     z = Manager.Manager(fname, lname, id, us_name, password)
+                    z.create_database()
                     flag4 = False
 
             if e == 2:
@@ -179,6 +180,7 @@ def main():
                     print("enter password:")
                     password = int(input())
                     y = Tester.Tester(fname, lname, id, us_name, password)
+                    y.create_database()
                     flag4 = False
 
             if e == 3:
@@ -193,7 +195,9 @@ def main():
                 print("enter password:")
                 password = int(input())
                 x = RegularUser.RegularUser(fname, lname, id, us_name, password)
+                x.create_database()
                 flag4 = False
+                main()
 
             if e == 4:
                 flag4 == False
@@ -201,17 +205,25 @@ def main():
 
     if x == 2:
         username = input("enter user name:")
-        passwo = input("enter password")
-        ch = connect(user_name, passwo)
-        while ch is False:
+        passwo = input("enter password:")
+        ch = database.DataBase(username)
+        flg = ch.get_user_info(username)
+
+        while flg is False:
             print("You entered an incorrect user name or password, Please try again")
             username = input("enter user name:")
             passwo = input("enter password")
-            ch = connect(user_name, passwo)
+            flg = ch.DataBase.connect(username, passwo)
+        temp = ch.get_user_info(username)
+        print(temp)
+        user = RegularUser.RegularUser(temp[0][0],temp[0][1],temp[0][2],temp[0][3],temp[0][4])
+        user1 = Tester.Tester(temp[0][0],temp[0][1],temp[0][2],temp[0][3],temp[0][4])
+        user2 = Manager.Manager(temp[0][0],temp[0][1],temp[0][2],temp[0][3],temp[0][4])
+
 ###################################################
 #             regular user  menu                  #
 ###################################################
-            if get_user_type(username) == "RegularUser":
+        if ch.get_user_type(username) == "RegularUser":
                 print("You have successfully connected to the system!")
                 flag = True
                 while flag!=False:
@@ -303,7 +315,7 @@ def main():
 ###################################################
 #             manager menu                        #
 ###################################################
-        if get_user_type(username) == "Manager":
+        if ch.get_user_type(username) == "Manager":
                 print("You have successfully connected to the system as Manager!")
                 flag = True
                 while flag != False:
@@ -378,7 +390,7 @@ def main():
 ###################################################
 #                 tester menu                     #
 ###################################################
-        if get_user_type(username) == "Tester":
+        if ch.get_user_type(username) == "Tester":
             print("You have successfully connected to the system!")
             flag = True
             while flag != False:
