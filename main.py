@@ -49,6 +49,8 @@ def reg():
                 password = int(input())
                 z = Manager.Manager(fname, lname, id, us_name, password)
                 flag4=False
+                main()
+
 
 
         if e == 2:
@@ -156,6 +158,7 @@ def main():
                     z = Manager.Manager(fname, lname, id, us_name, password)
                     z.create_database()
                     flag4 = False
+                    main()
 
             if e == 2:
                 print("enter tester code:")
@@ -182,6 +185,7 @@ def main():
                     y = Tester.Tester(fname, lname, id, us_name, password)
                     y.create_database()
                     flag4 = False
+                    main()
 
             if e == 3:
                 print("enter first name:")
