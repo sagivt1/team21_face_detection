@@ -23,8 +23,9 @@ Make sure you have installed this package:<br />
 Get the latest version of Python from [HERE](https://www.python.org/)<br />.
 write the following command for each package - pip install <package name><br />.
 ### **Built With**
-1.Pycharm - Ide<br />
-2.Sqlite - Database<br />
+1.Pyhton - Program Language.<br />
+2.Pycharm - Ide.<br />
+3.Sqlite - Database.<br />
 ### **Contributing to ICU**
 To contribute to ICU, follow these steps:<br />
     ~~~<br />
