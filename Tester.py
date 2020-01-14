@@ -93,7 +93,6 @@ class Tester(Person):
 
 
     def Reset_User(self):
-<<<<<<< HEAD
         """
         :return:
          """
@@ -101,32 +100,12 @@ class Tester(Person):
         print("Please enter your new user information : ")
         first_name = input("First name :")
         last_name = input("Last name :")
-        nick = input("Nick name :")
-
-        #לבדוק איך מתבצע עם המיין#
-
-
-        x=Tester.Tester()
-
-
-    def my_contacts(self):
-        """
-        Input - None
-        Output - list of contacts
-        return all my contacts
-        """
-        x = self.data.get_all_contacts(self.user_name)
-        for i in x:
-            print(i)
-=======
-            """
-            :return:
-            """
-            firstname = self.first_name
-            last_name = input("Last name :")
-            nick = input("Nick name :")
-            self.data.delete_database(self.user_name)
-            x=Tester.Tester()
+        i_d = input("Id :")
+        while len(i_d!=9):
+            i_d = input("invalid id ,please enter valid id:")
+        user_name=input("user name :")
+        password = input("password :")
+        self.data = database.DataBase(self.user_name)
 
 
     def my_contacts(self):
@@ -138,7 +117,6 @@ class Tester(Person):
             x = self.data.get_all_contacts(self.user_name)
             for i in x:
                 print(i)
->>>>>>> 77e17511b8b6d48dfbed87f664c5ba70c0b43ba9
 
     def add_contact(self):
         """
