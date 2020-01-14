@@ -80,7 +80,7 @@ class DataBase:
     def get_count_of_fails(self, user_name):
         """
         Input - user_name
-        Output - none
+        Output - countof fails by int
         return the count fails
         """
         db_name = user_name + ".db"
@@ -89,6 +89,19 @@ class DataBase:
         check = data.fetchall()
         con.close()
         return check[0][1]
+
+    def get_user_type(self, user_name):
+        """
+        Input - user_name
+        Output - user type by string
+        return the user type
+        """
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        data = con.execute('''SELECT * FROM var ''')
+        check = data.fetchall()
+        con.close()
+        return check[0][2]
 
     def get_count_of_detection(self, user_name):
         """
