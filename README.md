@@ -10,15 +10,15 @@ Before you begin, ensure you have met the following requirements:<br />
 3.You have read [specification document](https://drive.google.com/open?id=1Lg89Cm96F6jditbScHa45S5lCmvmGzpV).<br />
 4.you have read the DFD and ERD document.<br />
 ### **Usage**
-Make sure you have installed this package:
-1.Dlib
-2.CMake
-3.Sound
-4.sounddevice
-5.scipy
-6.face_recognition
-7.opencv-python
-8.numpy
+Make sure you have installed this package:<br />
+1.Dlib<br />
+2.CMake<br />
+3.Sound<br />
+4.sounddevice<br />
+5.scipy<br />
+6.face_recognition<br />
+7.opencv-python<br />
+8.numpy<br />
 ### **Installing** 
 write the following command for each package<br />
 pip install <package name><br />
