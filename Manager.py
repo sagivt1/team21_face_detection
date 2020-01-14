@@ -1,20 +1,6 @@
 from Person import Person
 import database
-import RegularUser
-import Tester
 import os
-
-
-def Switcher(x, user):
-    if x == 1:
-        RegularUser.RegularUser.Register(user)
-    elif x == 2:
-        x.code = input("enter tester code:")
-        Tester.Tester.Register(user, user.code)
-    elif x == 3:
-        x.code = input("enter manager code:")
-        Manager.Register(user, user.code)
-    return user
 
 
 class Manager(Person):
@@ -82,22 +68,11 @@ class Manager(Person):
             for temp in check:
                 print(f'{temp[0]}.{temp[4]} {temp[1]}/{temp[2]}/{temp[3]}')
 
-    def GivePermission(self, x=None):
-        # input- self
-        x = Person.register(x)
-        choice = input("please select the user you'd want to give access:\n1.Regular User\n2.Tester\n 3 Manager ")
-        while choice != 1 or choice != 2 or choice != 3:
-            print("invalid input!")
-            choice = input("please select the user you'd want to give access:\n1.Regular User\n2.Tester\n 3.Manager ")
-
     def DeleteRegUser(self, reg):
         reg.data.delete_database(reg.user_name)
 
     def DeleteTester(self, test):
         test.data.delete_database(test.user_name)
-
-    def DeleteManager(self, manager):
-        manager.data.delete_database(manager.user_name)  # todo: get user's user name from main
 
     def edit_user_details(self):
         print('Select user name to watch his data')
@@ -145,15 +120,9 @@ class Manager(Person):
             return
 
     def users_amount_report(self):
-        None
-
-    def active_users_report(self):
-        None
-
-    def view_user_contacts(self, user):
-        """
-        show all the contacts of a given usre
-        """
-        x = user.data.get_all_contacts(user.user_name)
+        x = self.data.get_users("manager")
         for i in x:
-            print(i)
+            check = self.data.get_user_info(i)
+            print(
+                f'First name - {check[0][0]}\nLast name - {check[0][1]}\nID - {check[0][2]}\n'f'User name - {check[0][3]}\n')
+        print("total of", len(x), "users", end=" ")
