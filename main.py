@@ -23,19 +23,23 @@ def reg():
             print("1. Create manager account")
             print("2. Create tester account")
             print("3. Create regular user account")
+            print("4. to exit")
             e = int(input())
 
         if e == 1:
             print('enter manager password:')
             n = int(input())
-            while n != manager_code:
+            if n!=manager_code:
                 while flag3 == True:
-                    print("You entered an incorrect code,Please try again:")
-                    print("enter manager password:")
-                    print("to go back press 2 ")
-                    n = int(input())
-                    if n == 2:
-                        flag3 = False
+                    while n != manager_code:
+                        print("You entered an incorrect code,Please try again:")
+                        print("enter manager password:")
+                        print("to go back press 2 ")
+                        n = int(input())
+                        if n == 2:
+                            flag3 = False
+                            break
+
             if n == manager_code:
                 print("enter first name:")
                 fname = input()
@@ -134,16 +138,18 @@ def main():
                 e = int(input())
 
             if e == 1:
-                print('enter manager password:')
+                print('enter manager code:')
                 n = int(input())
-                while n != manager_code:
+                if n != manager_code:
                     while flag3 == True:
-                        print("You entered an incorrect code,Please try again:")
-                        print("enter manager password:")
-                        print("to go back press 2 ")
-                        n = int(input())
-                        if n == 2:
-                            flag3 = False
+                        while n != manager_code:
+                            print("You entered an incorrect code,Please try again:")
+                            print("enter manager code:")
+                            print("to go back press 2 ")
+                            n = int(input())
+                            if n == 2:
+                                flag3 = False
+                                break
                 if n == manager_code:
                     print("enter first name:")
                     fname = input()
@@ -163,14 +169,16 @@ def main():
             if e == 2:
                 print("enter tester code:")
                 n = int(input())
-                while n != tester_code:
+                if n != manager_code:
                     while flag3 == True:
-                        print("You entered an incorrect code,Please try again:")
-                        print("enter manager password:")
-                        print("to go back press 2 ")
-                        n = int(input())
-                        if n == 2:
-                            flag3 = False
+                        while n != manager_code:
+                            print("You entered an incorrect code,Please try again:")
+                            print("enter tester code:")
+                            print("to go back press 2 ")
+                            n = int(input())
+                            if n == 2:
+                                flag3 = False
+                                break
                 if n == tester_code:
                     print("enter first name:")
                     fname = input()
@@ -211,15 +219,14 @@ def main():
         username = input("enter user name:")
         passwo = input("enter password:")
         ch = database.DataBase(username)
-        flg = ch.get_user_info(username)
+        flg = ch.connect(username, passwo)
 
         while flg is False:
             print("You entered an incorrect user name or password, Please try again")
             username = input("enter user name:")
             passwo = input("enter password")
-            flg = ch.DataBase.connect(username, passwo)
+            flg = ch.connect(username, passwo)
         temp = ch.get_user_info(username)
-        print(temp)
         user = RegularUser.RegularUser(temp[0][0],temp[0][1],temp[0][2],temp[0][3],temp[0][4])
         user1 = Tester.Tester(temp[0][0],temp[0][1],temp[0][2],temp[0][3],temp[0][4])
         user2 = Manager.Manager(temp[0][0],temp[0][1],temp[0][2],temp[0][3],temp[0][4])
@@ -267,11 +274,14 @@ def main():
                     flag1 = True
                     while flag1 != False:
                         if (z == 1):
-                            add_contact()
+                            user.add_contact()
+                            flag1 = False
                         if (z == 2):
-                            remove_contact()
+                            user.remove_contact()
+                            flag1 = False
                         if (z == 3):
                             new_detection()
+                            flag1 = False
                         if (z == 4):
                             print("Reports menu:")
                             print("To view the Daily Identification Report, press 1.")
@@ -286,29 +296,40 @@ def main():
                                 print("To view the monthly identification report, press 3.")
                                 print("To return to the previous menu, press 4.")
                             if w == 1:
-                                daily_report()
+                                user.daily_report()
+                                flag1 = False
                             if w == 2:
-                                weekly_report()
+                                user.weekly_report()
+                                flag1 = False
                             if w == 3:
-                                monthly_report()
+                                user.monthly_report()
+                                flag1 = False
                             if w == 4:
                                 flag1=False
                         if z == 5:
-                            my_contacts()
+                            user.my_contacts()
+                            flag1 = False
                         if z == 6:
-                            show_contact()
+                            user.show_contact()
+                            flag1 = False
                         if z==7:
-                            delete_my_account()
+                            user.delete_my_account()
+                            flag1 = False
                         if z==8:
-                            edit_my_first_name()
+                            user.edit_my_first_name()
+                            flag1 = False
                         if z == 9:
-                            edit_my_last_name()
+                            user.edit_my_last_name()
+                            flag1 = False
                         if z == 10:
-                            add_backup()
+                            user.add_backup()
+                            flag1 = False
                         if z == 11:
-                            edit_my_password()
+                            user.edit_my_password()
+                            flag1 = False
                         if z==12:
-                            show_detection()
+                            user.show_detection()
+                            flag1 = False
                         if z ==13 :
                             main()
 
@@ -351,39 +372,48 @@ def main():
                     flag1 = True
                     while flag1 != False:
                         if (z == 1):
-                            add_contact()
+                            user2.add_contact()
+                            flag1 = False
                         if (z == 2):
-                            remove_contact()
+                            user2.remove_contact()
+                            flag1 = False
                         if (z == 3):
-                            new_detection()
+                            user2.new_detection()
+                            flag1 = False
                         if (z == 4):
                             print("Reports menu:")
                             print("To view registered users, press 1.")
                             print("To return to the previous menu, press 2.")
                             w = int(input())
-                            while w != 1 and w != 2 and w != 3:
+                            while w != 1 and w != 2:
                                 print("You entered an incorrect number,Please select one of the following options:")
                                 print("Reports menu:")
                                 print("To view registered users, press 1.")
                                 print("To return to the previous menu, press 2.")
                                 if w == 1:
-                                    users_amount_report()
+                                    user2.users_amount_report()
+                                    flag1 = False
                                 if w == 2:
                                     flag1 = False
                         if z==5:
-                            show_user()
+                            user2.show_user()
+                            flag1 = False
                         if z == 6:
                             print("Enter a username to delete:")
                             f = input()
-                            DeleteRegUser(f)
+                            user2.DeleteRegUser(f)
+                            flag1 = False
                         if z == 7:
                             print("Enter a username to delete:")
                             f = input()
-                            DeleteTester(f)
+                            user2.DeleteTester(f)
+                            flag1 = False
                         if z == 8:
-                            edit_user_details()
+                            user2.edit_user_details()
+                            flag1 = False
                         if z == 9:
-                            Report_fail_to_programmer()
+                            user2.Report_fail_to_programmer()
+                            flag1 = False
                         if z == 10:
                             main()
 
@@ -441,11 +471,14 @@ def main():
                 flag1 = True
                 while flag1 != False:
                     if (z == 1):
-                        add_contact()
+                        user1.add_contact()
+                        flag1 = False
                     if (z == 2):
-                        remove_contact()
+                        user1.remove_contact()
+                        flag1 = False
                     if (z == 3):
-                        new_detection()
+                        user1.new_detection()
+                        flag1 = False
                     if (z == 4):
                         print("You entered an incorrect number,Please select one of the following options:")
                         print("To view the Daily Identification Report, press 1.")
@@ -464,39 +497,55 @@ def main():
                             print("To view the urgent fault report, press 5.")
                             print("To return to the previous menu, press 6.")
                         if w == 1:
-                            daily_report()
+                            user1.daily_report()
+                            flag1 = False
                         if w == 2:
-                            weekly_report()
+                            user1.weekly_report()
+                            flag1 = False
                         if w == 3:
-                            monthly_report()
+                            user1.monthly_report()
+                            flag1 = False
                         if z == 4:
-                            report_of_problems()
+                            user1.report_of_problems()
+                            flag1 = False
                         if z == 5:
-                            report_of_urgent_problems()
+                            user1.report_of_urgent_problems()
+                            flag1 = False
                         if w == 6:
                             flag1 = False
                     if z == 5:
-                        my_contacts()
+                        user1.my_contacts()
+                        flag1 = False
                     if z == 6:
-                        show_contact()
+                        user1.show_contact()
+                        flag1 = False
                     if z == 7:
-                        delete_my_account()
+                        user1.delete_my_account()
+                        flag1 = False
                     if z == 8:
-                        edit_my_first_name()
+                        user1.edit_my_first_name()
+                        flag1 = False
                     if z == 9:
-                        edit_my_last_name()
+                        user1.edit_my_last_name()
+                        flag1 = False
                     if z == 10:
-                        add_backup()
+                        user1.add_backup()
+                        flag1 = False
                     if z == 11:
-                        edit_my_password()
+                        user1.edit_my_password()
+                        flag1 = False
                     if z == 12:
-                        show_detection()
+                        user1.show_detection()
+                        flag1 = False
                     if z == 13:
-                        Reset_User()
+                        user1.Reset_User()
+                        flag1 = False
                     if z == 14:
-                        add_fail()
+                        user1.add_fail()
+                        flag1 = False
                     if z == 15:
-                        update_fail_status()
+                        user1.update_fail_status()
+                        flag1 = False
                     if z == 16:
                         main()
 
