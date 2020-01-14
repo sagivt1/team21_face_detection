@@ -20,8 +20,8 @@ Make sure you have installed this package:<br />
 7.opencv-python<br />
 8.numpy<br />
 ### **Installing**<br />
-Get the latest version of Python from [HERE](https://www.python.org/)<br />.
-write the following command for each package - pip install <package name><br />.
+Get the latest version of Python from [HERE](https://www.python.org/).<br />
+write the following command for each package - pip install <package name>.<br />
 ### **Built With**
 1.Pyhton - Program Language.<br />
 2.Pycharm - Ide.<br />
