@@ -8,13 +8,14 @@ These instructions will get you a copy of the project up and running on your loc
 and testing purposes. See deployment for notes on how to deploy the project on a live system.
 ~~~
 #### **Prerequisites**
-~~~~
+~~~
 Before you begin, ensure you have met the following requirements:
 
-    1.You have installed the latest version of Python 3.
-    2.You have a Windows machine. Supported - Windows 10
-    3.You have read Specification Documen
-~~~~
+    1.You have installed at least python 35 and pyhton must be 64 version.
+    2.You have a windows machine. supported - Windows 10
+    3.You have read specification document
+    4.you have read the DFD and ERD document
+~~~
 #### **Usage**
 ~~~
 Make sure you have installed this package:
