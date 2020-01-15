@@ -36,7 +36,17 @@ class Tester(Person):
     def report_of_problems(self):
         x = self.data.get_fails(self.user_name)
         for i in x:
-            print(i)
+            print(f'{i[0]}.{i[4]}')
+        print('Chose the problem that you want')
+        choice = int(input()) - 1
+        while choice not in range(0,len(x)):
+            print('Invalid choice try again: ')
+            choice = int(input()) - 1
+        print(f'{x[choice][4].capitalize()}. {x[choice][1]}.{x[choice][2]}.{x[choice][3]}')
+        print(f'Status - {x[choice][6]}')
+        print('Description:')
+        print(f'{x[choice][5].capitalize()}')
+
 
     def report_of_urgent_problems(self):  # todo: create a file with urgent problems
         """
@@ -81,9 +91,9 @@ class Tester(Person):
 
     def weekly_report(self):
         """
-           Input - None
-           Output - None
-           show a report of week when the last day is the one that the tester insert
+            Input - None
+            Output - None
+            show a report of week when the last day is the one that the user insert
         """
         count = 0
         print("Please enter the week to show the report")
@@ -98,14 +108,14 @@ class Tester(Person):
             Year = input("Year:")
         date = datetime.date(Year, Month, Day)
         for i in range(0, 7):
-            check = self.data.get_fails_by_day(self.user_name, date.day, date.month, date.year)
+            check = self.data.get_detection_by_day(self.user_name, date.day, date.month, date.year)
             if check is not None:
                 for temp in check:
                     count += 1
-                    print(f'{temp[1]}/{temp[2]}/{temp[3]} - {temp[4]}')
+                    print(f'{count}.{temp[4]} {temp[1]}/{temp[2]}/{temp[3]}')
             date = date - datetime.timedelta(days=1)
         if count == 0:
-            print("There was not any fails at this week")
+            print("There was not any detection at this week")
 
     def Reset_User(self):
         """
@@ -232,7 +242,8 @@ class Tester(Person):
         today = datetime.date.today()
         fail_name = input("Give a short describe of the fail : ")
         fail_description = input("Full details : ")
-        self.data.add_fail(self.user_name, today.day, today.month, today.year, fail_name, fail_description, 0)
+        self.data.add_fail(self.user_name, today.day, today.month, today.year, fail_name, fail_description, 'open')
+        self.data.add_fail('manager', today.day, today.month, today.year, fail_name, fail_description, 'open')
 
     def update_fail_status(self):
         """
@@ -263,6 +274,34 @@ class Tester(Person):
         else:
             self.data.add_detection(self.user_name, x.day, x.month, x.year, detection_name)
             Sound.play_record(contact[4])
+
+    def monthly_report(self):
+        """
+            Input - none
+            Output - report of all the detections in this month
+            show a report of all weekly detections
+        """
+        count = 0
+        print("Please enter the Month to show the report")
+        Day = int(input("Day:"))
+        Month = int(input("Month:"))
+        Year = int(input("Year:"))
+        cur_year = datetime.date.today().year
+        while (Day < 1 or Day > 31) or (Month < 1 or Month > 12) or (Year < 1 or Year > cur_year):
+            print("One or more of the details is invalid,please enter a valid date ")
+            Day = input("Day:")
+            Month = input(" Month:")
+            Year = input("Year:")
+        date = datetime.date(Year, Month, Day)
+        for i in range(0, 30):
+            check = self.data.get_detection_by_day(self.user_name, date.day, date.month, date.year)
+            if check is not None:
+                for temp in check:
+                    count += 1
+                    print(f'{count}.{temp[4]} {temp[1]}/{temp[2]}/{temp[3]}')
+            date = date - datetime.timedelta(days=1)
+        if count == 0:
+            print("There was not any detection at this week")
 
 
 """

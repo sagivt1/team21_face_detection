@@ -88,7 +88,7 @@ class RegularUser(Person):
             if check is not None:
                 for temp in check:
                     count += 1
-                    print(f'{temp[1]}/{temp[2]}/{temp[3]} - {temp[4]}')
+                    print(f'{count}.{temp[4]} {temp[1]}/{temp[2]}/{temp[3]}')
             date = date - datetime.timedelta(days=1)
         if count == 0:
             print("There was not any detection at this week")
@@ -116,7 +116,7 @@ class RegularUser(Person):
             if check is not None:
                 for temp in check:
                     count += 1
-                    print(f'{temp[1]}/{temp[2]}/{temp[3]} - {temp[4]}')
+                    print(f'{count}.{temp[4]} {temp[1]}/{temp[2]}/{temp[3]}')
             date = date - datetime.timedelta(days=1)
         if count == 0:
             print("There was not any detection at this week")
@@ -237,6 +237,11 @@ class RegularUser(Person):
         self.data.add_backup('manager', self.user_name)
 
     def contact_detection(self):
+        """
+        Input - None
+        Output - None
+        print all the detection with the specific contact
+        """
         nick = input("Enter the nick name of the contact: ")
         check = self.data.get_detection_by_nick(self.user_name, nick)
         if check:
