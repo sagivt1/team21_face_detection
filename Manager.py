@@ -37,11 +37,13 @@ class Manager(Person):
         print('Select user name to watch his data')
         x = self.get_backup_user()
         i = 1
+        option = []
         for temp in x:
             print(f'{i}.{temp[0]}')
             i += 1
+            option.append(temp[0])
         user = input()
-        if user not in x[0]:
+        if user not in option:
             print("User is not exists")
             return
         print('Select one of the following option:')
@@ -64,24 +66,31 @@ class Manager(Person):
                 i += 1
         if option == 3:
             check = self.data.get_detection(user)
-            for temp in check:
-                print(f'{temp[0]}.{temp[4]} {temp[1]}/{temp[2]}/{temp[3]}')
+            if check:
+                for temp in check:
+                    print(f'{temp[0]}.{temp[4]} {temp[1]}/{temp[2]}/{temp[3]}')
+            else:
+                print("There are no detections\n")
 
     def DeleteRegUser(self, reg):
-        reg.data.delete_database(reg.user_name)
+        self.data.delete_database(reg)
+        print("User has been remove")
 
     def DeleteTester(self, test):
-        test.data.delete_database(test.user_name)
+        self.data.delete_database(test)
+        print("User has been remove")
 
     def edit_user_details(self):
         print('Select user name to watch his data')
         x = self.get_backup_user()
         i = 1
+        option = []
         for temp in x:
             print(f'{i}.{temp[0]}')
             i += 1
+            option.append(temp[0])
         user = input()
-        if user not in x[0]:
+        if user not in option:
             print("User is not exists")
             return
         choice = int(input(
@@ -120,11 +129,14 @@ class Manager(Person):
 
     def users_amount_report(self):
         x = self.data.get_users("manager")
-        for i in x:
-            check = self.data.get_user_info(i)
-            print(
-                f'First name - {check[0][0]}\nLast name - {check[0][1]}\nID - {check[0][2]}\n'f'User name - {check[0][3]}\n')
-        print("total of", len(x), "users", end=" ")
+        if x:
+            for i in x:
+                check = self.data.get_user_info(i[0])
+                print(
+                    f'First name - {check[0][0]}\nLast name - {check[0][1]}\nID - {check[0][2]}\n'f'User name - {check[0][3]}\n')
+            print("total of", len(x), "users", end=" ")
+        else:
+            print("There are no users who made backup!!")
 
     def report_fail_to_programmer(self):
         """

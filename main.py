@@ -380,42 +380,28 @@ def main():
             flag = True
             while flag != False:
                 print("menu:")
-                print("To add a contact, press 1.")
-                print("To delete a contact, press 2.")
-                print("To activate face recognition, press 3.")
-                print("To move to reports, press 4.")
-                print("To show specific user, press 5")
-                print("To delete a regular user of your choice, press 6.")
-                print("To delete a tester user type, press 7.")
-                print("To edit user information, press 8.")
-                print("To report a bug to the programmer, press 9.")
-                print("To exit, press 10.")
+                print("To move to reports, press 1.")
+                print("To show specific user, press 2")
+                print("To delete a regular user of your choice, press 3.")
+                print("To delete a tester user type, press 4.")
+                print("To edit user information, press 5.")
+                print("To report a bug to the programmer, press 6.")
+                print("To exit, press 7.")
                 z = int(input())
-                while z != 1 and z != 2 and z != 3 and z != 4 and z != 5 and z != 6 and z != 7 and z != 8 and z != 9 and z != 10:
+                while z != 1 and z != 2 and z != 3 and z != 4 and z != 5 and z != 6 and z != 7 :
+                    print("You entered an incorrect number,Please select one of the following options:")
                     print("menu:")
-                    print("To add a contact, press 1.")
-                    print("To delete a contact, press 2.")
-                    print("To activate face recognition, press 3.")
-                    print("To move to reports, press 4.")
-                    print("To show specific user, press 5")
-                    print("To delete a regular user of your choice, press 6.")
-                    print("To delete a tester user type, press 7.")
-                    print("To edit user information, press 8.")
-                    print("To report a bug to the programmer, press 9.")
-                    print("To exit, press 10.")
+                    print("To move to reports, press 1.")
+                    print("To show specific user, press 2")
+                    print("To delete a regular user of your choice, press 3.")
+                    print("To delete a tester user type, press 4.")
+                    print("To edit user information, press 5.")
+                    print("To report a bug to the programmer, press 6.")
+                    print("To exit, press 7.")
                     z = int(input())
                 flag1 = True
                 while flag1 != False:
                     if (z == 1):
-                        user2.add_contact()
-                        flag1 = False
-                    if (z == 2):
-                        user2.remove_contact()
-                        flag1 = False
-                    if (z == 3):
-                        user2.new_detection()
-                        flag1 = False
-                    if (z == 4):
                         print("Reports menu:")
                         print("To view registered users, press 1.")
                         print("To return to the previous menu, press 2.")
@@ -423,33 +409,33 @@ def main():
                         while w != 1 and w != 2:
                             print("You entered an incorrect number,Please select one of the following options:")
                             print("Reports menu:")
-                            print("To view registered users, press 1.")
+                            print("To view registered users who did a backup, press 1.")
                             print("To return to the previous menu, press 2.")
-                            if w == 1:
-                                user2.users_amount_report()
-                                flag1 = False
-                            if w == 2:
-                                flag1 = False
-                    if z == 5:
+                        if w == 1:
+                            user2.users_amount_report()
+                            flag1 = False
+                        if w == 2:
+                            flag1 = False
+                    if z == 2:
                         user2.show_user()
                         flag1 = False
-                    if z == 6:
+                    if z == 3:
                         print("Enter a username to delete:")
                         f = input()
                         user2.DeleteRegUser(f)
                         flag1 = False
-                    if z == 7:
+                    if z == 4:
                         print("Enter a username to delete:")
                         f = input()
                         user2.DeleteTester(f)
                         flag1 = False
-                    if z == 8:
+                    if z == 5:
                         user2.edit_user_details()
                         flag1 = False
-                    if z == 9:
+                    if z == 6:
                         user2.Report_fail_to_programmer()
                         flag1 = False
-                    if z == 10:
+                    if z == 7:
                         main()
 
         ###################################################
