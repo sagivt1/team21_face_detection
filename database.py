@@ -3,6 +3,20 @@ import os
 from datetime import date
 
 
+def get_user_type(user_name):
+    """
+    Input - user_name
+    Output - user type by string
+    return the user type
+    """
+    db_name = user_name + ".db"
+    con = sqlite3.connect(db_name)
+    data = con.execute('''SELECT * FROM var ''')
+    check = data.fetchall()
+    con.close()
+    return check[0][2]
+
+
 def connect(user_name, password):
     """
     Input - user_name
@@ -109,18 +123,6 @@ class DataBase:
         con.close()
         return check[0][1]
 
-    def get_user_type(self, user_name):
-        """
-        Input - user_name
-        Output - user type by string
-        return the user type
-        """
-        db_name = user_name + ".db"
-        con = sqlite3.connect(db_name)
-        data = con.execute('''SELECT * FROM var ''')
-        check = data.fetchall()
-        con.close()
-        return check[0][2]
 
     def get_count_of_detection(self, user_name):
         """
