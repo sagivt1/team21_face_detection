@@ -236,7 +236,7 @@ def main():
             username = input("enter user name:")
             passwo = input("enter password")
             print("")
-            flg = database.connect(username,passwo)
+            flg = database.connect(username, passwo)
         ch = database.DataBase(username)
         temp = ch.get_user_info(username)
         ###################################################
@@ -267,7 +267,7 @@ def main():
                 print("")
                 z = str(input())
 
-                while z != '1' and z != '2' and z != '3' and z != '4' and z != '5' and z != '6' and z != '7' and z != '8' and z != '9' and z != '10' and z != '11' and z != '12' and z != '13' and z!='14':
+                while z != '1' and z != '2' and z != '3' and z != '4' and z != '5' and z != '6' and z != '7' and z != '8' and z != '9' and z != '10' and z != '11' and z != '12' and z != '13' and z != '14':
                     print("You entered an incorrect number,Please select one of the following options:")
                     print("menu:")
                     print("To add a contact, press 1.")
@@ -390,7 +390,7 @@ def main():
                 print("To report a bug to the programmer, press 6.")
                 print("To exit, press 7.")
                 z = str(input())
-                while z != '1' and z != '2' and z != '3' and z != '4' and z != '5' and z != '6' and z != '7' :
+                while z != '1' and z != '2' and z != '3' and z != '4' and z != '5' and z != '6' and z != '7':
                     print("You entered an incorrect number,Please select one of the following options:")
                     print("menu:")
                     print("To move to reports, press 1.")
@@ -409,7 +409,7 @@ def main():
                         print("To view all reported problems, press 2.")
                         print("To return to the previous menu, press 3.")
                         w = str(input())
-                        while w != '1' and w != '2' and w!='3':
+                        while w != '1' and w != '2' and w != '3':
                             print("You entered an incorrect number,Please select one of the following options:")
                             print("Reports menu:")
                             print("To view registered users who did a backup, press 1.")
@@ -420,6 +420,10 @@ def main():
                             user2.users_amount_report()
                             flag1 = False
                         if w == '2':
+                            user2.report_of_problems()
+                            flag1 = False
+                            print()
+                        if w == '3':
                             flag1 = False
                     if z == '2':
                         user2.show_user()
@@ -509,7 +513,7 @@ def main():
                         print("To view the urgent fault report, press 5.")
                         print("To return to the previous menu, press 6.")
                         w = str(input())
-                        while w != '1' and w != '2' and w != '3' and w != '4' and w!='5' and w!='6':
+                        while w != '1' and w != '2' and w != '3' and w != '4' and w != '5' and w != '6':
                             print("You entered an incorrect number,Please select one of the following options:")
                             print("To view the Daily Identification Report, press 1.")
                             print("To view a weekly identification report, press 2.")
