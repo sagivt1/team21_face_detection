@@ -44,11 +44,24 @@ class Tester(Person):
         """
         pass
 
+    def show_contact(self):
+        """
+        Input - none
+        Output - message or show the details of the contact in the list
+        show a contact details
+        """
+        contact = input("Nick name of the contact :")
+        x = self.data.get_contact(self.user_name, contact)
+        if x:
+            print(f'{x[1].capitalize()} {x[2].capitalize()} know as {x[0].capitalize()}')
+        else:
+            print("The contact does not exist ")
+
     def daily_report(self):
         """
         Input - None
         Output - None
-        show a report of all daily fails
+        show a report of all daily detections
        """
         print("Enter date you want to get a report")
         day = int(input("Day - "))
@@ -59,9 +72,12 @@ class Tester(Person):
             day = input("Day:")
             month = input("Month:")
             year = input("Year:")
-        check = self.data.get_fails_by_day(self.user_name, day, month, year)
-        for temp in check:
-            print(f'{temp[0]} {temp[4].title()}')
+        check = self.data.get_detection_by_day(self.user_name, day, month, year)
+        if check:
+            for temp in check:
+                print(f'{temp[0]} {temp[4].title()}')
+        else:
+            print("There are no detections")
 
     def weekly_report(self):
         """
@@ -107,16 +123,19 @@ class Tester(Person):
         user_name = input("user name :")
         password = input("password :")
         self.__init__(first_name, last_name, i_d, user_name, password)
+        self.create_database(self.user_name)
 
     def my_contacts(self):
         """
-            Input - None
-            Output - list of contacts
-            return all my contacts
+        Input - None
+        Output - list of contacts
+        return all my contacts
         """
         x = self.data.get_all_contacts(self.user_name)
+        j = 0
         for i in x:
-            print(i)
+            j += 1
+            print(f'{j}.{i[1].capitalize()} {i[2].capitalize()} know as {i[0].capitalize()}')
 
     def add_contact(self):
         """
@@ -129,7 +148,8 @@ class Tester(Person):
         last_name = input("Last name :")
         nick = input("Nick name :")
         sound = Sound.Sound(nick)
-        self.data.insert_new_contact(self.user_name, first_name, last_name, nick, None, sound.file_path)
+        path = take_a_photo(nick)
+        self.data.insert_new_contact(self.user_name, first_name, last_name, nick, path, sound.file_path)
 
     def remove_contact(self):
         """
@@ -143,19 +163,6 @@ class Tester(Person):
         else:
             print("Contact does not exists")
 
-    def show_contact(self):
-        """
-        Input - none
-        Output - message or show the details of the contact in the list
-        show a contact details
-        """
-        contact = input("Nick name of the contact :")
-        x = self.data.get_contact(self.user_name, contact)
-        if x:
-            return x
-        else:
-            print("The contact does not exist ")
-
     def delete_my_account(self):
         """
         Input - none
@@ -163,6 +170,9 @@ class Tester(Person):
         delete the account of the user
         """
         self.data.delete_database(self.user_name)
+
+    def backup(self):
+        self.data.add_backup('manager', self.user_name)
 
     def edit_my_first_name(self):
         """
@@ -200,6 +210,19 @@ class Tester(Person):
         else:
             print("Password not updated")
 
+    def show_detection(self):
+        """
+        Input - None
+        Output - None
+        Show every detection that made
+        """
+        check = self.data.get_detection(self.user_name)
+        if check is not None:
+            for temp in check:
+                print(f'{temp[0]}.{temp[1]}/{temp[2]}/{temp[3]} - {temp[4]}')
+        else:
+            print('No detection has made')
+
     def add_fail(self):
         """
         Input - none
@@ -220,11 +243,10 @@ class Tester(Person):
         serial = input("enter fail's serial number: ")
         print('Chose the new status:\n1.Open\n2.Close\n3.Urgent\n')
         update = int(input())
-        while update not in (1,2,3):
+        while update not in (1, 2, 3):
             print('Invalid option try again!')
             update = int(input())
         self.data.update_status(self.user_name, serial, update)
-
 
     def new_detection(self):
         """

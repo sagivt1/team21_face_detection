@@ -41,7 +41,7 @@ class RegularUser(Person):
         j = 0
         for i in x:
             j += 1
-            print(f'{j}.{x[1].capitalize()} {x[2].capitalize()} know as {x[0].capitalize()}')
+            print(f'{j}.{i[1].capitalize()} {i[2].capitalize()} know as {i[0].capitalize()}')
 
     def daily_report(self):
         """
@@ -59,8 +59,11 @@ class RegularUser(Person):
             month = input("Month:")
             year = input("Year:")
         check = self.data.get_detection_by_day(self.user_name, day, month, year)
-        for temp in check:
-            print(f'{temp[0]} {temp[4].title()}')
+        if check:
+            for temp in check:
+                print(f'{temp[0]} {temp[4].title()}')
+        else:
+            print("There are no detections")
 
     def weekly_report(self):
         """
@@ -90,7 +93,7 @@ class RegularUser(Person):
         if count == 0:
             print("There was not any detection at this week")
 
-    def monthly_report(self):  # todo: show my meetings this month
+    def monthly_report(self):
         """
             Input - none
             Output - report of all the detections in this month

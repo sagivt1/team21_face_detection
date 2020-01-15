@@ -341,6 +341,7 @@ def main():
                         user.delete_my_account()
                         print("")
                         flag1 = False
+                        main()
                     if z == 8:
                         user.edit_my_first_name()
                         print("")
@@ -373,7 +374,7 @@ def main():
         ###################################################
         #             manager menu                        #
         ###################################################
-        if ch.get_user_type(username) == "Manager":
+        if database.get_user_type(username) == "Manager":
             user2 = Manager.Manager(temp[0][0], temp[0][1], temp[0][2], temp[0][3], temp[0][4])
             print("You have successfully connected to the system as Manager!")
             flag = True
@@ -454,12 +455,11 @@ def main():
         ###################################################
         #                 tester menu                     #
         ###################################################
-        if ch.get_user_type(username) == "Tester":
+        if database.get_user_type(username) == "Tester":
             user1 = Tester.Tester(temp[0][0], temp[0][1], temp[0][2], temp[0][3], temp[0][4])
             print("You have successfully connected to the system!")
             flag = True
             while flag != False:
-                print("You entered an incorrect number,Please select one of the following options:")
                 print("menu:")
                 print("To add a contact, press 1.")
                 print("To delete a contact, press 2.")
@@ -511,7 +511,6 @@ def main():
                         user1.new_detection()
                         flag1 = False
                     if (z == 4):
-                        print("You entered an incorrect number,Please select one of the following options:")
                         print("To view the Daily Identification Report, press 1.")
                         print("To view a weekly identification report, press 2.")
                         print("To view the monthly identification report, press 3.")
@@ -536,10 +535,10 @@ def main():
                         if w == 3:
                             user1.monthly_report()
                             flag1 = False
-                        if z == 4:
+                        if w == 4:
                             user1.report_of_problems()
                             flag1 = False
-                        if z == 5:
+                        if w == 5:
                             user1.report_of_urgent_problems()
                             flag1 = False
                         if w == 6:
@@ -560,7 +559,7 @@ def main():
                         user1.edit_my_last_name()
                         flag1 = False
                     if z == 10:
-                        user1.add_backup()
+                        user1.backup()
                         flag1 = False
                     if z == 11:
                         user1.edit_my_password()
