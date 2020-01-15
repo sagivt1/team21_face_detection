@@ -21,7 +21,7 @@ Make sure you have installed this package:<br />
 8.numpy<br />
 ### **Installing**<br />
 Get the latest version of Python from [HERE](https://www.python.org/).<br />
-write the following command for each package - pip install <package name>.<br />
+write the following command for each package - pip install (package name).<br />
 ### **Built With**
 1.Pyhton - Program Language.<br />
 2.Pycharm - Ide.<br />
@@ -32,7 +32,7 @@ To contribute to ICU, follow these steps:<br />
     Fork this repository https://github.com/sagivt1/team21_face_detection.git.<br />
     Create a branch: git checkout -b <branch_name>.<br />
     Make your changes and commit them: git commit -m '<commit_message>'<br />
-    Push to the original branch: git push origin <project_name>/<location> <br />
+    Push to the original branch: git push origin <project_name>/(location) <br />
     Create the pull request.<br />
     ~~~<br />
 Alternatively see the [GitHub documentation](https://github.com/sagivt1/team21_face_detection.git) on creating a pull request .<br />
