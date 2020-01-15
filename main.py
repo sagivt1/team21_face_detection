@@ -518,7 +518,7 @@ def main():
                         print("To view the urgent fault report, press 5.")
                         print("To return to the previous menu, press 6.")
                         w = int(input())
-                        while w != 1 and w != 2 and w != 3 and w != 4:
+                        while w != 1 and w != 2 and w != 3 and w != 4 and w!=5 and w!=6:
                             print("You entered an incorrect number,Please select one of the following options:")
                             print("To view the Daily Identification Report, press 1.")
                             print("To view a weekly identification report, press 2.")
@@ -526,6 +526,7 @@ def main():
                             print("To view the fault report, press 4.")
                             print("To view the urgent fault report, press 5.")
                             print("To return to the previous menu, press 6.")
+                            w = int(input())
                         if w == 1:
                             user1.daily_report()
                             flag1 = False
@@ -552,6 +553,7 @@ def main():
                     if z == 7:
                         user1.delete_my_account()
                         flag1 = False
+                        main()
                     if z == 8:
                         user1.edit_my_first_name()
                         flag1 = False

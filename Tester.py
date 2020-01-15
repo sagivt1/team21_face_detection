@@ -39,7 +39,7 @@ class Tester(Person):
             print(f'{i[0]}.{i[4]}')
         print('Chose the problem that you want')
         choice = int(input()) - 1
-        while choice not in range(0,len(x)):
+        while choice not in range(0, len(x)):
             print('Invalid choice try again: ')
             choice = int(input()) - 1
         print(f'{x[choice][4].capitalize()}. {x[choice][1]}.{x[choice][2]}.{x[choice][3]}')
@@ -47,12 +47,24 @@ class Tester(Person):
         print('Description:')
         print(f'{x[choice][5].capitalize()}')
 
-
-    def report_of_urgent_problems(self):  # todo: create a file with urgent problems
-        """
-         :return:
-        """
-        pass
+    def report_of_urgent_problems(self):
+        x = self.data.get_fails(self.user_name)
+        option = []
+        print(x)
+        for i in x:
+            if i[6] == 'urgent':
+                print(f'{i[0]}.{i[4]}')
+                option.append(i[0])
+        print('Chose the problem that you want')
+        choice = int(input())
+        while choice not in option:
+            print('Invalid choice try again: ')
+            choice = int(input())
+        choice -= 1
+        print(f'{x[choice][4].capitalize()}. {x[choice][1]}.{x[choice][2]}.{x[choice][3]}')
+        print(f'Status - {x[choice][6]}')
+        print('Description:')
+        print(f'{x[choice][5].capitalize()}')
 
     def show_contact(self):
         """
@@ -251,13 +263,28 @@ class Tester(Person):
         Output - none
         Update a fail status
         """
-        serial = input("enter fail's serial number: ")
+        x = self.data.get_fails(self.user_name)
+        for i in x:
+            print(f'{i[0]}.{i[4]}')
+        print('Chose the problem that you want:')
+        serial = int(input())
+        while serial not in range(1, len(x)+1):
+            print('Invalid choice try again: ')
+            serial = int(input())
         print('Chose the new status:\n1.Open\n2.Close\n3.Urgent\n')
         update = int(input())
+        print(serial)
         while update not in (1, 2, 3):
             print('Invalid option try again!')
             update = int(input())
-        self.data.update_status(self.user_name, serial, update)
+
+        if update == 1:
+            choice = 'open'
+        if update == 2:
+            choice = 'close'
+        if update == 3:
+            choice = 'urgent'
+        self.data.update_status(self.user_name, serial, choice)
 
     def new_detection(self):
         """
