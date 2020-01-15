@@ -19,6 +19,20 @@ class Manager(Person):
         self.data.create_fail_list("manager")
         self.data.create_backup_table("manager")
 
+    def report_of_problems(self):
+        x = self.data.get_fails('manager')
+        for i in x:
+            print(f'{i[0]}.{i[4]}')
+        print('Chose the problem that you want')
+        choice = int(input()) - 1
+        while choice not in range(0, len(x)):
+            print('Invalid choice try again: ')
+            choice = int(input()) - 1
+        print(f'{x[choice][4].capitalize()}. {x[choice][1]}.{x[choice][2]}.{x[choice][3]}')
+        print(f'Status - {x[choice][6]}')
+        print('Description:')
+        print(f'{x[choice][5].capitalize()}')
+
     def get_backup_user(self):
         """
         Input - None
@@ -138,9 +152,4 @@ class Manager(Person):
         else:
             print("There are no users who made backup!!")
 
-    def report_fail_to_programmer(self):
-        """
-        input- none
-        output-
 
-        """

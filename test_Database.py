@@ -95,10 +95,38 @@ class TestDataBase(unittest.TestCase):
         data.create_fail_list('user')
         data.add_fail('user', 1, 1, 2020, 'probleam', 'probleam', 'open')
         data.add_fail('user', 1, 1, 2020, 'probleam2', 'probleam2', 'open')
-        x = [(1,1, 1, 2020, 'probleam', 'probleam', 'open'),(2,1, 1, 2020, 'probleam2', 'probleam2', 'open')]
+        x = [(1, 1, 1, 2020, 'probleam', 'probleam', 'open'), (2, 1, 1, 2020, 'probleam2', 'probleam2', 'open')]
         check = data.get_fails('user')
         data.delete_database('user')
-        self.assertEqual(check,x)
+        self.assertEqual(check, x)
+
+    def test_get_fails_by_day(self):
+        data = database.DataBase('user')
+        data.create_user_info_table("first", 'last', 'id', 'user', 'password')
+        data.create_contact_list_table('user')
+        data.create_var_table('user', 'RegularUser')
+        data.create_detection_table('user')
+        data.create_fail_list('user')
+        data.add_fail('user', 1, 1, 2020, 'probleam', 'probleam', 'open')
+        x = (1, 1, 1, 2020, 'probleam', 'probleam', 'open')
+        check = data.get_fails_by_day('user', 1, 1, 2020)[0]
+        data.delete_database('user')
+        self.assertEqual(check, x)
+
+    def test_get_detection_by_nick(self):
+        data = database.DataBase('user')
+        data.create_user_info_table("first", 'last', 'id', 'user', 'password')
+        data.create_contact_list_table('user')
+        data.create_var_table('user', 'RegularUser')
+        data.create_detection_table('user')
+        data.create_fail_list('user')
+        data.add_detection('user', 1, 1, 2020, 'sagiv')
+        data.add_detection('user', 1, 12, 2019, 'marina')
+        data.add_detection('user', 3, 5, 2019, 'marina')
+        x = [(2, 1, 12, 2019, 'marina'), (3, 3, 5, 2019, 'marina')]
+        check = data.get_detection_by_nick('user','marina')
+        data.delete_database('user')
+        self.assertEqual(check, x)
 
 
 if __name__ == '__main__':

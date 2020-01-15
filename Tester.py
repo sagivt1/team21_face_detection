@@ -50,7 +50,6 @@ class Tester(Person):
     def report_of_urgent_problems(self):
         x = self.data.get_fails(self.user_name)
         option = []
-        print(x)
         for i in x:
             if i[6] == 'urgent':
                 print(f'{i[0]}.{i[4]}')
@@ -277,7 +276,6 @@ class Tester(Person):
         while update not in (1, 2, 3):
             print('Invalid option try again!')
             update = int(input())
-
         if update == 1:
             choice = 'open'
         if update == 2:
