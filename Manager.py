@@ -15,7 +15,6 @@ class Manager(Person):
         create tables for Manager
         """
         self.data.create_user_info_table(self.first_name, self.last_name, self.i_d, 'manager', self.password)
-        self.data.update_user_name('manager', self.user_name)
         self.data.create_var_table("manager", 'Manager')
         self.data.create_fail_list("manager")
         self.data.create_backup_table("manager")

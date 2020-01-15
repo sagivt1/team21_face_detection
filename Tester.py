@@ -31,7 +31,8 @@ class Tester(Person):
         self.data.create_detection_table(self.user_name)
         self.data.create_contact_list_table(self.user_name)
         self.data.create_fail_list(self.user_name)
-        self.data.create_var_table(self.user_name)
+        self.data.create_var_table(self.user_name,"Tester")
+
 
     def report_of_problems(self):
         x = self.data.get_fails(self.user_name)

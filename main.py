@@ -5,9 +5,10 @@ import Tester
 import datetime
 import database
 from database import DataBase
+import os
 
 def reg():
-    manager_code = 2468
+    manager_code = 24680
     tester_code = 13579
     flag3=True
     flag4 = True
@@ -136,42 +137,42 @@ def main():
                 print("2. Create tester account")
                 print("3. Create regular user account")
                 e = int(input())
-
             if e == 1:
-                print('enter manager code:')
-                n = int(input())
-                if n != manager_code:
-                    while flag3 == True:
-                        while n != manager_code:
-                            print("You entered an incorrect code,Please try again:")
-                            print("enter manager code:")
-                            print("to go back press 2 ")
-                            n = int(input())
-                            if n == 2:
-                                flag3 = False
-                                break
-                if n == manager_code:
-                    print("enter first name:")
-                    fname = input()
-                    print("enter last name:")
-                    lname = input()
-                    print("enter ID")
-                    id = input()
-                    print("enter user name:")
-                    us_name = input()
-                    print("enter password:")
-                    password = int(input())
-                    z = Manager.Manager(fname, lname, id, us_name, password)
-                    z.create_database()
-                    flag4 = False
-                    main()
-
+                if os.path.isfile("manager.db")!=True:
+                    print('enter manager code:')
+                    n = int(input())
+                    if n != manager_code:
+                        while flag3 == True:
+                            while n != manager_code:
+                                print("You entered an incorrect code,Please try again:")
+                                print("enter manager code:")
+                                print("to go back press 2 ")
+                                n = int(input())
+                                if n == 2:
+                                    flag3 = False
+                                    break
+                    if n == manager_code:
+                        print("enter first name:")
+                        fname = input()
+                        print("enter last name:")
+                        lname = input()
+                        print("enter ID")
+                        id = input()
+                        print("enter user name:")
+                        us_name = input()
+                        print("enter password:")
+                        password = int(input())
+                        z = Manager.Manager(fname, lname, id, us_name, password)
+                        z.create_database()
+                        flag4 = False
+                        main()
+                print("Manager is exists, returns to the menu.")
             if e == 2:
                 print("enter tester code:")
                 n = int(input())
-                if n != manager_code:
+                if n != tester_code:
                     while flag3 == True:
-                        while n != manager_code:
+                        while n != tester_code:
                             print("You entered an incorrect code,Please try again:")
                             print("enter tester code:")
                             print("to go back press 2 ")

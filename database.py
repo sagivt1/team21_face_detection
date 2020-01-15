@@ -161,8 +161,8 @@ class DataBase:
                 USER_NAME TEXT PRIMARY KEY NOT NULL,
                 PASSWORD TEXT NOT NULL 
                 ) ''', )
-        con.execute(''' INSERT INTO user_info(FIRST_NAME,LAST_NAME,ID,USER_NAME,PASSWORD)
-                 VALUES(?,?,?,?,?)''', (first_name, last_name, i_d, user_name, password))
+        con.execute(''' INSERT INTO user_info(FIRST_NAME,LAST_NAME,ID,USER_NAME,PASSWORD)VALUES(?,?,?,?,?)''',
+                    (first_name, last_name, i_d, user_name, password))
         con.commit()
         con.close()
 
@@ -567,8 +567,7 @@ class DataBase:
         if not check:
             con.close()
             return False
-        con.execute('''UPDATE user_info SET USER_NAME=:USER_NAME
-                            ''', {'USER_NAME': new_user})
+        con.execute('''UPDATE user_info SET USER_NAME=:USER_NAME''', {'USER_NAME': new_user})
         con.commit()
         con.close()
         return True
