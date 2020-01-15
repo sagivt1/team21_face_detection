@@ -107,16 +107,16 @@ def main():
     print("1. Create a new user")
     print("2. Login")
     print("Enter your selection:")
-    x = int(input())
-    while (1 != x) and (x != 2):
+    x = str(input())
+    while (x != '1') and (x != '2'):
         print("You entered an incorrect number,Please select one of the following options:")
         print("1. Create a new user")
         print("2. Login")
-        x = int(input())
+        x = str(input())
 
     print("")
 
-    if x == 1:
+    if x == '1':
         manager_code = 2468
         tester_code = 13579
         flag3 = True
@@ -127,31 +127,32 @@ def main():
             print("2. Create tester account")
             print("3. Create regular user account")
             print("4. to exit")
-            e = int(input())
+            e = str(input())
             print("")
-            while (e != 1) and (e != 2) and e != 3 and e != 4:
+            while (e != '1') and (e != '2') and e != '3' and e != '4':
                 print("You entered an incorrect number,Please select one of the following options:")
                 print("1. Create manager account")
                 print("2. Create tester account")
                 print("3. Create regular user account")
-                e = int(input())
+                print("4. to exit")
+                e = str(input())
                 print("")
-            if e == 1:
+            if e == '1':
                 if os.path.isfile("manager.db") != True:
                     print('enter manager code:')
-                    n = int(input())
-                    if n != manager_code:
+                    n = str(input())
+                    if n != str(manager_code):
                         while flag3 == True:
-                            while n != manager_code:
+                            while n != str(manager_code):
                                 print("You entered an incorrect code,Please try again:")
                                 print("enter manager code:")
                                 print("to go back press 2 ")
-                                n = int(input())
+                                n = str(input())
                                 print("")
-                                if n == 2:
+                                if n == '2':
                                     flag3 = False
                                     break
-                    if n == manager_code:
+                    if n == str(manager_code):
                         print("enter first name:")
                         fname = input()
                         print("enter last name:")
@@ -171,21 +172,21 @@ def main():
                         main()
                 print("Manager is exists, returns to the menu.")
                 print("")
-            if e == 2:
+            if e == '2':
                 print("enter tester code:")
-                n = int(input())
-                if n != tester_code:
+                n = str(input())
+                if n != str(tester_code):
                     while flag3 == True:
-                        while n != tester_code:
+                        while n != str(tester_code):
                             print("You entered an incorrect code,Please try again:")
                             print("enter tester code:")
                             print("to go back press 2 ")
                             n = int(input())
                             print("")
-                            if n == 2:
+                            if n == '2':
                                 flag3 = False
                                 break
-                if n == tester_code:
+                if n == str(tester_code):
                     print("enter first name:")
                     fname = input()
                     print("enter last name:")
@@ -202,7 +203,7 @@ def main():
                     main()
                     print("")
 
-            if e == 3:
+            if e == '3':
                 print("enter first name:")
                 fname = input()
                 print("enter last name:")
@@ -219,12 +220,12 @@ def main():
                 main()
                 print("")
 
-            if e == 4:
+            if e == '4':
                 flag4 == False
                 print("")
                 main()
 
-    if x == 2:
+    if x == '2':
         username = input("enter user name:")
         passwo = input("enter password:")
         print("")
@@ -264,9 +265,9 @@ def main():
                 print("To exit, press 14.")
 
                 print("")
-                z = int(input())
+                z = str(input())
 
-                while z != 1 and z != 2 and z != 3 and z != 4 and z != 5 and z != 6 and z != 7 and z != 8 and z != 9 and z != 10 and z != 11 and z != 12 and z != 13 and z!=14:
+                while z != '1' and z != '2' and z != '3' and z != '4' and z != '5' and z != '6' and z != '7' and z != '8' and z != '9' and z != '10' and z != '11' and z != '12' and z != '13' and z!='14':
                     print("You entered an incorrect number,Please select one of the following options:")
                     print("menu:")
                     print("To add a contact, press 1.")
@@ -284,90 +285,91 @@ def main():
                     print("To see a list of a specific detection, press 13")
                     print("To exit, press 14.")
                     print("")
-                    z = int(input())
+                    z = str(input())
                 flag1 = True
                 while flag1 != False:
-                    if (z == 1):
+                    if (z == '1'):
                         user.add_contact()
                         print("")
                         flag1 = False
-                    if (z == 2):
+                    if (z == '2'):
                         user.remove_contact()
                         print("")
                         flag1 = False
-                    if (z == 3):
+                    if (z == '3'):
                         user.new_detection()
                         print("")
                         flag1 = False
-                    if (z == 4):
+                    if (z == '4'):
                         print("Reports menu:")
                         print("To view the Daily Identification Report, press 1.")
                         print("To view a weekly identification report, press 2.")
                         print("To view the monthly identification report, press 3.")
                         print("To return to the previous menu, press 4.")
-                        w = int(input())
+                        w = str(input())
                         print("")
-                        while w != 1 and w != 2 and w != 3 and w != 4:
+                        while w != '1' and w != '2' and w != '3' and w != '4':
                             print("You entered an incorrect number,Please select one of the following options:")
                             print("To view the Daily Identification Report, press 1.")
                             print("To view a weekly identification report, press 2.")
                             print("To view the monthly identification report, press 3.")
                             print("To return to the previous menu, press 4.")
+                            w = str(input())
                             print("")
-                        if w == 1:
+                        if w == '1':
                             user.daily_report()
                             print("")
                             flag1 = False
-                        if w == 2:
+                        if w == '2':
                             user.weekly_report()
                             print("")
                             flag1 = False
-                        if w == 3:
+                        if w == '3':
                             user.monthly_report()
                             print("")
                             flag1 = False
-                        if w == 4:
+                        if w == '4':
                             print("")
                             flag1 = False
-                    if z == 5:
+                    if z == '5':
                         user.my_contacts()
                         print("")
                         flag1 = False
-                    if z == 6:
+                    if z == '6':
                         user.show_contact()
                         print("")
                         flag1 = False
-                    if z == 7:
+                    if z == '7':
                         user.delete_my_account()
                         print("")
                         flag1 = False
                         main()
-                    if z == 8:
+                    if z == '8':
                         user.edit_my_first_name()
                         print("")
                         flag1 = False
-                    if z == 9:
+                    if z == '9':
                         user.edit_my_last_name()
                         print("")
                         flag1 = False
-                    if z == 10:
+                    if z == '10':
                         user.backup()
                         print("The backup is complete")
                         print("")
                         flag1 = False
-                    if z == 11:
+                    if z == '11':
                         user.edit_my_password()
                         print("")
                         flag1 = False
-                    if z == 12:
+                    if z == '12':
                         user.show_detection()
                         print("")
                         flag1 = False
-                    if z == 13:
+                    if z == '13':
                         user.contact_detection()
                         print("")
                         flag1 = False
-                    if z == 14:
+                    if z == '14':
                         print("")
                         main()
 
@@ -387,8 +389,8 @@ def main():
                 print("To edit user information, press 5.")
                 print("To report a bug to the programmer, press 6.")
                 print("To exit, press 7.")
-                z = int(input())
-                while z != 1 and z != 2 and z != 3 and z != 4 and z != 5 and z != 6 and z != 7 :
+                z = str(input())
+                while z != '1' and z != '2' and z != '3' and z != '4' and z != '5' and z != '6' and z != '7' :
                     print("You entered an incorrect number,Please select one of the following options:")
                     print("menu:")
                     print("To move to reports, press 1.")
@@ -398,44 +400,47 @@ def main():
                     print("To edit user information, press 5.")
                     print("To report a bug to the programmer, press 6.")
                     print("To exit, press 7.")
-                    z = int(input())
+                    z = str(input())
                 flag1 = True
                 while flag1 != False:
-                    if (z == 1):
+                    if (z == '1'):
                         print("Reports menu:")
                         print("To view registered users, press 1.")
-                        print("To return to the previous menu, press 2.")
-                        w = int(input())
-                        while w != 1 and w != 2:
+                        print("To view all reported problems, press 2.")
+                        print("To return to the previous menu, press 3.")
+                        w = str(input())
+                        while w != '1' and w != '2' and w!='3':
                             print("You entered an incorrect number,Please select one of the following options:")
                             print("Reports menu:")
                             print("To view registered users who did a backup, press 1.")
-                            print("To return to the previous menu, press 2.")
-                        if w == 1:
+                            print("To view all reported problems, press 2.")
+                            print("To return to the previous menu, press 3.")
+                            w = str(input())
+                        if w == '1':
                             user2.users_amount_report()
                             flag1 = False
-                        if w == 2:
+                        if w == '2':
                             flag1 = False
-                    if z == 2:
+                    if z == '2':
                         user2.show_user()
                         flag1 = False
-                    if z == 3:
+                    if z == '3':
                         print("Enter a username to delete:")
                         f = input()
                         user2.DeleteRegUser(f)
                         flag1 = False
-                    if z == 4:
+                    if z == '4':
                         print("Enter a username to delete:")
                         f = input()
                         user2.DeleteTester(f)
                         flag1 = False
-                    if z == 5:
+                    if z == '5':
                         user2.edit_user_details()
                         flag1 = False
-                    if z == 6:
+                    if z == '6':
                         user2.Report_fail_to_programmer()
                         flag1 = False
-                    if z == 7:
+                    if z == '7':
                         main()
 
         ###################################################
@@ -463,9 +468,9 @@ def main():
                 print("To add a malfunction, press 14.")
                 print("To update the fault status, press 15.")
                 print("To exit, press 16.")
-                z = int(input())
+                z = str(input())
 
-                while z != 1 and z != 2 and z != 3 and z != 4 and z != 5 and z != 6 and z != 7 and z != 8 and z != 9 and z != 10 and z != 11 and z != 12 and z != 13 and z != 14 and z != 15 and z != 16:
+                while z != '1' and z != '2' and z != '3' and z != '4' and z != '5' and z != '6' and z != '7' and z != '8' and z != '9' and z != '10' and z != '11' and z != '12' and z != '13' and z != '14' and z != '15' and z != '16':
                     print("You entered an incorrect number,Please select one of the following options:")
                     print("menu:")
                     print("To add a contact, press 1.")
@@ -484,27 +489,27 @@ def main():
                     print("To add a malfunction, press 14.")
                     print("To update the fault status, press 15.")
                     print("To exit, press 16.")
-                    z = int(input())
+                    z = str(input())
                 flag1 = True
                 while flag1 != False:
-                    if (z == 1):
+                    if (z == '1'):
                         user1.add_contact()
                         flag1 = False
-                    if (z == 2):
+                    if (z == '2'):
                         user1.remove_contact()
                         flag1 = False
-                    if (z == 3):
+                    if (z == '3'):
                         user1.new_detection()
                         flag1 = False
-                    if (z == 4):
+                    if (z == '4'):
                         print("To view the Daily Identification Report, press 1.")
                         print("To view a weekly identification report, press 2.")
                         print("To view the monthly identification report, press 3.")
                         print("To view the fault report, press 4.")
                         print("To view the urgent fault report, press 5.")
                         print("To return to the previous menu, press 6.")
-                        w = int(input())
-                        while w != 1 and w != 2 and w != 3 and w != 4 and w!=5 and w!=6:
+                        w = str(input())
+                        while w != '1' and w != '2' and w != '3' and w != '4' and w!='5' and w!='6':
                             print("You entered an incorrect number,Please select one of the following options:")
                             print("To view the Daily Identification Report, press 1.")
                             print("To view a weekly identification report, press 2.")
@@ -512,59 +517,59 @@ def main():
                             print("To view the fault report, press 4.")
                             print("To view the urgent fault report, press 5.")
                             print("To return to the previous menu, press 6.")
-                            w = int(input())
-                        if w == 1:
+                            w = str(input())
+                        if w == '1':
                             user1.daily_report()
                             flag1 = False
-                        if w == 2:
+                        if w == '2':
                             user1.weekly_report()
                             flag1 = False
-                        if w == 3:
+                        if w == '3':
                             user1.monthly_report()
                             flag1 = False
-                        if w == 4:
+                        if w == '4':
                             user1.report_of_problems()
                             flag1 = False
-                        if w == 5:
+                        if w == '5':
                             user1.report_of_urgent_problems()
                             flag1 = False
-                        if w == 6:
+                        if w == '6':
                             flag1 = False
-                    if z == 5:
+                    if z == '5':
                         user1.my_contacts()
                         flag1 = False
-                    if z == 6:
+                    if z == '6':
                         user1.show_contact()
                         flag1 = False
-                    if z == 7:
+                    if z == '7':
                         user1.delete_my_account()
                         flag1 = False
                         main()
-                    if z == 8:
+                    if z == '8':
                         user1.edit_my_first_name()
                         flag1 = False
-                    if z == 9:
+                    if z == '9':
                         user1.edit_my_last_name()
                         flag1 = False
-                    if z == 10:
+                    if z == '10':
                         user1.backup()
                         flag1 = False
-                    if z == 11:
+                    if z == '11':
                         user1.edit_my_password()
                         flag1 = False
-                    if z == 12:
+                    if z == '12':
                         user1.show_detection()
                         flag1 = False
-                    if z == 13:
+                    if z == '13':
                         user1.Reset_User()
                         flag1 = False
-                    if z == 14:
+                    if z == '14':
                         user1.add_fail()
                         flag1 = False
-                    if z == 15:
+                    if z == '15':
                         user1.update_fail_status()
                         flag1 = False
-                    if z == 16:
+                    if z == '16':
                         main()
 
 
