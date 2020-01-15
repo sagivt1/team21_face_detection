@@ -165,6 +165,9 @@ def main():
                         id = input()
                         print("enter user name:")
                         us_name = input()
+                        while us_name!= "manager":
+                            print("Please enter a valid name: manager")
+                            us_name = input()
                         print("enter password:")
                         password = int(input())
                         z = Manager.Manager(fname, lname, id, us_name, password)
@@ -248,6 +251,7 @@ def main():
 #             regular user  menu                  #
 ###################################################
         if ch.get_user_type(username) == "RegularUser":
+                user = RegularUser.RegularUser(temp[0][0], temp[0][1], temp[0][2], temp[0][3], temp[0][4])
                 print("You have successfully connected to the system!")
                 print("")
                 flag = True
@@ -284,8 +288,9 @@ def main():
                         print("To back up your account, press 10.")
                         print("To change your password, press 11.")
                         print("To view the identification list, press 12.")
-                        print("To exit, press 13.")
-                        print("")print("")
+                        print("To see a list of a specific detection, press 13")
+                        print("To exit, press 14.")
+                        print("")
                         z = int(input())
                     flag1 = True
                     while flag1 != False:
@@ -364,7 +369,11 @@ def main():
                             user.show_detection()
                             print("")
                             flag1 = False
-                        if z ==13 :
+                        if z == 13:
+                            user.contact_detection()
+                            print("")
+                            flag1 = False
+                        if z ==14 :
                             print("")
                             main()
 
@@ -376,6 +385,7 @@ def main():
 #             manager menu                        #
 ###################################################
         if ch.get_user_type(username) == "Manager":
+                user2 = Manager.Manager(temp[0][0], temp[0][1], temp[0][2], temp[0][3], temp[0][4])
                 print("You have successfully connected to the system as Manager!")
                 flag = True
                 while flag != False:
@@ -460,6 +470,7 @@ def main():
 #                 tester menu                     #
 ###################################################
         if ch.get_user_type(username) == "Tester":
+            user1 = Tester.Tester(temp[0][0], temp[0][1], temp[0][2], temp[0][3], temp[0][4])
             print("You have successfully connected to the system!")
             flag = True
             while flag != False:
