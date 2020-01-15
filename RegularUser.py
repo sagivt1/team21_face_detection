@@ -231,6 +231,12 @@ class RegularUser(Person):
     def backup(self):
         self.data.add_backup('manager', self.user_name)
 
+    def contact_detection(self):
+        nick = input("Enter the nick name of the contact: ")
+        check = self.data.get_detection_by_nick(self.user_name, nick)
+        for temp in check:
+            print(temp)
+
 
 """
 Face detection section

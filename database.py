@@ -3,6 +3,25 @@ import os
 from datetime import date
 
 
+def connect(user_name, password):
+    """
+    Input - user_name
+    Output - None
+    check if user name is exists
+    """
+    db_name = user_name + ".db"
+    if not os.path.isfile(db_name):
+        return False
+    con = sqlite3.connect(db_name)
+    data = con.execute(''' SELECT USER_NAME,PASSWORD FROM user_info''')
+    check = data.fetchone()
+    con.close()
+    if check[0] == user_name and check[1] == password:
+        return True
+    else:
+        return False
+
+
 class DataBase:
 
     def __init__(self, user_name):
@@ -329,6 +348,23 @@ class DataBase:
         else:
             return check
 
+    def get_detection_by_nick(self, user_name,nick):
+        """
+        Input - user_name ,nick name of the contact
+        Output - list of all the detection
+        Return a list of all the detection of specific ucotact
+        """
+        db_name = user_name + ".db"
+        con = sqlite3.connect(db_name)
+        data = con.execute('''SELECT * FROM detection_list WHERE NICK=:NICK '''
+                           , {'NICK':nick})
+        check = data.fetchall()
+        con.close()
+        if not check:
+            return None
+        else:
+            return check
+
     def add_detection(self, user_name, day, month, year, name):
         """
         Input - user name, date of day,month,year and detection name
@@ -342,24 +378,6 @@ class DataBase:
         VALUES(?,?,?,?,?)''', (self.get_count_of_detection(user_name), day, month, year, name))
         con.commit()
         con.close()
-
-    def connect(self, user_name, password):
-        """
-        Input - user_name
-        Output - None
-        check if user name is exists
-        """
-        db_name = user_name + ".db"
-        if not os.path.isfile(db_name):
-            return False
-        con = sqlite3.connect(db_name)
-        data = con.execute(''' SELECT USER_NAME,PASSWORD FROM user_info''')
-        check = data.fetchone()
-        con.close()
-        if check[0] == user_name and check[1] == password:
-            return True
-        else:
-            return False
 
     def insert_new_contact(self, user_name, first_name, last_name, nick, img, sound):
         """

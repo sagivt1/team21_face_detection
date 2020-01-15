@@ -31,8 +31,7 @@ class Tester(Person):
         self.data.create_detection_table(self.user_name)
         self.data.create_contact_list_table(self.user_name)
         self.data.create_fail_list(self.user_name)
-        self.data.create_var_table(self.user_name,"Tester")
-
+        self.data.create_var_table(self.user_name, "Tester")
 
     def report_of_problems(self):
         x = self.data.get_fails(self.user_name)
@@ -45,7 +44,7 @@ class Tester(Person):
         """
         pass
 
-    def daily_report(self):  # todo: show my meetings this day
+    def daily_report(self):
         """
         Input - None
         Output - None
@@ -207,20 +206,25 @@ class Tester(Person):
         Output - none
         Add new fail to database
         """
-        today = date.today()
+        today = datetime.date.today()
         fail_name = input("Give a short describe of the fail : ")
         fail_description = input("Full details : ")
         self.data.add_fail(self.user_name, today.day, today.month, today.year, fail_name, fail_description, 0)
 
-    def update_fail_status(self):  # todo: update the status by choice the serial number of the fail
+    def update_fail_status(self):
         """
         Input - none
         Output - none
         Update a fail status
         """
         serial = input("enter fail's serial number: ")
-        update = input("enter updated fail's status:")
+        print('Chose the new status:\n1.Open\n2.Close\n3.Urgent\n')
+        update = int(input())
+        while update not in (1,2,3):
+            print('Invalid option try again!')
+            update = int(input())
         self.data.update_status(self.user_name, serial, update)
+
 
     def new_detection(self):
         """

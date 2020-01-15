@@ -5,7 +5,7 @@ import database
 class TestDataBase(unittest.TestCase):
 
     def test_connect(self):
-        data = database.DataBase('user')
+        data = database
         data.create_user_info_table("first", 'last', 'id', 'user', 'password')
         data.create_var_table('user')
         flag = data.connect('user', 'password')

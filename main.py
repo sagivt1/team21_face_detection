@@ -233,7 +233,7 @@ def main():
         username = input("enter user name:")
         passwo = input("enter password:")
         print("")
-        ch = database.DataBase(username)
+        ch = database
         flg = ch.connect(username, passwo)
 
         while flg is False:
