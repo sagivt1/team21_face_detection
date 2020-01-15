@@ -38,8 +38,10 @@ class RegularUser(Person):
         return all my contacts
         """
         x = self.data.get_all_contacts(self.user_name)
+        j = 0
         for i in x:
-            print(i)
+            j += 1
+            print(f'{j}.{x[1].capitalize()} {x[2].capitalize()} know as {x[0].capitalize()}')
 
     def daily_report(self):
         """
@@ -151,7 +153,7 @@ class RegularUser(Person):
         contact = input("Nick name of the contact :")
         x = self.data.get_contact(self.user_name, contact)
         if x:
-            return x
+            print(f'{x[1].capitalize()} {x[2].capitalize()} know as {x[0].capitalize()}')
         else:
             print("The contact does not exist ")
 
@@ -234,8 +236,13 @@ class RegularUser(Person):
     def contact_detection(self):
         nick = input("Enter the nick name of the contact: ")
         check = self.data.get_detection_by_nick(self.user_name, nick)
-        for temp in check:
-            print(temp)
+        if check:
+            j = 0
+            for temp in check:
+                j += 1
+                print(f'{j}.{temp[1]}/{temp[2]}/{temp[3]}')
+        else:
+            print('No detection has found')
 
 
 """

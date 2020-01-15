@@ -358,8 +358,8 @@ class DataBase:
         """
         db_name = user_name + ".db"
         con = sqlite3.connect(db_name)
-        data = con.execute('''SELECT * FROM detection_list WHERE NICK=:NICK '''
-                           , {'NICK':nick})
+        data = con.execute('''SELECT * FROM detection_list WHERE NAME=:NAME '''
+                           , {'NAME':nick})
         check = data.fetchall()
         con.close()
         if not check:
