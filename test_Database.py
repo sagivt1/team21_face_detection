@@ -5,10 +5,10 @@ import database
 class TestDataBase(unittest.TestCase):
 
     def test_connect(self):
-        data = database
+        data = database.DataBase('user')
         data.create_user_info_table("first", 'last', 'id', 'user', 'password')
-        data.create_var_table('user')
-        flag = data.connect('user', 'password')
+        data.create_var_table('user', 'RegularUser')
+        flag = database.connect('user', 'password')
         data.delete_database('user')
         self.assertEqual(flag, True)
 
@@ -16,7 +16,7 @@ class TestDataBase(unittest.TestCase):
         data = database.DataBase('user')
         data.create_user_info_table("first", 'last', 'id', 'user', 'password')
         data.create_contact_list_table('user')
-        data.create_var_table('user')
+        data.create_var_table('user', 'RegulaUser')
         data.insert_new_contact('user', 'sagiv', 'talker', 'sagiv', 'None', 'None')
         x = ("sagiv", "sagiv", "talker", 'None', 'None')
         check = data.get_contact('user', "sagiv")
@@ -27,7 +27,7 @@ class TestDataBase(unittest.TestCase):
         data = database.DataBase('user')
         data.create_user_info_table("first", 'last', 'id', 'user', 'password')
         data.create_contact_list_table('user')
-        data.create_var_table('user')
+        data.create_var_table('user', 'RegularUser')
         data.insert_new_contact('user', 'sagiv', 'talker', 'sagiv', 'None', "None")
         data.insert_new_contact('user', "or", "machlouf", "or", "None", "None")
         x = [("or", "or", "machlouf", "None", "None"), ("sagiv", "sagiv", "talker", "None", "None")]
@@ -39,7 +39,7 @@ class TestDataBase(unittest.TestCase):
         data = database.DataBase('user')
         data.create_user_info_table("first", 'last', 'id', 'user', 'password')
         data.create_contact_list_table('user')
-        data.create_var_table('user')
+        data.create_var_table('user', 'RegularUser')
         data.insert_new_contact('user', 'sagiv', 'talker', 'sagiv', "None", "None")
         flag = data.remove_contact('user', 'sagiv')
         data.delete_database('user')
@@ -49,7 +49,7 @@ class TestDataBase(unittest.TestCase):
         data = database.DataBase('user')
         data.create_user_info_table("first", 'last', 'id', 'user', 'password')
         data.create_contact_list_table('user')
-        data.create_var_table('user')
+        data.create_var_table('user', 'RegularUser')
         data.insert_new_contact('user', 'sagiv', 'talker', 'sagiv', "None", "None")
         data.update_contact_last_name('user', 'sagiv', 'c')
         data.update_contact_first_name('user', 'sagiv', 'b')
@@ -65,7 +65,7 @@ class TestDataBase(unittest.TestCase):
         data = database.DataBase('user')
         data.create_user_info_table("first", 'last', 'id', 'user', 'password')
         data.create_contact_list_table('user')
-        data.create_var_table('user')
+        data.create_var_table('user', 'RegularUser')
         data.create_detection_table('user')
         data.insert_new_contact('user', 'sagiv', 'talker', 'sagiv', "None", "None")
         data.add_detection('user', 1, 1, 2020, 'a')
@@ -74,6 +74,31 @@ class TestDataBase(unittest.TestCase):
         data.delete_database('user')
         x = [(1, 1, 1, 2020, 'a'), (2, 1, 1, 2020, 'a')]
         self.assertEqual(check, x)
+
+    def test_get_user_info(self):
+        data = database.DataBase('user')
+        data.create_user_info_table("first", 'last', 'id', 'user', 'password')
+        data.create_contact_list_table('user')
+        data.create_var_table('user', 'RegularUser')
+        data.create_detection_table('user')
+        x = ("first", 'last', 'id', 'user', 'password')
+        check = data.get_user_info('user')
+        data.delete_database('user')
+        self.assertEqual(check[0], x)
+
+    def test_get_fail(self):
+        data = database.DataBase('user')
+        data.create_user_info_table("first", 'last', 'id', 'user', 'password')
+        data.create_contact_list_table('user')
+        data.create_var_table('user', 'RegularUser')
+        data.create_detection_table('user')
+        data.create_fail_list('user')
+        data.add_fail('user', 1, 1, 2020, 'probleam', 'probleam', 'open')
+        data.add_fail('user', 1, 1, 2020, 'probleam2', 'probleam2', 'open')
+        x = [(1,1, 1, 2020, 'probleam', 'probleam', 'open'),(2,1, 1, 2020, 'probleam2', 'probleam2', 'open')]
+        check = data.get_fails('user')
+        data.delete_database('user')
+        self.assertEqual(check,x)
 
 
 if __name__ == '__main__':
