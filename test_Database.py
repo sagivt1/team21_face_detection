@@ -6,14 +6,21 @@ class TestDataBase(unittest.TestCase):
 
     def test_connect(self):
         data = database.DataBase('user')
+        manager = database.DataBase('manager')
+        manager.create_backup_table('manager')
+        manager.create_fail_list('manager')
         data.create_user_info_table("first", 'last', 'id', 'user', 'password')
         data.create_var_table('user', 'RegularUser')
         flag = database.connect('user', 'password')
         data.delete_database('user')
+        manager.delete_manager_database('manager')
         self.assertEqual(flag, True)
 
     def test_insert_and_get(self):
         data = database.DataBase('user')
+        manager = database.DataBase('manager')
+        manager.create_backup_table('manager')
+        manager.create_fail_list('manager')
         data.create_user_info_table("first", 'last', 'id', 'user', 'password')
         data.create_contact_list_table('user')
         data.create_var_table('user', 'RegulaUser')
@@ -21,10 +28,14 @@ class TestDataBase(unittest.TestCase):
         x = ("sagiv", "sagiv", "talker", 'None', 'None')
         check = data.get_contact('user', "sagiv")
         data.delete_database('user')
+        manager.delete_manager_database('manager')
         self.assertEqual(check, x)
 
     def test_get_all_contact(self):
         data = database.DataBase('user')
+        manager = database.DataBase('manager')
+        manager.create_backup_table('manager')
+        manager.create_fail_list('manager')
         data.create_user_info_table("first", 'last', 'id', 'user', 'password')
         data.create_contact_list_table('user')
         data.create_var_table('user', 'RegularUser')
@@ -33,20 +44,28 @@ class TestDataBase(unittest.TestCase):
         x = [("or", "or", "machlouf", "None", "None"), ("sagiv", "sagiv", "talker", "None", "None")]
         check = data.get_all_contacts('user')
         data.delete_database('user')
+        manager.delete_manager_database('manager')
         self.assertEqual(check, x)
 
     def test_remove_contact(self):
         data = database.DataBase('user')
+        manager = database.DataBase('manager')
+        manager.create_backup_table('manager')
+        manager.create_fail_list('manager')
         data.create_user_info_table("first", 'last', 'id', 'user', 'password')
         data.create_contact_list_table('user')
         data.create_var_table('user', 'RegularUser')
         data.insert_new_contact('user', 'sagiv', 'talker', 'sagiv', "None", "None")
         flag = data.remove_contact('user', 'sagiv')
         data.delete_database('user')
+        manager.delete_manager_database('manager')
         self.assertEqual(flag, True)
 
     def test_update(self):
         data = database.DataBase('user')
+        manager = database.DataBase('manager')
+        manager.create_backup_table('manager')
+        manager.create_fail_list('manager')
         data.create_user_info_table("first", 'last', 'id', 'user', 'password')
         data.create_contact_list_table('user')
         data.create_var_table('user', 'RegularUser')
@@ -59,10 +78,14 @@ class TestDataBase(unittest.TestCase):
         x = ('a', 'b', 'c', 'new', 'new')
         check = data.get_contact('user', 'a')
         data.delete_database('user')
+        manager.delete_manager_database('manager')
         self.assertEqual(check, x)
 
     def test_get_detection_by_day(self):
         data = database.DataBase('user')
+        manager = database.DataBase('manager')
+        manager.create_backup_table('manager')
+        manager.create_fail_list('manager')
         data.create_user_info_table("first", 'last', 'id', 'user', 'password')
         data.create_contact_list_table('user')
         data.create_var_table('user', 'RegularUser')
@@ -72,11 +95,15 @@ class TestDataBase(unittest.TestCase):
         data.add_detection('user', 1, 1, 2020, 'a')
         check = data.get_detection_by_day('user', 1, 1, 2020)
         data.delete_database('user')
+        manager.delete_manager_database('manager')
         x = [(1, 1, 1, 2020, 'a'), (2, 1, 1, 2020, 'a')]
         self.assertEqual(check, x)
 
     def test_get_user_info(self):
         data = database.DataBase('user')
+        manager = database.DataBase('manager')
+        manager.create_backup_table('manager')
+        manager.create_fail_list('manager')
         data.create_user_info_table("first", 'last', 'id', 'user', 'password')
         data.create_contact_list_table('user')
         data.create_var_table('user', 'RegularUser')
@@ -84,10 +111,14 @@ class TestDataBase(unittest.TestCase):
         x = ("first", 'last', 'id', 'user', 'password')
         check = data.get_user_info('user')
         data.delete_database('user')
+        manager.delete_manager_database('manager')
         self.assertEqual(check[0], x)
 
     def test_get_fail(self):
         data = database.DataBase('user')
+        manager = database.DataBase('manager')
+        manager.create_backup_table('manager')
+        manager.create_fail_list('manager')
         data.create_user_info_table("first", 'last', 'id', 'user', 'password')
         data.create_contact_list_table('user')
         data.create_var_table('user', 'RegularUser')
@@ -98,10 +129,14 @@ class TestDataBase(unittest.TestCase):
         x = [(1, 1, 1, 2020, 'probleam', 'probleam', 'open'), (2, 1, 1, 2020, 'probleam2', 'probleam2', 'open')]
         check = data.get_fails('user')
         data.delete_database('user')
+        manager.delete_manager_database('manager')
         self.assertEqual(check, x)
 
     def test_get_fails_by_day(self):
         data = database.DataBase('user')
+        manager = database.DataBase('manager')
+        manager.create_backup_table('manager')
+        manager.create_fail_list('manager')
         data.create_user_info_table("first", 'last', 'id', 'user', 'password')
         data.create_contact_list_table('user')
         data.create_var_table('user', 'RegularUser')
@@ -111,10 +146,14 @@ class TestDataBase(unittest.TestCase):
         x = (1, 1, 1, 2020, 'probleam', 'probleam', 'open')
         check = data.get_fails_by_day('user', 1, 1, 2020)[0]
         data.delete_database('user')
+        manager.delete_manager_database('manager')
         self.assertEqual(check, x)
 
     def test_get_detection_by_nick(self):
         data = database.DataBase('user')
+        manager = database.DataBase('manager')
+        manager.create_backup_table('manager')
+        manager.create_fail_list('manager')
         data.create_user_info_table("first", 'last', 'id', 'user', 'password')
         data.create_contact_list_table('user')
         data.create_var_table('user', 'RegularUser')
@@ -126,6 +165,7 @@ class TestDataBase(unittest.TestCase):
         x = [(2, 1, 12, 2019, 'marina'), (3, 3, 5, 2019, 'marina')]
         check = data.get_detection_by_nick('user','marina')
         data.delete_database('user')
+        manager.delete_manager_database('manager')
         self.assertEqual(check, x)
 
 
