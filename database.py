@@ -634,4 +634,12 @@ class DataBase:
         con.commit()
         con.close()
 
+    def delete_manager_database(self, user_name):
+        """
+        Input - user_name
+        Output - None
+        Delete database file
+        """
+        db_name = user_name + ".db"
+        os.remove(db_name)
 
