@@ -9,6 +9,7 @@ Before you begin, ensure you have met the following requirements:<br />
 2.You have a windows machine. supported - Windows 10.<br />
 3.You have read [specification document](https://drive.google.com/open?id=1w2OGIqtHb_34HbkSh6FS0Lt-FZowS4xV).<br />
 4.you have read the [DFD0](https://drive.google.com/file/d/1s012Mg0BNZbmrUNnuWbjbtj80M0WbnH5/view?usp=sharing) , [DFD1](https://drive.google.com/open?id=1Ky561RHg2ceN7M8Zt0elScqI7R1nobQ1) and [ERD](https://drive.google.com/file/d/1nakdRvzfAc3X8LfuWF9rQ-URVmJz-JKu/view?usp=sharing) document.<br />
+5.you must create a manager account to use the system.<br />
 ### **Usage**
 Make sure you have installed this package:<br />
 1.Dlib<br />
